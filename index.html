@@ -6,11 +6,7 @@
 <title>শুরু</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -20,10 +16,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-::selection {
-    background: #1a1a1a;
-    color: #fff;
-}
+::selection { background: #1a1a1a; color: #fff; }
 
 /* ============ TOP BAR ============ */
 .topbar {
@@ -54,10 +47,7 @@ body {
     font-weight: 500;
 }
 
-.streak-box span {
-    color: #1a1a1a;
-    font-weight: 700;
-}
+.streak-box span { color: #1a1a1a; font-weight: 700; }
 
 /* ============ SCREENS ============ */
 .screen {
@@ -69,31 +59,16 @@ body {
     padding-bottom: 110px;
 }
 
-.screen.active {
-    display: block;
-}
+.screen.active { display: block; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============ CARDS ============ */
-.card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 14px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-    border: 1px solid rgba(0,0,0,0.04);
-}
-
-.card-flat {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 10px;
-    border: 1px solid #efefef;
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* ============ TYPOGRAPHY ============ */
@@ -123,6 +98,20 @@ body {
     padding-left: 2px;
 }
 
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 0 2px;
+}
+
+.section-header .count {
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+}
+
 /* ============ INPUT ============ */
 .input-card {
     background: #ffffff;
@@ -143,7 +132,7 @@ body {
     margin-bottom: 10px;
 }
 
-.input-card input {
+.input-card input, .input-card textarea, .input-card select {
     width: 100%;
     background: none;
     border: none;
@@ -157,11 +146,25 @@ body {
     font-weight: 400;
 }
 
-.input-card input:focus {
+.input-card textarea {
+    resize: none;
+    min-height: 80px;
+    border-bottom: none;
+    border: 1.5px solid #f0f0f0;
+    border-radius: 10px;
+    padding: 12px;
+    line-height: 1.5;
+}
+
+.input-card input:focus, .input-card textarea:focus, .input-card select:focus {
     border-bottom-color: #1a1a1a;
 }
 
-.input-card input::placeholder {
+.input-card textarea:focus {
+    border-color: #1a1a1a;
+}
+
+.input-card input::placeholder, .input-card textarea::placeholder {
     color: #d5d5d5;
     font-weight: 300;
 }
@@ -182,13 +185,8 @@ body {
     margin-top: 6px;
 }
 
-.btn-primary:hover {
-    background: #2d2d2d;
-}
-
-.btn-primary:active {
-    transform: scale(0.98);
-}
+.btn-primary:hover { background: #2d2d2d; }
+.btn-primary:active { transform: scale(0.98); }
 
 .btn-outline {
     width: 100%;
@@ -205,10 +203,7 @@ body {
     transition: all 0.2s;
 }
 
-.btn-outline:hover {
-    border-color: #1a1a1a;
-    color: #1a1a1a;
-}
+.btn-outline:hover { border-color: #1a1a1a; color: #1a1a1a; }
 
 .btn-rescue {
     width: 100%;
@@ -225,10 +220,7 @@ body {
     transition: all 0.2s;
 }
 
-.btn-rescue:hover {
-    background: #1a1a1a;
-    color: #fff;
-}
+.btn-rescue:hover { background: #1a1a1a; color: #fff; }
 
 /* ============ TASK CARD ============ */
 .task-card {
@@ -237,7 +229,7 @@ body {
     padding: 32px 24px;
     margin-bottom: 14px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.03);
 }
 
@@ -259,16 +251,8 @@ body {
     line-height: 1.3;
 }
 
-.task-card-step {
-    font-size: 13px;
-    color: #aaa;
-    font-weight: 400;
-}
-
-.task-card-step span {
-    color: #666;
-    font-weight: 500;
-}
+.task-card-step { font-size: 13px; color: #aaa; font-weight: 400; }
+.task-card-step span { color: #666; font-weight: 500; }
 
 /* ============ QUOTE ============ */
 .quote-card {
@@ -285,7 +269,6 @@ body {
     color: #bbb;
     font-weight: 400;
     line-height: 1.7;
-    letter-spacing: 0.2px;
 }
 
 /* ============ TIMER GRID ============ */
@@ -364,10 +347,7 @@ body {
 }
 
 /* ============ FOCUS SCREEN ============ */
-.focus-wrapper {
-    text-align: center;
-    padding-top: 20px;
-}
+.focus-wrapper { text-align: center; padding-top: 20px; }
 
 .focus-card {
     background: #ffffff;
@@ -427,11 +407,8 @@ body {
     margin-bottom: 10px;
 }
 
-/* ============ RESCUE SCREEN ============ */
-.rescue-top {
-    text-align: center;
-    padding: 16px 0 24px;
-}
+/* ============ RESCUE ============ */
+.rescue-top { text-align: center; padding: 16px 0 24px; }
 
 .rescue-heading {
     font-size: 24px;
@@ -441,11 +418,7 @@ body {
     letter-spacing: -0.5px;
 }
 
-.rescue-desc {
-    font-size: 14px;
-    color: #bbb;
-    font-weight: 400;
-}
+.rescue-desc { font-size: 14px; color: #bbb; font-weight: 400; }
 
 .trigger-options {
     display: grid;
@@ -465,7 +438,6 @@ body {
     font-size: 13px;
     color: #888;
     font-weight: 500;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 
 .trigger-card:hover {
@@ -498,9 +470,7 @@ body {
     border-bottom: 1px solid #f7f7f7;
 }
 
-.recovery-item:last-child {
-    border-bottom: none;
-}
+.recovery-item:last-child { border-bottom: none; }
 
 .r-num {
     width: 26px;
@@ -516,12 +486,7 @@ body {
     flex-shrink: 0;
 }
 
-.r-text {
-    font-size: 14px;
-    color: #444;
-    line-height: 1.5;
-    font-weight: 400;
-}
+.r-text { font-size: 14px; color: #444; line-height: 1.5; font-weight: 400; }
 
 /* ============ REVIEW ============ */
 .review-block {
@@ -549,12 +514,7 @@ body {
     letter-spacing: -1px;
 }
 
-.review-block-note {
-    font-size: 12px;
-    color: #aaa;
-    margin-top: 6px;
-    font-weight: 400;
-}
+.review-block-note { font-size: 12px; color: #aaa; margin-top: 6px; font-weight: 400; }
 
 .review-final {
     background: #1a1a1a;
@@ -564,11 +524,278 @@ body {
     margin-top: 16px;
 }
 
-.review-final p {
-    font-size: 15px;
+.review-final p { font-size: 15px; color: #ffffff; line-height: 1.6; font-weight: 400; }
+
+/* ============ IDEAS SCREEN ============ */
+.idea-search {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #efefef;
+}
+
+.idea-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+}
+
+.idea-search input::placeholder { color: #ccc; }
+
+.idea-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.idea-filters::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+    padding: 8px 14px;
+    background: #ffffff;
+    border: 1px solid #efefef;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.filter-chip.active {
+    background: #1a1a1a;
     color: #ffffff;
-    line-height: 1.6;
-    font-weight: 400;
+    border-color: #1a1a1a;
+}
+
+.filter-chip:hover { border-color: #1a1a1a; }
+.filter-chip.active:hover { color: #ffffff; }
+
+.idea-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+    animation: slideUp 0.3s ease;
+    position: relative;
+}
+
+.idea-card.done {
+    opacity: 0.55;
+    background: #fafafa;
+}
+
+.idea-card.done .idea-title {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.idea-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.idea-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.idea-star {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ddd;
+    transition: all 0.2s;
+    padding: 0;
+    line-height: 1;
+}
+
+.idea-star.starred { color: #ffb800; }
+
+.idea-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+.idea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.idea-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #f5f5f7;
+    border-radius: 10px;
+    font-size: 10px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.idea-date { font-size: 10px; color: #ccc; }
+
+.idea-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f5f5f7;
+}
+
+.idea-btn {
+    flex: 1;
+    padding: 8px;
+    background: none;
+    border: 1px solid #efefef;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #888;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.idea-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+.idea-btn.danger:hover { border-color: #d44; color: #d44; }
+.idea-btn.success:hover { border-color: #2a9d4a; color: #2a9d4a; }
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #ccc;
+}
+
+.empty-state .empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.empty-state .empty-text {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.empty-state .empty-sub {
+    font-size: 12px;
+    color: #ccc;
+}
+
+/* ============ FLOATING ADD BTN ============ */
+.fab {
+    position: fixed;
+    bottom: 88px;
+    right: 50%;
+    transform: translateX(240px);
+    width: 56px;
+    height: 56px;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 300;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    z-index: 90;
+    transition: all 0.2s;
+    display: none;
+}
+
+.fab.visible { display: block; }
+.fab:hover { background: #2d2d2d; transform: translateX(240px) scale(1.05); }
+.fab:active { transform: translateX(240px) scale(0.95); }
+
+@media (max-width: 520px) {
+    .fab { right: 20px; transform: none; }
+    .fab:hover { transform: scale(1.05); }
+    .fab:active { transform: scale(0.95); }
+}
+
+/* ============ MODAL ============ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 200;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 30px;
+    animation: slideUp 0.3s ease;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.modal-handle {
+    width: 40px;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 18px;
+    letter-spacing: -0.3px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    margin-top: 8px;
+    font-family: 'Inter', sans-serif;
 }
 
 /* ============ BOTTOM NAV ============ */
@@ -583,18 +810,19 @@ body {
     max-width: 480px;
     margin: 0 auto;
     padding: 6px 0 14px;
+    z-index: 95;
 }
 
 .nav-btn {
     flex: 1;
     text-align: center;
-    padding: 8px;
+    padding: 8px 4px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .nav-btn .n-icon {
-    font-size: 18px;
+    font-size: 17px;
     display: block;
     margin-bottom: 3px;
     opacity: 0.25;
@@ -607,22 +835,13 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.8px;
     font-weight: 600;
-    transition: color 0.2s;
 }
 
-.nav-btn.active .n-icon {
-    opacity: 1;
-}
-
-.nav-btn.active .n-text {
-    color: #1a1a1a;
-}
+.nav-btn.active .n-icon { opacity: 1; }
+.nav-btn.active .n-text { color: #1a1a1a; }
 
 /* ============ MISC ============ */
-.reset-link {
-    text-align: center;
-    margin-top: 20px;
-}
+.reset-link { text-align: center; margin-top: 20px; }
 
 .reset-link a {
     font-size: 12px;
@@ -630,16 +849,30 @@ body {
     text-decoration: none;
     cursor: pointer;
     font-weight: 400;
-    transition: color 0.2s;
 }
 
-.reset-link a:hover {
-    color: #1a1a1a;
+.reset-link a:hover { color: #1a1a1a; }
+
+.spacer { height: 16px; }
+
+.toast {
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 300;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
 }
 
-.spacer {
-    height: 16px;
-}
+.toast.show { opacity: 1; }
 
 </style>
 </head>
@@ -651,7 +884,7 @@ body {
     <div class="streak-box">streak <span id="streakCount">0</span></div>
 </div>
 
-<!-- ====== SCREEN 1: HOME ====== -->
+<!-- ====== HOME SCREEN ====== -->
 <div class="screen active" id="homeScreen">
     <div class="spacer"></div>
     <p class="greeting" id="greetingText">শুভ সকাল</p>
@@ -671,9 +904,8 @@ body {
     <button class="btn-primary" onclick="setTask()">শুরু করি</button>
 </div>
 
-<!-- ====== SCREEN 2: DASHBOARD ====== -->
+<!-- ====== DASHBOARD ====== -->
 <div class="screen" id="dashScreen">
-
     <div class="task-card">
         <div class="task-card-label">আজকের লক্ষ্য</div>
         <div class="task-card-title" id="displayTask">—</div>
@@ -714,8 +946,8 @@ body {
             <span class="stat-text">মিনিট</span>
         </div>
         <div class="stat-box">
-            <span class="stat-number" id="rescueCount">0</span>
-            <span class="stat-text">রেসকিউ</span>
+            <span class="stat-number" id="ideaTotalCount">0</span>
+            <span class="stat-text">আইডিয়া</span>
         </div>
     </div>
 
@@ -724,7 +956,37 @@ body {
     </div>
 </div>
 
-<!-- ====== SCREEN 3: FOCUS ====== -->
+<!-- ====== IDEAS SCREEN ====== -->
+<div class="screen" id="ideasScreen">
+    <div class="spacer"></div>
+    <p class="greeting">তোমার</p>
+    <h1 class="main-heading" style="margin-bottom:20px;">আইডিয়া</h1>
+
+    <div class="idea-search">
+        <span style="font-size:14px; color:#ccc;">🔍</span>
+        <input type="text" id="ideaSearch" placeholder="search..." oninput="renderIdeas()">
+    </div>
+
+    <div class="idea-filters" id="ideaFilters">
+        <div class="filter-chip active" onclick="filterIdeas('all')">সব</div>
+        <div class="filter-chip" onclick="filterIdeas('starred')">⭐ Starred</div>
+        <div class="filter-chip" onclick="filterIdeas('video')">🎬 Video</div>
+        <div class="filter-chip" onclick="filterIdeas('reel')">📱 Reel</div>
+        <div class="filter-chip" onclick="filterIdeas('post')">📝 Post</div>
+        <div class="filter-chip" onclick="filterIdeas('script')">📖 Script</div>
+        <div class="filter-chip" onclick="filterIdeas('other')">💭 Other</div>
+        <div class="filter-chip" onclick="filterIdeas('done')">✅ Done</div>
+    </div>
+
+    <div class="section-header">
+        <div class="section-label" style="margin-bottom:0;">সব আইডিয়া</div>
+        <div class="count" id="ideaCount">0টি</div>
+    </div>
+
+    <div id="ideasList"></div>
+</div>
+
+<!-- ====== FOCUS SCREEN ====== -->
 <div class="screen" id="focusScreen">
     <div class="focus-wrapper">
         <div class="focus-card">
@@ -745,7 +1007,7 @@ body {
     </div>
 </div>
 
-<!-- ====== SCREEN 4: RESCUE ====== -->
+<!-- ====== RESCUE ====== -->
 <div class="screen" id="rescueScreen">
     <div class="rescue-top">
         <div class="rescue-heading">কিসে টানছে?</div>
@@ -776,11 +1038,11 @@ body {
     <button class="btn-outline" onclick="showScreen('dashScreen')">ফিরে যাও</button>
 </div>
 
-<!-- ====== SCREEN 5: RECOVERY ====== -->
+<!-- ====== RECOVERY ====== -->
 <div class="screen" id="recoveryScreen">
     <div class="rescue-top">
         <div class="rescue-heading" id="recoveryTitle">ফিরে আসো</div>
-        <div class="rescue-desc" id="recoverySub">তুমি avoid করছো না। তুমি stuck।</div>
+        <div class="rescue-desc" id="recoverySub">তুমি avoid করছো না।</div>
     </div>
 
     <div class="recovery-list" id="recoverySteps"></div>
@@ -789,7 +1051,7 @@ body {
     <button class="btn-outline" onclick="startFocus(3)">শুধু 3 মিনিট দিই</button>
 </div>
 
-<!-- ====== SCREEN 6: REVIEW ====== -->
+<!-- ====== REVIEW ====== -->
 <div class="screen" id="reviewScreen">
     <div class="spacer"></div>
     <p class="greeting">আজকের</p>
@@ -806,14 +1068,14 @@ body {
     </div>
 
     <div class="review-block">
-        <div class="review-block-label">রেসকিউ</div>
-        <div class="review-block-value" id="revRescues">0</div>
-        <div class="review-block-note" id="revRescueNote"></div>
+        <div class="review-block-label">আইডিয়া capture</div>
+        <div class="review-block-value" id="revIdeas">0</div>
     </div>
 
     <div class="review-block">
-        <div class="review-block-label">সবচেয়ে বেশি টেনেছে</div>
-        <div class="review-block-value" id="revTopTrigger" style="font-size:18px;">—</div>
+        <div class="review-block-label">রেসকিউ</div>
+        <div class="review-block-value" id="revRescues">0</div>
+        <div class="review-block-note" id="revRescueNote"></div>
     </div>
 
     <div class="review-final" id="reviewMsg">
@@ -823,11 +1085,53 @@ body {
     <button class="btn-outline" onclick="showScreen('dashScreen')" style="margin-top:14px">ড্যাশবোর্ড</button>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- ====== FLOATING ADD BUTTON ====== -->
+<button class="fab" id="ideaFab" onclick="openIdeaModal()">+</button>
+
+<!-- ====== IDEA MODAL ====== -->
+<div class="modal-overlay" id="ideaModal">
+    <div class="modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title" id="modalTitle">নতুন আইডিয়া</div>
+
+        <div class="input-card">
+            <label>আইডিয়া</label>
+            <input type="text" id="ideaInput" placeholder="মনে আসছে যা..." autocomplete="off">
+        </div>
+
+        <div class="input-card">
+            <label>বিস্তারিত (optional)</label>
+            <textarea id="ideaDesc" placeholder="আরো detail..."></textarea>
+        </div>
+
+        <div class="input-card">
+            <label>Category</label>
+            <select id="ideaCategory">
+                <option value="video">🎬 Video</option>
+                <option value="reel">📱 Reel/Short</option>
+                <option value="post">📝 Post</option>
+                <option value="script">📖 Script/Hook</option>
+                <option value="other">💭 Other</option>
+            </select>
+        </div>
+
+        <button class="btn-primary" onclick="saveIdea()">Save</button>
+        <button class="modal-close" onclick="closeIdeaModal()">cancel</button>
+    </div>
+</div>
+
+<!-- ====== TOAST ====== -->
+<div class="toast" id="toast">saved</div>
+
+<!-- ====== BOTTOM NAV ====== -->
 <div class="bottom-nav">
     <div class="nav-btn active" onclick="showScreen('dashScreen')" id="navDash">
         <span class="n-icon">◻</span>
         <span class="n-text">হোম</span>
+    </div>
+    <div class="nav-btn" onclick="showScreen('ideasScreen')" id="navIdeas">
+        <span class="n-icon">💡</span>
+        <span class="n-text">আইডিয়া</span>
     </div>
     <div class="nav-btn" onclick="showScreen('focusScreen')" id="navFocus">
         <span class="n-icon">◷</span>
@@ -848,12 +1152,15 @@ body {
 let data = {
     task: '', step: '',
     focusSessions: 0, totalMinutes: 0,
-    rescueCount: 0, triggers: {}, streak: 0
+    rescueCount: 0, triggers: {}, streak: 0,
+    ideas: [], todayIdeas: 0
 };
 
 let saved = localStorage.getItem('shuruData');
 if (saved) {
-    data = JSON.parse(saved);
+    let loaded = JSON.parse(saved);
+    data = Object.assign(data, loaded);
+    if (!data.ideas) data.ideas = [];
     document.getElementById('streakCount').textContent = data.streak;
 }
 
@@ -869,6 +1176,14 @@ function setGreeting() {
 }
 setGreeting();
 
+// ============ TOAST ============
+function showToast(msg) {
+    let t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+}
+
 // ============ SCREENS ============
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -876,12 +1191,25 @@ function showScreen(id) {
     document.querySelectorAll('.nav-btn').forEach(n => n.classList.remove('active'));
 
     if (id === 'dashScreen') document.getElementById('navDash').classList.add('active');
+    if (id === 'ideasScreen') {
+        document.getElementById('navIdeas').classList.add('active');
+        renderIdeas();
+    }
     if (id === 'focusScreen') document.getElementById('navFocus').classList.add('active');
     if (id === 'rescueScreen') document.getElementById('navRescue').classList.add('active');
     if (id === 'reviewScreen') {
         document.getElementById('navReview').classList.add('active');
         updateReview();
     }
+
+    // Show FAB only on ideas screen
+    let fab = document.getElementById('ideaFab');
+    if (id === 'ideasScreen' || id === 'dashScreen') {
+        fab.classList.add('visible');
+    } else {
+        fab.classList.remove('visible');
+    }
+
     window.scrollTo(0, 0);
 }
 
@@ -889,7 +1217,7 @@ function showScreen(id) {
 function setTask() {
     let task = document.getElementById('mainTaskInput').value.trim();
     let step = document.getElementById('firstStepInput').value.trim();
-    if (!task) { alert('task লেখো'); return; }
+    if (!task) { showToast('task লেখো'); return; }
     if (!step) step = 'শুরু করো';
 
     data.task = task;
@@ -903,15 +1231,16 @@ function setTask() {
 }
 
 function resetTask() {
+    if (!confirm('সব data reset করবে?')) return;
     data.task = ''; data.step = '';
     data.focusSessions = 0; data.totalMinutes = 0;
     data.rescueCount = 0; data.triggers = {};
+    data.todayIdeas = 0;
     saveData();
     document.getElementById('mainTaskInput').value = '';
     document.getElementById('firstStepInput').value = '';
     document.getElementById('focusCount').textContent = '0';
     document.getElementById('totalMins').textContent = '0';
-    document.getElementById('rescueCount').textContent = '0';
     showScreen('homeScreen');
 }
 
@@ -928,7 +1257,9 @@ const quotes = [
     "Scroll করলে কিছু হবে না।",
     "Create before consume.",
     "শুরু করো। বাকিটা আসবে।",
-    "তোমার future self ধন্যবাদ দিবে।"
+    "তোমার future self ধন্যবাদ দিবে।",
+    "Ideas আসছে? এখনই capture করো।",
+    "Best ideas আসে কাজ করার সময়।"
 ];
 
 function randomQuote() {
@@ -981,7 +1312,7 @@ function endFocus() {
     document.getElementById('totalMins').textContent = data.totalMinutes;
     document.getElementById('progressBar').style.width = '0%';
 
-    alert('সেশন শেষ — ' + minsWorked + ' মিনিট কাজ করেছো।');
+    showToast('সেশন শেষ — ' + minsWorked + ' মিনিট');
     showScreen('dashScreen');
 }
 
@@ -1015,7 +1346,7 @@ const recoveryData = {
     fear: {
         title: 'Overwhelmed?',
         sub: 'সব একসাথে ভাবছো। ভাঙো।',
-        steps: ['পুরো project ভুলে যাও।', 'শুধু পরের 1 step ভাবো।', '5 মিনিটে করা যায়?', 'না হলে আরো ছোট করো।', 'শুধু সেটা করো। বাকি পরে।']
+        steps: ['পুরো project ভুলে যাও।', 'শুধু পরের 1 step ভাবো।', '5 মিনিটে করা যায়?', 'না হলে আরো ছোট করো।', 'শুধু সেটা করো।']
     }
 };
 
@@ -1024,7 +1355,6 @@ function showRecovery(type) {
     if (!data.triggers[type]) data.triggers[type] = 0;
     data.triggers[type]++; data.rescueCount++; saveData();
 
-    document.getElementById('rescueCount').textContent = data.rescueCount;
     document.getElementById('recoveryTitle').textContent = info.title;
     document.getElementById('recoverySub').textContent = info.sub;
 
@@ -1041,24 +1371,203 @@ function showRecovery(type) {
 
 function backToWork() { showScreen('dashScreen'); randomQuote(); }
 
+// ============ IDEAS ============
+let currentFilter = 'all';
+let editingIdeaId = null;
+
+function openIdeaModal(ideaId) {
+    editingIdeaId = ideaId || null;
+    document.getElementById('modalTitle').textContent = ideaId ? 'আইডিয়া edit' : 'নতুন আইডিয়া';
+
+    if (ideaId) {
+        let idea = data.ideas.find(i => i.id === ideaId);
+        if (idea) {
+            document.getElementById('ideaInput').value = idea.title;
+            document.getElementById('ideaDesc').value = idea.desc || '';
+            document.getElementById('ideaCategory').value = idea.category;
+        }
+    } else {
+        document.getElementById('ideaInput').value = '';
+        document.getElementById('ideaDesc').value = '';
+        document.getElementById('ideaCategory').value = 'video';
+    }
+
+    document.getElementById('ideaModal').classList.add('active');
+    setTimeout(() => document.getElementById('ideaInput').focus(), 100);
+}
+
+function closeIdeaModal() {
+    document.getElementById('ideaModal').classList.remove('active');
+    editingIdeaId = null;
+}
+
+function saveIdea() {
+    let title = document.getElementById('ideaInput').value.trim();
+    let desc = document.getElementById('ideaDesc').value.trim();
+    let category = document.getElementById('ideaCategory').value;
+
+    if (!title) { showToast('আইডিয়া লেখো'); return; }
+
+    if (editingIdeaId) {
+        let idea = data.ideas.find(i => i.id === editingIdeaId);
+        if (idea) {
+            idea.title = title;
+            idea.desc = desc;
+            idea.category = category;
+        }
+        showToast('updated');
+    } else {
+        let newIdea = {
+            id: Date.now(),
+            title: title,
+            desc: desc,
+            category: category,
+            starred: false,
+            done: false,
+            date: new Date().toISOString()
+        };
+        data.ideas.unshift(newIdea);
+        data.todayIdeas = (data.todayIdeas || 0) + 1;
+        showToast('saved ✓');
+    }
+
+    saveData();
+    closeIdeaModal();
+    updateIdeaCount();
+    renderIdeas();
+}
+
+function deleteIdea(id) {
+    if (!confirm('Delete this idea?')) return;
+    data.ideas = data.ideas.filter(i => i.id !== id);
+    saveData();
+    updateIdeaCount();
+    renderIdeas();
+    showToast('deleted');
+}
+
+function toggleStar(id) {
+    let idea = data.ideas.find(i => i.id === id);
+    if (idea) {
+        idea.starred = !idea.starred;
+        saveData();
+        renderIdeas();
+    }
+}
+
+function toggleDone(id) {
+    let idea = data.ideas.find(i => i.id === id);
+    if (idea) {
+        idea.done = !idea.done;
+        saveData();
+        renderIdeas();
+        showToast(idea.done ? 'done ✓' : 'reopened');
+    }
+}
+
+function filterIdeas(filter) {
+    currentFilter = filter;
+    document.querySelectorAll('#ideaFilters .filter-chip').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    renderIdeas();
+}
+
+function renderIdeas() {
+    let list = document.getElementById('ideasList');
+    let search = document.getElementById('ideaSearch').value.toLowerCase().trim();
+
+    let filtered = data.ideas.filter(idea => {
+        if (currentFilter === 'starred' && !idea.starred) return false;
+        if (currentFilter === 'done' && !idea.done) return false;
+        if (currentFilter !== 'all' && currentFilter !== 'starred' && currentFilter !== 'done') {
+            if (idea.category !== currentFilter) return false;
+        }
+        if (currentFilter !== 'done' && idea.done) return false;
+
+        if (search) {
+            return idea.title.toLowerCase().includes(search) ||
+                   (idea.desc && idea.desc.toLowerCase().includes(search));
+        }
+        return true;
+    });
+
+    document.getElementById('ideaCount').textContent = filtered.length + 'টি';
+
+    if (filtered.length === 0) {
+        list.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">💭</div>
+                <div class="empty-text">কোনো আইডিয়া নেই</div>
+                <div class="empty-sub">নিচের + button চাপো</div>
+            </div>
+        `;
+        return;
+    }
+
+    let categoryNames = {
+        video: '🎬 Video', reel: '📱 Reel', post: '📝 Post',
+        script: '📖 Script', other: '💭 Other'
+    };
+
+    let html = '';
+    filtered.forEach(idea => {
+        let date = new Date(idea.date);
+        let dateStr = formatDate(date);
+
+        html += `
+            <div class="idea-card ${idea.done ? 'done' : ''}">
+                <div class="idea-header">
+                    <div class="idea-title">${escapeHtml(idea.title)}</div>
+                    <button class="idea-star ${idea.starred ? 'starred' : ''}" onclick="toggleStar(${idea.id})">★</button>
+                </div>
+                ${idea.desc ? `<div class="idea-desc">${escapeHtml(idea.desc)}</div>` : ''}
+                <div class="idea-footer">
+                    <span class="idea-tag">${categoryNames[idea.category] || idea.category}</span>
+                    <span class="idea-date">${dateStr}</span>
+                </div>
+                <div class="idea-actions">
+                    <button class="idea-btn" onclick="openIdeaModal(${idea.id})">edit</button>
+                    <button class="idea-btn success" onclick="toggleDone(${idea.id})">${idea.done ? 'reopen' : 'done'}</button>
+                    <button class="idea-btn danger" onclick="deleteIdea(${idea.id})">delete</button>
+                </div>
+            </div>
+        `;
+    });
+    list.innerHTML = html;
+}
+
+function formatDate(d) {
+    let now = new Date();
+    let diff = Math.floor((now - d) / 1000);
+    if (diff < 60) return 'এইমাত্র';
+    if (diff < 3600) return Math.floor(diff/60) + 'm আগে';
+    if (diff < 86400) return Math.floor(diff/3600) + 'h আগে';
+    if (diff < 604800) return Math.floor(diff/86400) + 'd আগে';
+    return d.toLocaleDateString('bn-BD');
+}
+
+function escapeHtml(text) {
+    let div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function updateIdeaCount() {
+    let total = data.ideas.length;
+    document.getElementById('ideaTotalCount').textContent = total;
+}
+
 // ============ REVIEW ============
 function updateReview() {
     document.getElementById('revSessions').textContent = data.focusSessions;
     document.getElementById('revMinutes').textContent = data.totalMinutes;
+    document.getElementById('revIdeas').textContent = data.todayIdeas || 0;
     document.getElementById('revRescues').textContent = data.rescueCount;
 
     if (data.rescueCount > 0) {
         document.getElementById('revRescueNote').textContent =
             data.rescueCount + ' বার slip — কিন্তু ফিরে এসেছো';
     }
-
-    let top = '—', max = 0;
-    let names = { scroll:'Scrolling', gaming:'Gaming', porn:'Porn',
-        overthink:'Overthinking', bore:'Boredom', fear:'Overwhelm' };
-    for (let t in data.triggers) {
-        if (data.triggers[t] > max) { max = data.triggers[t]; top = names[t] || t; }
-    }
-    document.getElementById('revTopTrigger').textContent = top;
 
     let msgs = [
         "তুমি ফিরে এসেছো। এটাই progress।",
@@ -1070,6 +1579,16 @@ function updateReview() {
         '<p>"' + msgs[Math.floor(Math.random() * msgs.length)] + '"</p>';
 }
 
+// ============ MODAL CLOSE ON OVERLAY ============
+document.getElementById('ideaModal').addEventListener('click', function(e) {
+    if (e.target === this) closeIdeaModal();
+});
+
+// ============ ENTER KEY TO SAVE ============
+document.getElementById('ideaInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') saveIdea();
+});
+
 // ============ INIT ============
 if (data.task) {
     document.getElementById('displayTask').textContent = data.task;
@@ -1077,7 +1596,7 @@ if (data.task) {
     document.getElementById('focusTaskName').textContent = data.task;
     document.getElementById('focusCount').textContent = data.focusSessions;
     document.getElementById('totalMins').textContent = data.totalMinutes;
-    document.getElementById('rescueCount').textContent = data.rescueCount;
+    updateIdeaCount();
     showScreen('dashScreen');
 }
 </script>
