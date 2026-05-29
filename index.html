@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>শুরু</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f5f7;
+    color: #1a1a1a;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* ============ TOP BAR ============ */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #ebebeb;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.streak-box {
+    background: #f5f5f7;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+}
+
+.streak-box span {
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+/* ============ SCREENS ============ */
+.screen {
+    display: none;
+    padding: 24px 20px;
+    max-width: 480px;
+    margin: 0 auto;
+    animation: fadeIn 0.35s ease;
+    padding-bottom: 110px;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ CARDS ============ */
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.card-flat {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #efefef;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.greeting {
+    font-size: 13px;
+    color: #bbb;
+    margin-bottom: 4px;
+    font-weight: 400;
+}
+
+.main-heading {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 28px;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+}
+
+.section-label {
+    font-size: 10px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-left: 2px;
+}
+
+/* ============ INPUT ============ */
+.input-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.input-card label {
+    font-size: 10px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-card input {
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1.5px solid #f0f0f0;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    padding: 10px 0;
+    outline: none;
+    transition: border-color 0.3s;
+    font-weight: 400;
+}
+
+.input-card input:focus {
+    border-bottom-color: #1a1a1a;
+}
+
+.input-card input::placeholder {
+    color: #d5d5d5;
+    font-weight: 300;
+}
+
+/* ============ BUTTONS ============ */
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 6px;
+}
+
+.btn-primary:hover {
+    background: #2d2d2d;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-outline {
+    width: 100%;
+    padding: 15px;
+    background: #ffffff;
+    color: #666;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.btn-outline:hover {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+.btn-rescue {
+    width: 100%;
+    padding: 16px;
+    background: #ffffff;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    border-radius: 14px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.btn-rescue:hover {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* ============ TASK CARD ============ */
+.task-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 32px 24px;
+    margin-bottom: 14px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.task-card-label {
+    font-size: 9px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.task-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+}
+
+.task-card-step {
+    font-size: 13px;
+    color: #aaa;
+    font-weight: 400;
+}
+
+.task-card-step span {
+    color: #666;
+    font-weight: 500;
+}
+
+/* ============ QUOTE ============ */
+.quote-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 14px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.quote-text {
+    font-size: 13px;
+    color: #bbb;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.2px;
+}
+
+/* ============ TIMER GRID ============ */
+.timer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.timer-option {
+    background: #ffffff;
+    border: 1px solid #efefef;
+    border-radius: 14px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.timer-option:hover {
+    border-color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.timer-option .mins {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    display: block;
+    letter-spacing: -1px;
+}
+
+.timer-option .mins-label {
+    font-size: 9px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* ============ STATS ============ */
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.stat-box {
+    background: #ffffff;
+    text-align: center;
+    padding: 20px 10px;
+    border-radius: 14px;
+    border: 1px solid #efefef;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    display: block;
+    letter-spacing: -1px;
+}
+
+.stat-text {
+    font-size: 9px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* ============ FOCUS SCREEN ============ */
+.focus-wrapper {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.focus-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 48px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.focus-label {
+    font-size: 9px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 32px;
+}
+
+.focus-time {
+    font-size: 76px;
+    font-weight: 200;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -3px;
+}
+
+.focus-task-name {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 36px;
+    font-weight: 400;
+}
+
+.progress-track {
+    width: 80%;
+    height: 2px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #1a1a1a;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 1s linear;
+}
+
+.focus-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* ============ RESCUE SCREEN ============ */
+.rescue-top {
+    text-align: center;
+    padding: 16px 0 24px;
+}
+
+.rescue-heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.rescue-desc {
+    font-size: 14px;
+    color: #bbb;
+    font-weight: 400;
+}
+
+.trigger-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.trigger-card {
+    background: #ffffff;
+    border: 1px solid #efefef;
+    border-radius: 14px;
+    padding: 22px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.trigger-card:hover {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.trigger-card .t-icon {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* ============ RECOVERY ============ */
+.recovery-list {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 8px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.recovery-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid #f7f7f7;
+}
+
+.recovery-item:last-child {
+    border-bottom: none;
+}
+
+.r-num {
+    width: 26px;
+    height: 26px;
+    background: #f5f5f7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.r-text {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+/* ============ REVIEW ============ */
+.review-block {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.review-block-label {
+    font-size: 9px;
+    color: #bbb;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.review-block-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+}
+
+.review-block-note {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 6px;
+    font-weight: 400;
+}
+
+.review-final {
+    background: #1a1a1a;
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.review-final p {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* ============ BOTTOM NAV ============ */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #ebebeb;
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 6px 0 14px;
+}
+
+.nav-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn .n-icon {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 3px;
+    opacity: 0.25;
+    transition: opacity 0.2s;
+}
+
+.nav-btn .n-text {
+    font-size: 9px;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.nav-btn.active .n-icon {
+    opacity: 1;
+}
+
+.nav-btn.active .n-text {
+    color: #1a1a1a;
+}
+
+/* ============ MISC ============ */
+.reset-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.reset-link a {
+    font-size: 12px;
+    color: #ccc;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 400;
+    transition: color 0.2s;
+}
+
+.reset-link a:hover {
+    color: #1a1a1a;
+}
+
+.spacer {
+    height: 16px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="logo">শুরু</div>
+    <div class="streak-box">streak <span id="streakCount">0</span></div>
+</div>
+
+<!-- ====== SCREEN 1: HOME ====== -->
+<div class="screen active" id="homeScreen">
+    <div class="spacer"></div>
+    <p class="greeting" id="greetingText">শুভ সকাল</p>
+    <h1 class="main-heading">আজকে কী<br>create করবে?</h1>
+
+    <div class="input-card">
+        <label>আজকের main task</label>
+        <input type="text" id="mainTaskInput" placeholder="১টা video script লেখা">
+    </div>
+
+    <div class="input-card">
+        <label>প্রথম ছোট step</label>
+        <input type="text" id="firstStepInput" placeholder="hook লেখা শুরু করা">
+    </div>
+
+    <div class="spacer"></div>
+    <button class="btn-primary" onclick="setTask()">শুরু করি</button>
+</div>
+
+<!-- ====== SCREEN 2: DASHBOARD ====== -->
+<div class="screen" id="dashScreen">
+
+    <div class="task-card">
+        <div class="task-card-label">আজকের লক্ষ্য</div>
+        <div class="task-card-title" id="displayTask">—</div>
+        <div class="task-card-step">next → <span id="displayStep">—</span></div>
+    </div>
+
+    <div class="quote-card">
+        <p class="quote-text" id="quoteText">"আগে create করো। consume পরে।"</p>
+    </div>
+
+    <div class="section-label">ফোকাস শুরু করো</div>
+
+    <div class="timer-grid">
+        <div class="timer-option" onclick="startFocus(3)">
+            <span class="mins">3</span>
+            <span class="mins-label">মিনিট</span>
+        </div>
+        <div class="timer-option" onclick="startFocus(15)">
+            <span class="mins">15</span>
+            <span class="mins-label">মিনিট</span>
+        </div>
+        <div class="timer-option" onclick="startFocus(25)">
+            <span class="mins">25</span>
+            <span class="mins-label">মিনিট</span>
+        </div>
+    </div>
+
+    <button class="btn-primary" onclick="startFocus(5)">5 মিনিট — শুধু শুরু করো</button>
+    <button class="btn-rescue" onclick="showScreen('rescueScreen')">আমাকে ফিরিয়ে আনো</button>
+
+    <div class="stats-row">
+        <div class="stat-box">
+            <span class="stat-number" id="focusCount">0</span>
+            <span class="stat-text">সেশন</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number" id="totalMins">0</span>
+            <span class="stat-text">মিনিট</span>
+        </div>
+        <div class="stat-box">
+            <span class="stat-number" id="rescueCount">0</span>
+            <span class="stat-text">রেসকিউ</span>
+        </div>
+    </div>
+
+    <div class="reset-link">
+        <a onclick="resetTask()">নতুন task সেট করো</a>
+    </div>
+</div>
+
+<!-- ====== SCREEN 3: FOCUS ====== -->
+<div class="screen" id="focusScreen">
+    <div class="focus-wrapper">
+        <div class="focus-card">
+            <div class="focus-label">ফোকাস মোড</div>
+            <div class="focus-time" id="timerDisplay">05:00</div>
+            <div class="focus-task-name" id="focusTaskName">—</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="focus-actions">
+            <button class="btn-outline" onclick="pauseTimer()" id="pauseBtn">pause</button>
+            <button class="btn-outline" onclick="showScreen('rescueScreen')">slipping</button>
+        </div>
+
+        <button class="btn-primary" onclick="endFocus()">সেশন শেষ</button>
+    </div>
+</div>
+
+<!-- ====== SCREEN 4: RESCUE ====== -->
+<div class="screen" id="rescueScreen">
+    <div class="rescue-top">
+        <div class="rescue-heading">কিসে টানছে?</div>
+        <div class="rescue-desc">সৎ হও। judge করবো না।</div>
+    </div>
+
+    <div class="trigger-options">
+        <div class="trigger-card" onclick="showRecovery('scroll')">
+            <span class="t-icon">📱</span>Scrolling
+        </div>
+        <div class="trigger-card" onclick="showRecovery('gaming')">
+            <span class="t-icon">🎮</span>Gaming
+        </div>
+        <div class="trigger-card" onclick="showRecovery('porn')">
+            <span class="t-icon">◼</span>Porn
+        </div>
+        <div class="trigger-card" onclick="showRecovery('overthink')">
+            <span class="t-icon">◎</span>Overthinking
+        </div>
+        <div class="trigger-card" onclick="showRecovery('bore')">
+            <span class="t-icon">—</span>Boring
+        </div>
+        <div class="trigger-card" onclick="showRecovery('fear')">
+            <span class="t-icon">△</span>Overwhelm
+        </div>
+    </div>
+
+    <button class="btn-outline" onclick="showScreen('dashScreen')">ফিরে যাও</button>
+</div>
+
+<!-- ====== SCREEN 5: RECOVERY ====== -->
+<div class="screen" id="recoveryScreen">
+    <div class="rescue-top">
+        <div class="rescue-heading" id="recoveryTitle">ফিরে আসো</div>
+        <div class="rescue-desc" id="recoverySub">তুমি avoid করছো না। তুমি stuck।</div>
+    </div>
+
+    <div class="recovery-list" id="recoverySteps"></div>
+
+    <button class="btn-primary" onclick="backToWork()">কাজে ফিরে যাচ্ছি</button>
+    <button class="btn-outline" onclick="startFocus(3)">শুধু 3 মিনিট দিই</button>
+</div>
+
+<!-- ====== SCREEN 6: REVIEW ====== -->
+<div class="screen" id="reviewScreen">
+    <div class="spacer"></div>
+    <p class="greeting">আজকের</p>
+    <h1 class="main-heading" style="margin-bottom:20px;">রিভিউ</h1>
+
+    <div class="review-block">
+        <div class="review-block-label">ফোকাস সেশন</div>
+        <div class="review-block-value" id="revSessions">0</div>
+    </div>
+
+    <div class="review-block">
+        <div class="review-block-label">মোট মিনিট</div>
+        <div class="review-block-value" id="revMinutes">0</div>
+    </div>
+
+    <div class="review-block">
+        <div class="review-block-label">রেসকিউ</div>
+        <div class="review-block-value" id="revRescues">0</div>
+        <div class="review-block-note" id="revRescueNote"></div>
+    </div>
+
+    <div class="review-block">
+        <div class="review-block-label">সবচেয়ে বেশি টেনেছে</div>
+        <div class="review-block-value" id="revTopTrigger" style="font-size:18px;">—</div>
+    </div>
+
+    <div class="review-final" id="reviewMsg">
+        <p>"তুমি ফিরে এসেছো। এটাই progress।"</p>
+    </div>
+
+    <button class="btn-outline" onclick="showScreen('dashScreen')" style="margin-top:14px">ড্যাশবোর্ড</button>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+    <div class="nav-btn active" onclick="showScreen('dashScreen')" id="navDash">
+        <span class="n-icon">◻</span>
+        <span class="n-text">হোম</span>
+    </div>
+    <div class="nav-btn" onclick="showScreen('focusScreen')" id="navFocus">
+        <span class="n-icon">◷</span>
+        <span class="n-text">ফোকাস</span>
+    </div>
+    <div class="nav-btn" onclick="showScreen('rescueScreen')" id="navRescue">
+        <span class="n-icon">↩</span>
+        <span class="n-text">রেসকিউ</span>
+    </div>
+    <div class="nav-btn" onclick="showScreen('reviewScreen')" id="navReview">
+        <span class="n-icon">≡</span>
+        <span class="n-text">রিভিউ</span>
+    </div>
+</div>
+
+<script>
+// ============ DATA ============
+let data = {
+    task: '', step: '',
+    focusSessions: 0, totalMinutes: 0,
+    rescueCount: 0, triggers: {}, streak: 0
+};
+
+let saved = localStorage.getItem('shuruData');
+if (saved) {
+    data = JSON.parse(saved);
+    document.getElementById('streakCount').textContent = data.streak;
+}
+
+function saveData() {
+    localStorage.setItem('shuruData', JSON.stringify(data));
+}
+
+// ============ GREETING ============
+function setGreeting() {
+    let h = new Date().getHours();
+    let t = h < 6 ? 'শুভ রাত' : h < 12 ? 'শুভ সকাল' : h < 17 ? 'শুভ দুপুর' : h < 20 ? 'শুভ সন্ধ্যা' : 'শুভ রাত';
+    document.getElementById('greetingText').textContent = t;
+}
+setGreeting();
+
+// ============ SCREENS ============
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(n => n.classList.remove('active'));
+
+    if (id === 'dashScreen') document.getElementById('navDash').classList.add('active');
+    if (id === 'focusScreen') document.getElementById('navFocus').classList.add('active');
+    if (id === 'rescueScreen') document.getElementById('navRescue').classList.add('active');
+    if (id === 'reviewScreen') {
+        document.getElementById('navReview').classList.add('active');
+        updateReview();
+    }
+    window.scrollTo(0, 0);
+}
+
+// ============ TASK ============
+function setTask() {
+    let task = document.getElementById('mainTaskInput').value.trim();
+    let step = document.getElementById('firstStepInput').value.trim();
+    if (!task) { alert('task লেখো'); return; }
+    if (!step) step = 'শুরু করো';
+
+    data.task = task;
+    data.step = step;
+    saveData();
+
+    document.getElementById('displayTask').textContent = task;
+    document.getElementById('displayStep').textContent = step;
+    document.getElementById('focusTaskName').textContent = task;
+    showScreen('dashScreen');
+}
+
+function resetTask() {
+    data.task = ''; data.step = '';
+    data.focusSessions = 0; data.totalMinutes = 0;
+    data.rescueCount = 0; data.triggers = {};
+    saveData();
+    document.getElementById('mainTaskInput').value = '';
+    document.getElementById('firstStepInput').value = '';
+    document.getElementById('focusCount').textContent = '0';
+    document.getElementById('totalMins').textContent = '0';
+    document.getElementById('rescueCount').textContent = '0';
+    showScreen('homeScreen');
+}
+
+// ============ QUOTES ============
+const quotes = [
+    "আগে create করো। consume পরে।",
+    "Motivation লাগে না। 5 মিনিট লাগে।",
+    "Overthinking কাজ না। শুরু করো।",
+    "Perfect হতে হবে না। done হতে হবে।",
+    "তুমি lazy না। তুমি stuck।",
+    "Facebook পরে। Draft আগে।",
+    "3 মিনিট। শুধু 3 মিনিট।",
+    "Ugly draft > no draft.",
+    "Scroll করলে কিছু হবে না।",
+    "Create before consume.",
+    "শুরু করো। বাকিটা আসবে।",
+    "তোমার future self ধন্যবাদ দিবে।"
+];
+
+function randomQuote() {
+    document.getElementById('quoteText').textContent =
+        '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
+}
+setInterval(randomQuote, 12000);
+randomQuote();
+
+// ============ TIMER ============
+let timerInterval = null, timerSeconds = 0, totalSeconds = 0, isPaused = false;
+
+function startFocus(mins) {
+    totalSeconds = mins * 60;
+    timerSeconds = totalSeconds;
+    isPaused = false;
+    document.getElementById('pauseBtn').textContent = 'pause';
+    updateTimerDisplay();
+    showScreen('focusScreen');
+    if (timerInterval) clearInterval(timerInterval);
+
+    timerInterval = setInterval(() => {
+        if (!isPaused) {
+            timerSeconds--;
+            updateTimerDisplay();
+            document.getElementById('progressBar').style.width =
+                ((totalSeconds - timerSeconds) / totalSeconds * 100) + '%';
+            if (timerSeconds <= 0) { clearInterval(timerInterval); endFocus(); }
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    let m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
+    document.getElementById('timerDisplay').textContent =
+        String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+function pauseTimer() {
+    isPaused = !isPaused;
+    document.getElementById('pauseBtn').textContent = isPaused ? 'resume' : 'pause';
+}
+
+function endFocus() {
+    if (timerInterval) clearInterval(timerInterval);
+    let minsWorked = Math.max(1, Math.round((totalSeconds - timerSeconds) / 60));
+    data.focusSessions++; data.totalMinutes += minsWorked; saveData();
+
+    document.getElementById('focusCount').textContent = data.focusSessions;
+    document.getElementById('totalMins').textContent = data.totalMinutes;
+    document.getElementById('progressBar').style.width = '0%';
+
+    alert('সেশন শেষ — ' + minsWorked + ' মিনিট কাজ করেছো।');
+    showScreen('dashScreen');
+}
+
+// ============ RESCUE ============
+const recoveryData = {
+    scroll: {
+        title: 'Scrolling বন্ধ করো',
+        sub: 'তুমি stimulation চাচ্ছো। rest না।',
+        steps: ['ফোন উল্টে রাখো। এখনই।', '10 সেকেন্ড চোখ বন্ধ করো।', 'তোমার draft open করো।', 'শুধু 1 লাইন লেখো।', '3 মিনিট timer দাও।']
+    },
+    gaming: {
+        title: 'Game রেখে দাও',
+        sub: 'এটা fake reward। তোমার real কাজ আছে।',
+        steps: ['Game close করো।', 'দাঁড়াও। 60 সেকেন্ড।', 'পানি খাও।', 'আজকের task মনে করো।', '5 মিনিট কাজে বসো।']
+    },
+    porn: {
+        title: 'তুমি জানো এটা enemy',
+        sub: 'এই urge 90 সেকেন্ডের। পার করো।',
+        steps: ['Screen থেকে দূরে যাও।', 'ফোন অন্য room এ রাখো।', 'হাঁটো 1 মিনিট।', 'ঠান্ডা পানি মুখে দাও।', 'কাজে ফেরো। শুধু 3 মিনিট।']
+    },
+    overthink: {
+        title: 'ভাবনা বন্ধ করো',
+        sub: 'ভাবলে কিছু হবে না। করলে হবে।',
+        steps: ['যা ভাবছো 2 লাইনে লেখো।', 'এটা কি actionable?', 'না হলে ছেড়ে দাও।', 'হ্যাঁ হলে 1 tiny step বের করো।', 'সেই step এখনই করো।']
+    },
+    bore: {
+        title: 'Boring? স্বাভাবিক।',
+        sub: 'Brain সহজ কিছু চাইছে। তুমি শক্ত হও।',
+        steps: ['Full কাজ ভাবো না।', '1টা ছোট piece ধরো।', 'Timer দাও 3 মিনিট।', 'বাজে হলেও কিছু লেখো।', '3 মিনিট পর mood check করো।']
+    },
+    fear: {
+        title: 'Overwhelmed?',
+        sub: 'সব একসাথে ভাবছো। ভাঙো।',
+        steps: ['পুরো project ভুলে যাও।', 'শুধু পরের 1 step ভাবো।', '5 মিনিটে করা যায়?', 'না হলে আরো ছোট করো।', 'শুধু সেটা করো। বাকি পরে।']
+    }
+};
+
+function showRecovery(type) {
+    let info = recoveryData[type];
+    if (!data.triggers[type]) data.triggers[type] = 0;
+    data.triggers[type]++; data.rescueCount++; saveData();
+
+    document.getElementById('rescueCount').textContent = data.rescueCount;
+    document.getElementById('recoveryTitle').textContent = info.title;
+    document.getElementById('recoverySub').textContent = info.sub;
+
+    let html = '';
+    info.steps.forEach((s, i) => {
+        html += `<div class="recovery-item">
+            <div class="r-num">${i + 1}</div>
+            <div class="r-text">${s}</div>
+        </div>`;
+    });
+    document.getElementById('recoverySteps').innerHTML = html;
+    showScreen('recoveryScreen');
+}
+
+function backToWork() { showScreen('dashScreen'); randomQuote(); }
+
+// ============ REVIEW ============
+function updateReview() {
+    document.getElementById('revSessions').textContent = data.focusSessions;
+    document.getElementById('revMinutes').textContent = data.totalMinutes;
+    document.getElementById('revRescues').textContent = data.rescueCount;
+
+    if (data.rescueCount > 0) {
+        document.getElementById('revRescueNote').textContent =
+            data.rescueCount + ' বার slip — কিন্তু ফিরে এসেছো';
+    }
+
+    let top = '—', max = 0;
+    let names = { scroll:'Scrolling', gaming:'Gaming', porn:'Porn',
+        overthink:'Overthinking', bore:'Boredom', fear:'Overwhelm' };
+    for (let t in data.triggers) {
+        if (data.triggers[t] > max) { max = data.triggers[t]; top = names[t] || t; }
+    }
+    document.getElementById('revTopTrigger').textContent = top;
+
+    let msgs = [
+        "তুমি ফিরে এসেছো। এটাই progress।",
+        "আজকে যতটুকু করেছো, সেটাও count হয়।",
+        "কাল আরেকটু। আজকের জন্য enough।",
+        "try করেছো। বেশিরভাগ মানুষ এটুকুও করে না।"
+    ];
+    document.getElementById('reviewMsg').innerHTML =
+        '<p>"' + msgs[Math.floor(Math.random() * msgs.length)] + '"</p>';
+}
+
+// ============ INIT ============
+if (data.task) {
+    document.getElementById('displayTask').textContent = data.task;
+    document.getElementById('displayStep').textContent = data.step;
+    document.getElementById('focusTaskName').textContent = data.task;
+    document.getElementById('focusCount').textContent = data.focusSessions;
+    document.getElementById('totalMins').textContent = data.totalMinutes;
+    document.getElementById('rescueCount').textContent = data.rescueCount;
+    showScreen('dashScreen');
+}
+</script>
+
+</body>
+</html>
