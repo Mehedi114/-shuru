@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — শুরু</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; word-wrap: break-word; }
+html, body { overflow-x: hidden; }
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f5f5f7;
+    color: #1a1a1a;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* TOP BAR */
+.admin-topbar {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.admin-logo {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.admin-logo span { color: #ffb800; font-size: 11px; margin-left: 6px; }
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-btn {
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.admin-btn:hover { background: rgba(255,255,255,0.2); }
+.admin-btn.danger:hover { background: #c44; }
+
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* LOADER */
+.full-loader {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #f5f5f7;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.full-loader.hidden { display: none; }
+
+.spinner {
+    width: 32px; height: 32px;
+    border: 3px solid #f0f0f0;
+    border-top-color: #1a1a1a;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader-text { font-size: 14px; color: #999; margin-top: 12px; }
+
+/* DENIED */
+.denied {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.denied-icon { font-size: 50px; margin-bottom: 16px; }
+
+.denied-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.denied-sub { font-size: 14px; color: #888; margin-bottom: 24px; }
+
+/* HEADING */
+.page-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.page-sub {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 28px;
+}
+
+/* STATS OVERVIEW */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+.overview-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px 24px;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.overview-label {
+    font-size: 10px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.overview-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+}
+
+.overview-note {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title .badge {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* SEARCH */
+.search-bar {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #efefef;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+}
+
+.search-bar input::placeholder { color: #ccc; }
+
+/* USER LIST */
+.user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+}
+
+.user-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.user-card:hover {
+    border-color: #1a1a1a;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.user-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f5f5f7;
+}
+
+.user-avatar-big {
+    width: 44px;
+    height: 44px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.user-meta { flex: 1; min-width: 0; }
+.user-meta .u-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-meta .u-email {
+    font-size: 11px;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-badge {
+    background: #ffb800;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.user-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.u-stat {
+    background: #f5f5f7;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+.u-stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.u-stat-lbl {
+    font-size: 9px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: zoomIn 0.2s ease;
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-head {
+    padding: 24px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-head h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-body { padding: 24px; }
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f7;
+    font-size: 13px;
+}
+
+.detail-row:last-child { border-bottom: none; }
+
+.detail-label { color: #999; }
+.detail-value { color: #1a1a1a; font-weight: 600; }
+
+.trigger-list {
+    margin-top: 16px;
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.trigger-list h4 {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.trigger-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 13px;
+}
+
+.trigger-row .t-name { color: #444; }
+.trigger-row .t-count { font-weight: 700; color: #1a1a1a; }
+
+.ideas-section {
+    margin-top: 20px;
+}
+
+.ideas-section h4 {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.idea-item {
+    background: #f5f5f7;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #444;
+}
+
+.idea-item .i-cat {
+    display: inline-block;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #ccc;
+}
+
+.empty-icon { font-size: 40px; margin-bottom: 12px; }
+.empty-text { font-size: 14px; color: #999; }
+
+@media (max-width: 600px) {
+    .container { padding: 16px; }
+    .overview-value { font-size: 26px; }
+    .user-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="full-loader" id="loader">
+    <div class="spinner"></div>
+    <div class="loader-text">loading...</div>
+</div>
+
+<!-- DENIED -->
+<div id="deniedScreen" style="display:none;">
+    <div class="denied">
+        <div class="denied-icon">🔒</div>
+        <div class="denied-title">Access Denied</div>
+        <div class="denied-sub">শুধু admin এই page এ ঢুকতে পারে।</div>
+        <a href="index.html" class="admin-btn" style="background:#1a1a1a; padding:12px 24px; text-decoration:none; display:inline-block;">← হোম এ ফেরো</a>
+    </div>
+</div>
+
+<!-- ADMIN MAIN -->
+<div id="adminMain" style="display:none;">
+
+<div class="admin-topbar">
+    <div class="admin-logo">শুরু <span>ADMIN</span></div>
+    <div class="admin-actions">
+        <button class="admin-btn" onclick="refreshData()">🔄 Refresh</button>
+        <a href="index.html" class="admin-btn" style="text-decoration:none;">← App</a>
+        <button class="admin-btn danger" onclick="adminLogout()">Logout</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="page-heading">Dashboard</h1>
+    <p class="page-sub">সব user এর data এক জায়গায়</p>
+
+    <!-- OVERVIEW -->
+    <div class="stats-overview" id="statsOverview">
+        <div class="overview-card">
+            <div class="overview-label">মোট User</div>
+            <div class="overview-value" id="totalUsers">0</div>
+        </div>
+        <div class="overview-card">
+            <div class="overview-label">মোট সেশন</div>
+            <div class="overview-value" id="totalSessions">0</div>
+        </div>
+        <div class="overview-card">
+            <div class="overview-label">মোট মিনিট</div>
+            <div class="overview-value" id="totalMinutes">0</div>
+        </div>
+        <div class="overview-card">
+            <div class="overview-label">মোট আইডিয়া</div>
+            <div class="overview-value" id="totalIdeas">0</div>
+        </div>
+        <div class="overview-card">
+            <div class="overview-label">মোট রেসকিউ</div>
+            <div class="overview-value" id="totalRescues">0</div>
+        </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="section-title">
+        <span>সব User</span>
+        <span class="badge" id="userBadge">0</span>
+    </div>
+
+    <div class="search-bar">
+        <span style="font-size:14px; color:#ccc;">🔍</span>
+        <input type="text" id="userSearch" placeholder="name বা email দিয়ে search..." oninput="renderUsers()">
+    </div>
+
+    <div class="user-grid" id="userGrid"></div>
+
+</div>
+
+</div>
+
+<!-- USER DETAIL MODAL -->
+<div class="modal-overlay" id="userModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h2 id="modalUserName">User Details</h2>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+        </div>
+    </div>
+</div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDKI_wT_xzxu6W2lRo8OpfC4MzlYz6jJfc",
+    authDomain: "shuru-apk.firebaseapp.com",
+    projectId: "shuru-apk",
+    storageBucket: "shuru-apk.firebasestorage.app",
+    messagingSenderId: "317579699500",
+    appId: "1:317579699500:web:66683ee0955d63ff477889"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const ADMIN_EMAIL = "mdmahedulislammehedi@gmail.com";
+
+window.fbAuth = auth;
+window.fbDb = db;
+window.fbSignOut = signOut;
+window.fbOnAuth = onAuthStateChanged;
+window.fbCollection = collection;
+window.fbGetDocs = getDocs;
+window.ADMIN_EMAIL = ADMIN_EMAIL;
+
+window.dispatchEvent(new Event('firebaseReady'));
+</script>
+
+<script>
+let allUsers = [];
+
+window.addEventListener('firebaseReady', () => {
+    window.fbOnAuth(window.fbAuth, async (user) => {
+        document.getElementById('loader').classList.add('hidden');
+
+        if (!user) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        if (user.email !== window.ADMIN_EMAIL) {
+            document.getElementById('deniedScreen').style.display = 'block';
+            return;
+        }
+
+        document.getElementById('adminMain').style.display = 'block';
+        await loadAllUsers();
+    });
+});
+
+async function loadAllUsers() {
+    try {
+        let snap = await window.fbGetDocs(window.fbCollection(window.fbDb, 'users'));
+        allUsers = [];
+        snap.forEach(d => {
+            let u = d.data();
+            u.uid = d.id;
+            allUsers.push(u);
+        });
+        updateOverview();
+        renderUsers();
+    } catch (err) {
+        console.error('Load error:', err);
+        alert('Data load error: ' + err.message);
+    }
+}
+
+function updateOverview() {
+    let totalSessions = 0, totalMinutes = 0, totalIdeas = 0, totalRescues = 0;
+    allUsers.forEach(u => {
+        totalSessions += u.focusSessions || 0;
+        totalMinutes += u.totalMinutes || 0;
+        totalIdeas += (u.ideas || []).length;
+        totalRescues += u.rescueCount || 0;
+    });
+
+    document.getElementById('totalUsers').textContent = allUsers.length;
+    document.getElementById('totalSessions').textContent = totalSessions;
+    document.getElementById('totalMinutes').textContent = totalMinutes;
+    document.getElementById('totalIdeas').textContent = totalIdeas;
+    document.getElementById('totalRescues').textContent = totalRescues;
+    document.getElementById('userBadge').textContent = allUsers.length;
+}
+
+function renderUsers() {
+    let search = document.getElementById('userSearch').value.toLowerCase().trim();
+    let filtered = allUsers.filter(u => {
+        if (!search) return true;
+        return (u.name || '').toLowerCase().includes(search) ||
+               (u.email || '').toLowerCase().includes(search);
+    });
+
+    let grid = document.getElementById('userGrid');
+
+    if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty" style="grid-column:1/-1;">
+            <div class="empty-icon">👤</div>
+            <div class="empty-text">কোনো user নেই</div>
+        </div>`;
+        return;
+    }
+
+    let html = '';
+    filtered.forEach((u, idx) => {
+        let initial = (u.name || u.email || 'U').charAt(0).toUpperCase();
+        let isAdmin = u.email === window.ADMIN_EMAIL;
+        let ideasCount = (u.ideas || []).length;
+
+        html += `
+        <div class="user-card" onclick="showUserDetail(${idx})">
+            <div class="user-card-top">
+                <div class="user-avatar-big">${initial}</div>
+                <div class="user-meta">
+                    <div class="u-name">${escapeHtml(u.name || 'Unknown')}</div>
+                    <div class="u-email">${escapeHtml(u.email || '')}</div>
+                </div>
+                ${isAdmin ? '<span class="user-badge">Admin</span>' : ''}
+            </div>
+            <div class="user-stats">
+                <div class="u-stat">
+                    <div class="u-stat-num">${u.focusSessions || 0}</div>
+                    <div class="u-stat-lbl">সেশন</div>
+                </div>
+                <div class="u-stat">
+                    <div class="u-stat-num">${u.totalMinutes || 0}</div>
+                    <div class="u-stat-lbl">মিনিট</div>
+                </div>
+                <div class="u-stat">
+                    <div class="u-stat-num">${ideasCount}</div>
+                    <div class="u-stat-lbl">আইডিয়া</div>
+                </div>
+                <div class="u-stat">
+                    <div class="u-stat-num">${u.rescueCount || 0}</div>
+                    <div class="u-stat-lbl">রেসকিউ</div>
+                </div>
+            </div>
+        </div>`;
+    });
+    grid.innerHTML = html;
+}
+
+function showUserDetail(idx) {
+    let u = allUsers[idx];
+    document.getElementById('modalUserName').textContent = u.name || 'User';
+
+    let createdDate = '—';
+    if (u.createdAt) {
+        try {
+            let d = u.createdAt.toDate ? u.createdAt.toDate() : new Date(u.createdAt);
+            createdDate = d.toLocaleDateString('bn-BD') + ' ' + d.toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit'});
+        } catch(e) {}
+    }
+
+    let lastActive = '—';
+    if (u.lastActive) {
+        try {
+            let d = u.lastActive.toDate ? u.lastActive.toDate() : new Date(u.lastActive);
+            lastActive = d.toLocaleDateString('bn-BD') + ' ' + d.toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit'});
+        } catch(e) {}
+    }
+
+    let html = `
+        <div class="detail-row"><span class="detail-label">নাম</span><span class="detail-value">${escapeHtml(u.name || '—')}</span></div>
+        <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">${escapeHtml(u.email || '—')}</span></div>
+        <div class="detail-row"><span class="detail-label">Account তৈরি</span><span class="detail-value">${createdDate}</span></div>
+        <div class="detail-row"><span class="detail-label">শেষ active</span><span class="detail-value">${lastActive}</span></div>
+        <div class="detail-row"><span class="detail-label">আজকের task</span><span class="detail-value">${escapeHtml(u.task || '—')}</span></div>
+        <div class="detail-row"><span class="detail-label">ফোকাস সেশন</span><span class="detail-value">${u.focusSessions || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">মোট মিনিট</span><span class="detail-value">${u.totalMinutes || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">রেসকিউ</span><span class="detail-value">${u.rescueCount || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">আইডিয়া</span><span class="detail-value">${(u.ideas || []).length}</span></div>
+        <div class="detail-row"><span class="detail-label">Streak</span><span class="detail-value">${u.streak || 0} দিন</span></div>
+    `;
+
+    // Triggers breakdown
+    if (u.triggers && Object.keys(u.triggers).length > 0) {
+        let triggerNames = { scroll:'📱 Scrolling', gaming:'🎮 Gaming', porn:'◼ Porn',
+            overthink:'🌀 Overthinking', bore:'😴 Boredom', fear:'😰 Fear' };
+        html += `<div class="trigger-list"><h4>Trigger breakdown</h4>`;
+        for (let t in u.triggers) {
+            html += `<div class="trigger-row"><span class="t-name">${triggerNames[t] || t}</span><span class="t-count">${u.triggers[t]}</span></div>`;
+        }
+        html += `</div>`;
+    }
+
+    // Recent ideas
+    if (u.ideas && u.ideas.length > 0) {
+        let categoryNames = { video:'🎬 Video', reel:'📱 Reel', post:'📝 Post', script:'📖 Script', other:'💭 Other' };
+        html += `<div class="ideas-section"><h4>সব আইডিয়া (${u.ideas.length}টি)</h4>`;
+        u.ideas.slice(0, 20).forEach(idea => {
+            html += `<div class="idea-item">
+                <span class="i-cat">${categoryNames[idea.category] || idea.category}</span>
+                ${idea.starred ? ' ⭐' : ''}
+                ${idea.done ? ' ✅' : ''}
+                <div>${escapeHtml(idea.title)}</div>
+                ${idea.desc ? `<div style="font-size:11px; color:#888; margin-top:4px;">${escapeHtml(idea.desc)}</div>` : ''}
+            </div>`;
+        });
+        if (u.ideas.length > 20) {
+            html += `<div style="text-align:center; padding:10px; color:#999; font-size:12px;">... আরো ${u.ideas.length - 20}টি</div>`;
+        }
+        html += `</div>`;
+    }
+
+    document.getElementById('modalBody').innerHTML = html;
+    document.getElementById('userModal').classList.add('active');
+}
+
+function closeModal() {
+    document.getElementById('userModal').classList.remove('active');
+}
+
+function escapeHtml(text) {
+    let div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+}
+
+async function refreshData() {
+    document.getElementById('loader').classList.remove('hidden');
+    await loadAllUsers();
+    document.getElementById('loader').classList.add('hidden');
+}
+
+async function adminLogout() {
+    if (!confirm('Logout?')) return;
+    await window.fbSignOut(window.fbAuth);
+    window.location.href = 'index.html';
+}
+
+document.getElementById('userModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
+window.showUserDetail = showUserDetail;
+window.closeModal = closeModal;
+window.refreshData = refreshData;
+window.adminLogout = adminLogout;
+window.renderUsers = renderUsers;
+</script>
+
+</body>
+</html>
