@@ -164,6 +164,197 @@ body {
     color: rgba(255,255,255,0.5);
     line-height: 1.6;
 }
+
+ /* ============ BREATHING ACTIVITY ============ */
+.activity-screen {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #4a5878 0%, #6b7c93 50%, #8b9bb4 100%);
+    padding: 30px 24px;
+    color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 160;
+    animation: gentleFade 0.6s ease;
+}
+
+.activity-screen.active { display: block; }
+
+.activity-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 420px;
+    margin: 0 auto 20px;
+}
+
+.activity-title {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+}
+
+.breathing-wrap {
+    max-width: 420px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.breath-instruction {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.breath-circle-container {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breath-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 70%);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+    position: absolute;
+    box-shadow: 0 0 40px rgba(255,255,255,0.2);
+}
+
+.breath-circle.inhale {
+    transform: scale(1.6);
+    background: radial-gradient(circle, rgba(173,216,230,0.5) 0%, rgba(173,216,230,0.2) 70%);
+    border-color: rgba(173,216,230,0.6);
+    box-shadow: 0 0 60px rgba(173,216,230,0.4);
+}
+
+.breath-circle.hold {
+    transform: scale(1.6);
+    background: radial-gradient(circle, rgba(221,160,221,0.5) 0%, rgba(221,160,221,0.2) 70%);
+    border-color: rgba(221,160,221,0.6);
+    box-shadow: 0 0 60px rgba(221,160,221,0.4);
+}
+
+.breath-circle.exhale {
+    transform: scale(0.8);
+    background: radial-gradient(circle, rgba(144,238,144,0.4) 0%, rgba(144,238,144,0.1) 70%);
+    border-color: rgba(144,238,144,0.5);
+    box-shadow: 0 0 30px rgba(144,238,144,0.3);
+}
+
+.breath-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.breath-count {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+.breath-cycle-info {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+.breath-cycle-info span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.activity-actions {
+    max-width: 420px;
+    margin: 30px auto 0;
+}
+
+.activity-btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255,255,255,0.95);
+    color: #4a5878;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.activity-btn-primary:hover { background: #fff; }
+
+.activity-btn-outline {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: rgba(255,255,255,0.9);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 14px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.activity-btn-outline:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.1);
+}
+
+.completion-screen {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.completion-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+    animation: gentlePulse 2s ease-in-out infinite;
+}
+
+.completion-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 14px;
+    line-height: 1.4;
+}
+
+.completion-message {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 30px;
+}   
 /* AUTH */
 .auth-screen {
     min-height: 100vh;
@@ -1232,6 +1423,52 @@ body {
         <p class="dep-footer-text">তুমি যা feel করছো — সেটা ঠিক আছে।<br>সময় নাও। তাড়া নেই।</p>
     </div>
 </div>
+<!-- ============ BREATHING ACTIVITY SCREEN ============ -->
+<div class="activity-screen" id="breathingScreen">
+    <div class="activity-top">
+        <button class="dep-back" onclick="exitActivity()">← ফিরে যাই</button>
+        <span class="activity-title">🫁 শ্বাস</span>
+    </div>
+
+    <!-- BREATHING VIEW -->
+    <div class="breathing-wrap" id="breathingView">
+        <p class="breath-instruction">circle এর সাথে শ্বাস নাও।<br>আমি guide করছি।</p>
+
+        <div class="breath-circle-container">
+            <div class="breath-circle" id="breathCircle">
+                <div>
+                    <div class="breath-text" id="breathText">শুরু করো</div>
+                    <div class="breath-count" id="breathCount"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="breath-cycle-info">
+            cycle: <span id="cycleCount">0</span> / 4
+        </div>
+
+        <div class="activity-actions">
+            <button class="activity-btn-primary" id="startBreathBtn" onclick="startBreathing()">শুরু করি</button>
+            <button class="activity-btn-outline" onclick="exitActivity()">যথেষ্ট হয়েছে</button>
+        </div>
+    </div>
+
+    <!-- COMPLETION VIEW -->
+    <div class="completion-screen" id="completionView" style="display:none;">
+        <div class="completion-icon">🌸</div>
+        <h2 class="completion-title">তুমি ভালো করেছো।</h2>
+        <p class="completion-message">
+            তুমি এইমাত্র নিজেকে সময় দিলে।<br>
+            এটা ছোট কাজ না — এটা <strong>brave</strong>।<br><br>
+            একটু ভালো লাগছে?
+        </p>
+
+        <button class="activity-btn-primary" onclick="restartBreathing()">আরো করি</button>
+        <button class="activity-btn-outline" onclick="backToDepression()">অন্য কিছু try করি</button>
+        <button class="activity-btn-outline" onclick="exitToHome()">কাজে ফিরে যাই</button>
+    </div>
+</div>
+    
 <div class="toast" id="toast">saved</div>
 
 <div class="bottom-nav">
@@ -1930,8 +2167,14 @@ function exitDepressionMode() {
 }
 
 function selectMood(mood) {
+    // Heavy mood → Breathing activity
+    if (mood === 'heavy') {
+        startBreathingActivity();
+        return;
+    }
+
+    // Other moods → temporary message
     const messages = {
-        heavy: 'এই ভার তুমি একা বইছো না।',
         crying: 'কান্নাটা ছেড়ে দাও। এটা শুদ্ধতা।',
         empty: 'Numbness মানে দুর্বলতা না।',
         numb: 'তুমি নিজেকে অনুভব করতে চাও।',
@@ -1940,7 +2183,126 @@ function selectMood(mood) {
         hurt: 'যেই আঘাত করুক — তোমার ব্যথা real।',
         overwhelmed: 'Brain overload। একটু থামো।'
     };
-    alert('💙 ' + (messages[mood] || 'আমি পাশে আছি।') + '\n\nএই mood এর activity পরের patch এ আসছে।');
+    alert('💙 ' + (messages[mood] || 'আমি পাশে আছি।') + '\n\nএই mood এর activity শীঘ্রই আসছে।');
+}
+
+// ============ BREATHING ACTIVITY ============
+let breathingInterval = null;
+let breathingCycle = 0;
+let breathingActive = false;
+
+function startBreathingActivity() {
+    document.getElementById('breathingScreen').classList.add('active');
+    document.getElementById('breathingView').style.display = 'block';
+    document.getElementById('completionView').style.display = 'none';
+    document.getElementById('breathText').textContent = 'শুরু করো';
+    document.getElementById('breathCount').textContent = '';
+    document.getElementById('cycleCount').textContent = '0';
+    document.getElementById('startBreathBtn').textContent = 'শুরু করি';
+    document.getElementById('startBreathBtn').style.display = 'block';
+    document.getElementById('breathCircle').className = 'breath-circle';
+    breathingCycle = 0;
+    breathingActive = false;
+}
+
+function startBreathing() {
+    if (breathingActive) return;
+    breathingActive = true;
+    document.getElementById('startBreathBtn').style.display = 'none';
+    breathingCycle = 0;
+    runBreathCycle();
+}
+
+function runBreathCycle() {
+    if (!breathingActive) return;
+
+    let circle = document.getElementById('breathCircle');
+    let text = document.getElementById('breathText');
+    let count = document.getElementById('breathCount');
+
+    // INHALE — 4 seconds
+    circle.className = 'breath-circle inhale';
+    text.textContent = 'শ্বাস নাও';
+    countdown(4, count, () => {
+        if (!breathingActive) return;
+
+        // HOLD — 7 seconds
+        circle.className = 'breath-circle hold';
+        text.textContent = 'ধরে রাখো';
+        countdown(7, count, () => {
+            if (!breathingActive) return;
+
+            // EXHALE — 8 seconds
+            circle.className = 'breath-circle exhale';
+            text.textContent = 'ছাড়ো';
+            countdown(8, count, () => {
+                if (!breathingActive) return;
+
+                breathingCycle++;
+                document.getElementById('cycleCount').textContent = breathingCycle;
+
+                if (breathingCycle >= 4) {
+                    completeBreathing();
+                } else {
+                    setTimeout(() => runBreathCycle(), 500);
+                }
+            });
+        });
+    });
+}
+
+function countdown(seconds, element, callback) {
+    let remaining = seconds;
+    element.textContent = remaining;
+
+    let interval = setInterval(() => {
+        if (!breathingActive) {
+            clearInterval(interval);
+            return;
+        }
+        remaining--;
+        if (remaining > 0) {
+            element.textContent = remaining;
+        } else {
+            clearInterval(interval);
+            element.textContent = '';
+            callback();
+        }
+    }, 1000);
+
+    breathingInterval = interval;
+}
+
+function completeBreathing() {
+    breathingActive = false;
+    document.getElementById('breathingView').style.display = 'none';
+    document.getElementById('completionView').style.display = 'block';
+}
+
+function restartBreathing() {
+    startBreathingActivity();
+    setTimeout(() => startBreathing(), 300);
+}
+
+function backToDepression() {
+    breathingActive = false;
+    if (breathingInterval) clearInterval(breathingInterval);
+    document.getElementById('breathingScreen').classList.remove('active');
+}
+
+function exitToHome() {
+    breathingActive = false;
+    if (breathingInterval) clearInterval(breathingInterval);
+    document.getElementById('breathingScreen').classList.remove('active');
+    document.getElementById('depressionScreen').classList.remove('active');
+    document.body.style.overflow = '';
+    showScreen('dashScreen');
+}
+
+function exitActivity() {
+    breathingActive = false;
+    if (breathingInterval) clearInterval(breathingInterval);
+    document.getElementById('breathingScreen').classList.remove('active');
 }
 
 function backToWork() { showScreen('dashScreen'); randomQuote(); }
@@ -2134,6 +2496,12 @@ window.backToWork = backToWork;
 window.enterDepressionMode = enterDepressionMode;
 window.exitDepressionMode = exitDepressionMode;
 window.selectMood = selectMood;
+window.startBreathingActivity = startBreathingActivity;
+window.startBreathing = startBreathing;
+window.restartBreathing = restartBreathing;
+window.backToDepression = backToDepression;
+window.exitToHome = exitToHome;
+window.exitActivity = exitActivity;    
 window.openIdeaModal = openIdeaModal;
 window.closeIdeaModal = closeIdeaModal;
 window.saveIdea = saveIdea;
