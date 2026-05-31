@@ -104,6 +104,52 @@ body {
 .auth-input:focus { border-color: #1a1a1a; background: #ffffff; }
 .auth-input::placeholder { color: #bbb; }
 
+/* PASSWORD WRAPPER WITH EYE */
+.password-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.password-wrapper input {
+    margin-bottom: 0;
+    padding-right: 48px;
+}
+
+.eye-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #999;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.eye-toggle:hover { color: #1a1a1a; }
+
+/* FORGOT PASSWORD LINK */
+.forgot-link {
+    text-align: right;
+    margin-bottom: 14px;
+    margin-top: -4px;
+}
+
+.forgot-link a {
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.forgot-link a:hover { color: #1a1a1a; }
+
 .auth-btn {
     width: 100%;
     padding: 14px;
@@ -134,6 +180,18 @@ body {
 
 .auth-error.show { display: block; }
 
+.auth-success {
+    background: #e8f7ed;
+    color: #2a9d4a;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.auth-success.show { display: block; }
+
 .auth-loading {
     text-align: center;
     color: #aaa;
@@ -143,6 +201,40 @@ body {
 }
 
 .auth-loading.show { display: block; }
+
+.back-link {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.back-link a {
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.back-link a:hover { color: #1a1a1a; }
+
+.forgot-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.forgot-heading h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+}
+
+.forgot-heading p {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.5;
+}
 
 /* ============ APP MAIN ============ */
 #appMain { display: none; }
@@ -162,7 +254,6 @@ body {
 }
 
 .logo { font-size: 21px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.5px; }
-
 .topbar-right { display: flex; align-items: center; gap: 10px; }
 
 .streak-box {
@@ -190,7 +281,7 @@ body {
     cursor: pointer;
 }
 
-/* ============ USER MENU ============ */
+/* USER MENU */
 .user-menu-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -254,7 +345,7 @@ body {
 .menu-item:hover { background: #f5f5f7; }
 .menu-item.danger { color: #c44; }
 
-/* ============ SCREENS ============ */
+/* SCREENS */
 .screen {
     display: none;
     padding: 24px 20px;
@@ -276,7 +367,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============ TYPOGRAPHY ============ */
 .greeting { font-size: 13px; color: #bbb; margin-bottom: 4px; font-weight: 400; }
 
 .main-heading {
@@ -308,7 +398,6 @@ body {
 
 .section-header .count { font-size: 12px; color: #999; font-weight: 500; }
 
-/* ============ INPUT ============ */
 .input-card {
     background: #ffffff;
     border-radius: 14px;
@@ -359,7 +448,6 @@ body {
 .input-card textarea:focus { border-color: #1a1a1a; }
 .input-card input::placeholder, .input-card textarea::placeholder { color: #d5d5d5; font-weight: 300; }
 
-/* ============ BUTTONS ============ */
 .btn-primary {
     width: 100%;
     padding: 16px;
@@ -412,7 +500,6 @@ body {
 
 .btn-rescue:hover { background: #1a1a1a; color: #fff; }
 
-/* ============ TASK CARD ============ */
 .task-card {
     background: #ffffff;
     border-radius: 18px;
@@ -444,7 +531,6 @@ body {
 .task-card-step { font-size: 13px; color: #aaa; font-weight: 400; }
 .task-card-step span { color: #666; font-weight: 500; }
 
-/* ============ QUOTE ============ */
 .quote-card {
     background: #ffffff;
     border-radius: 14px;
@@ -456,7 +542,6 @@ body {
 
 .quote-text { font-size: 13px; color: #bbb; font-weight: 400; line-height: 1.7; }
 
-/* ============ TIMER GRID ============ */
 .timer-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -494,7 +579,6 @@ body {
     margin-top: 2px;
 }
 
-/* ============ STATS ============ */
 .stats-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -528,7 +612,6 @@ body {
     margin-top: 4px;
 }
 
-/* ============ FOCUS SCREEN ============ */
 .focus-wrapper { text-align: center; padding-top: 20px; }
 
 .focus-card {
@@ -579,7 +662,6 @@ body {
 
 .focus-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
 
-/* ============ RESCUE ============ */
 .rescue-top { text-align: center; padding: 16px 0 24px; }
 
 .rescue-heading {
@@ -615,7 +697,6 @@ body {
 .trigger-card:hover { border-color: #1a1a1a; color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .trigger-card .t-icon { font-size: 22px; display: block; margin-bottom: 8px; }
 
-/* ============ RECOVERY ============ */
 .recovery-list {
     background: #ffffff;
     border-radius: 16px;
@@ -651,7 +732,6 @@ body {
 
 .r-text { font-size: 14px; color: #444; line-height: 1.5; font-weight: 400; }
 
-/* ============ REVIEW ============ */
 .review-block {
     background: #ffffff;
     border-radius: 16px;
@@ -689,7 +769,6 @@ body {
 
 .review-final p { font-size: 15px; color: #ffffff; line-height: 1.6; font-weight: 400; }
 
-/* ============ IDEAS ============ */
 .idea-search {
     background: #ffffff;
     border-radius: 12px;
@@ -836,7 +915,6 @@ body {
 .empty-state .empty-text { font-size: 14px; color: #aaa; margin-bottom: 6px; font-weight: 500; }
 .empty-state .empty-sub { font-size: 12px; color: #ccc; }
 
-/* ============ FAB ============ */
 .fab {
     position: fixed;
     bottom: 88px;
@@ -865,7 +943,6 @@ body {
     .fab:hover { transform: scale(1.05); }
 }
 
-/* ============ MODAL ============ */
 .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -917,7 +994,6 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-/* ============ BOTTOM NAV ============ */
 .bottom-nav {
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -936,7 +1012,6 @@ body {
 .nav-btn.active .n-icon { opacity: 1; }
 .nav-btn.active .n-text { color: #1a1a1a; }
 
-/* ============ MISC ============ */
 .reset-link { text-align: center; margin-top: 20px; }
 .reset-link a { font-size: 12px; color: #ccc; text-decoration: none; cursor: pointer; font-weight: 400; }
 .reset-link a:hover { color: #1a1a1a; }
@@ -991,36 +1066,69 @@ body {
 </head>
 <body>
 
-<!-- ========== LOADER ========== -->
+<!-- LOADER -->
 <div class="full-loader" id="loader">
     <div class="spinner"></div>
     <div class="loader-text">শুরু...</div>
 </div>
 
-<!-- ========== AUTH SCREEN ========== -->
+<!-- AUTH SCREEN -->
 <div class="auth-screen" id="authScreen" style="display:none;">
     <div class="auth-box">
         <div class="auth-logo">শুরু</div>
         <div class="auth-tagline">আগে create করো। consume পরে।</div>
 
-        <div class="auth-tab">
-            <button class="active" onclick="switchAuth('login')" id="tabLogin">Login</button>
-            <button onclick="switchAuth('signup')" id="tabSignup">Sign Up</button>
+        <!-- LOGIN/SIGNUP VIEW -->
+        <div id="loginSignupView">
+            <div class="auth-tab">
+                <button class="active" onclick="switchAuth('login')" id="tabLogin">Login</button>
+                <button onclick="switchAuth('signup')" id="tabSignup">Sign Up</button>
+            </div>
+
+            <div class="auth-error" id="authError"></div>
+            <div class="auth-success" id="authSuccess"></div>
+
+            <input type="text" class="auth-input" id="authName" placeholder="তোমার নাম" style="display:none;">
+            <input type="email" class="auth-input" id="authEmail" placeholder="email">
+
+            <div class="password-wrapper">
+                <input type="password" class="auth-input" id="authPassword" placeholder="password">
+                <button type="button" class="eye-toggle" onclick="togglePassword('authPassword', this)">👁</button>
+            </div>
+
+            <div class="forgot-link" id="forgotLink">
+                <a onclick="showForgotView()">পাসওয়ার্ড ভুলে গেছো?</a>
+            </div>
+
+            <button class="auth-btn" id="authBtn" onclick="handleAuth()">Login</button>
+
+            <div class="auth-loading" id="authLoading">অপেক্ষা করো...</div>
         </div>
 
-        <div class="auth-error" id="authError"></div>
+        <!-- FORGOT PASSWORD VIEW -->
+        <div id="forgotView" style="display:none;">
+            <div class="forgot-heading">
+                <h3>পাসওয়ার্ড reset</h3>
+                <p>তোমার email এ একটা link পাঠাবো।<br>সেটায় ক্লিক করে নতুন password set করো।</p>
+            </div>
 
-        <input type="text" class="auth-input" id="authName" placeholder="তোমার নাম" style="display:none;">
-        <input type="email" class="auth-input" id="authEmail" placeholder="email">
-        <input type="password" class="auth-input" id="authPassword" placeholder="password">
+            <div class="auth-error" id="forgotError"></div>
+            <div class="auth-success" id="forgotSuccess"></div>
 
-        <button class="auth-btn" id="authBtn" onclick="handleAuth()">Login</button>
+            <input type="email" class="auth-input" id="forgotEmail" placeholder="তোমার email">
 
-        <div class="auth-loading" id="authLoading">অপেক্ষা করো...</div>
+            <button class="auth-btn" id="forgotBtn" onclick="handleForgotPassword()">Reset Link পাঠাও</button>
+
+            <div class="auth-loading" id="forgotLoading">পাঠানো হচ্ছে...</div>
+
+            <div class="back-link">
+                <a onclick="showLoginView()">← Login এ ফেরো</a>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- ========== MAIN APP ========== -->
+<!-- MAIN APP -->
 <div id="appMain">
 
 <div class="topbar">
@@ -1031,7 +1139,6 @@ body {
     </div>
 </div>
 
-<!-- HOME SCREEN -->
 <div class="screen active" id="homeScreen">
     <div class="spacer"></div>
     <p class="greeting" id="greetingText">শুভ সকাল</p>
@@ -1051,7 +1158,6 @@ body {
     <button class="btn-primary" onclick="setTask()">শুরু করি</button>
 </div>
 
-<!-- DASHBOARD -->
 <div class="screen" id="dashScreen">
     <div class="task-card">
         <div class="task-card-label">আজকের লক্ষ্য</div>
@@ -1089,7 +1195,6 @@ body {
     <div class="reset-link"><a onclick="resetTask()">নতুন task সেট করো</a></div>
 </div>
 
-<!-- IDEAS -->
 <div class="screen" id="ideasScreen">
     <div class="spacer"></div>
     <p class="greeting">তোমার</p>
@@ -1119,7 +1224,6 @@ body {
     <div id="ideasList"></div>
 </div>
 
-<!-- FOCUS -->
 <div class="screen" id="focusScreen">
     <div class="focus-wrapper">
         <div class="focus-card">
@@ -1140,7 +1244,6 @@ body {
     </div>
 </div>
 
-<!-- RESCUE -->
 <div class="screen" id="rescueScreen">
     <div class="rescue-top">
         <div class="rescue-heading">কিসে টানছে?</div>
@@ -1159,7 +1262,6 @@ body {
     <button class="btn-outline" onclick="showScreen('dashScreen')">ফিরে যাও</button>
 </div>
 
-<!-- RECOVERY -->
 <div class="screen" id="recoveryScreen">
     <div class="rescue-top">
         <div class="rescue-heading" id="recoveryTitle">ফিরে আসো</div>
@@ -1172,7 +1274,6 @@ body {
     <button class="btn-outline" onclick="startFocus(3)">শুধু 3 মিনিট দিই</button>
 </div>
 
-<!-- REVIEW -->
 <div class="screen" id="reviewScreen">
     <div class="spacer"></div>
     <p class="greeting">আজকের</p>
@@ -1206,10 +1307,8 @@ body {
     <button class="btn-outline" onclick="showScreen('dashScreen')" style="margin-top:14px">ড্যাশবোর্ড</button>
 </div>
 
-<!-- FAB -->
 <button class="fab" id="ideaFab" onclick="openIdeaModal()">+</button>
 
-<!-- IDEA MODAL -->
 <div class="modal-overlay" id="ideaModal">
     <div class="modal">
         <div class="modal-handle"></div>
@@ -1241,7 +1340,6 @@ body {
     </div>
 </div>
 
-<!-- USER MENU -->
 <div class="user-menu-overlay" id="userMenu">
     <div class="user-menu">
         <div class="user-menu-handle"></div>
@@ -1256,10 +1354,8 @@ body {
     </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast">saved</div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
     <div class="nav-btn active" onclick="showScreen('dashScreen')" id="navDash">
         <span class="n-icon">◻</span><span class="n-text">হোম</span>
@@ -1280,12 +1376,11 @@ body {
 
 </div>
 
-<!-- ========== FIREBASE ========== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    signOut, onAuthStateChanged
+    signOut, onAuthStateChanged, sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
     getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp
@@ -1312,6 +1407,7 @@ window.fbCreateUser = createUserWithEmailAndPassword;
 window.fbSignIn = signInWithEmailAndPassword;
 window.fbSignOut = signOut;
 window.fbOnAuth = onAuthStateChanged;
+window.fbResetPassword = sendPasswordResetEmail;
 window.fbDoc = doc;
 window.fbSetDoc = setDoc;
 window.fbGetDoc = getDoc;
@@ -1323,7 +1419,6 @@ window.dispatchEvent(new Event('firebaseReady'));
 </script>
 
 <script>
-// ============ APP STATE ============
 let currentUser = null;
 let data = {
     task: '', step: '',
@@ -1341,7 +1436,6 @@ window.addEventListener('firebaseReady', () => {
     initAuth();
 });
 
-// ============ AUTH ============
 function initAuth() {
     window.fbOnAuth(window.fbAuth, async (user) => {
         if (user) {
@@ -1365,13 +1459,11 @@ function showApp() {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('appMain').classList.add('active');
 
-    // Set user avatar
     let initial = (data.name || currentUser.email).charAt(0).toUpperCase();
     document.getElementById('userAvatar').textContent = initial;
     document.getElementById('menuUserName').textContent = data.name || 'User';
     document.getElementById('menuUserEmail').textContent = currentUser.email;
 
-    // Admin check
     if (currentUser.email === window.ADMIN_EMAIL) {
         document.getElementById('adminMenuBtn').style.display = 'block';
     }
@@ -1393,13 +1485,86 @@ function showApp() {
     randomQuote();
 }
 
+// ============ PASSWORD TOGGLE ============
+function togglePassword(inputId, btn) {
+    let input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+    }
+}
+
+// ============ FORGOT PASSWORD ============
+function showForgotView() {
+    document.getElementById('loginSignupView').style.display = 'none';
+    document.getElementById('forgotView').style.display = 'block';
+    document.getElementById('forgotError').classList.remove('show');
+    document.getElementById('forgotSuccess').classList.remove('show');
+
+    // Pre-fill email if already typed
+    let emailVal = document.getElementById('authEmail').value.trim();
+    if (emailVal) document.getElementById('forgotEmail').value = emailVal;
+}
+
+function showLoginView() {
+    document.getElementById('forgotView').style.display = 'none';
+    document.getElementById('loginSignupView').style.display = 'block';
+}
+
+async function handleForgotPassword() {
+    let email = document.getElementById('forgotEmail').value.trim();
+    let errEl = document.getElementById('forgotError');
+    let sucEl = document.getElementById('forgotSuccess');
+    let btnEl = document.getElementById('forgotBtn');
+    let loadEl = document.getElementById('forgotLoading');
+
+    errEl.classList.remove('show');
+    sucEl.classList.remove('show');
+
+    if (!email) {
+        errEl.textContent = 'email দাও';
+        errEl.classList.add('show');
+        return;
+    }
+
+    btnEl.disabled = true;
+    loadEl.classList.add('show');
+
+    try {
+        await window.fbResetPassword(window.fbAuth, email);
+        sucEl.innerHTML = '✓ Reset link পাঠানো হয়েছে!<br><span style="font-size:11px; color:#777;">তোমার email check করো (spam folder সহ)</span>';
+        sucEl.classList.add('show');
+        document.getElementById('forgotEmail').value = '';
+
+        setTimeout(() => {
+            showLoginView();
+        }, 4000);
+    } catch (err) {
+        let msg = 'কিছু একটা ভুল হয়েছে';
+        if (err.code === 'auth/invalid-email') msg = 'email ঠিকমতো লেখো';
+        if (err.code === 'auth/user-not-found') msg = 'এই email এ কোনো account নেই';
+        if (err.code === 'auth/too-many-requests') msg = 'অনেকবার try করেছো। একটু পর আবার চেষ্টা করো।';
+        errEl.textContent = msg;
+        errEl.classList.add('show');
+    }
+
+    btnEl.disabled = false;
+    loadEl.classList.remove('show');
+}
+
+// ============ AUTH ============
 function switchAuth(mode) {
     authMode = mode;
     document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
     document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
     document.getElementById('authName').style.display = mode === 'signup' ? 'block' : 'none';
     document.getElementById('authBtn').textContent = mode === 'login' ? 'Login' : 'Sign Up';
+    document.getElementById('forgotLink').style.display = mode === 'login' ? 'block' : 'none';
     document.getElementById('authError').classList.remove('show');
+    document.getElementById('authSuccess').classList.remove('show');
 }
 
 async function handleAuth() {
@@ -1423,18 +1588,12 @@ async function handleAuth() {
         if (authMode === 'signup') {
             let cred = await window.fbCreateUser(window.fbAuth, email, password);
             await window.fbSetDoc(window.fbDoc(window.fbDb, 'users', cred.user.uid), {
-                name: name,
-                email: email,
+                name: name, email: email,
                 createdAt: window.fbServerTime(),
-                focusSessions: 0,
-                totalMinutes: 0,
-                rescueCount: 0,
-                triggers: {},
-                streak: 0,
-                ideas: [],
-                todayIdeas: 0,
-                task: '',
-                step: ''
+                focusSessions: 0, totalMinutes: 0,
+                rescueCount: 0, triggers: {}, streak: 0,
+                ideas: [], todayIdeas: 0,
+                task: '', step: ''
             });
         } else {
             await window.fbSignIn(window.fbAuth, email, password);
@@ -1446,6 +1605,7 @@ async function handleAuth() {
         if (err.code === 'auth/wrong-password') msg = 'password ভুল';
         if (err.code === 'auth/user-not-found') msg = 'এই email এ account নেই';
         if (err.code === 'auth/invalid-email') msg = 'email ঠিকমতো লেখো';
+        if (err.code === 'auth/weak-password') msg = 'password আরো strong দাও';
         showAuthError(msg);
         btnEl.disabled = false;
         loadEl.classList.remove('show');
@@ -1468,9 +1628,7 @@ async function loadUserData() {
             if (!data.ideas) data.ideas = [];
             data.email = currentUser.email;
         }
-    } catch (err) {
-        console.error('Load error:', err);
-    }
+    } catch (err) { console.error('Load error:', err); }
 }
 
 async function saveData() {
@@ -1478,55 +1636,39 @@ async function saveData() {
     try {
         let docRef = window.fbDoc(window.fbDb, 'users', currentUser.uid);
         await window.fbUpdateDoc(docRef, {
-            task: data.task,
-            step: data.step,
-            focusSessions: data.focusSessions,
-            totalMinutes: data.totalMinutes,
-            rescueCount: data.rescueCount,
-            triggers: data.triggers,
-            streak: data.streak,
-            ideas: data.ideas,
+            task: data.task, step: data.step,
+            focusSessions: data.focusSessions, totalMinutes: data.totalMinutes,
+            rescueCount: data.rescueCount, triggers: data.triggers,
+            streak: data.streak, ideas: data.ideas,
             todayIdeas: data.todayIdeas,
             lastActive: window.fbServerTime()
         });
-    } catch (err) {
-        console.error('Save error:', err);
-    }
+    } catch (err) { console.error('Save error:', err); }
 }
 
 async function logout() {
+    if (!confirm('Logout করবে?')) return;
     try {
         await window.fbSignOut(window.fbAuth);
         location.reload();
-    } catch (err) {
-        showToast('logout error');
-    }
+    } catch (err) { showToast('logout error'); }
 }
 
-function goToAdmin() {
-    window.location.href = 'admin.html';
-}
+function goToAdmin() { window.location.href = 'admin.html'; }
 
-function openUserMenu() {
-    document.getElementById('userMenu').classList.add('active');
-}
-
-function closeUserMenu() {
-    document.getElementById('userMenu').classList.remove('active');
-}
+function openUserMenu() { document.getElementById('userMenu').classList.add('active'); }
+function closeUserMenu() { document.getElementById('userMenu').classList.remove('active'); }
 
 document.getElementById('userMenu').addEventListener('click', function(e) {
     if (e.target === this) closeUserMenu();
 });
 
-// ============ GREETING ============
 function setGreeting() {
     let h = new Date().getHours();
     let t = h < 6 ? 'শুভ রাত' : h < 12 ? 'শুভ সকাল' : h < 17 ? 'শুভ দুপুর' : h < 20 ? 'শুভ সন্ধ্যা' : 'শুভ রাত';
     document.getElementById('greetingText').textContent = t;
 }
 
-// ============ TOAST ============
 function showToast(msg) {
     let t = document.getElementById('toast');
     t.textContent = msg;
@@ -1534,7 +1676,6 @@ function showToast(msg) {
     setTimeout(() => t.classList.remove('show'), 2000);
 }
 
-// ============ SCREENS ============
 function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -1553,17 +1694,13 @@ function showScreen(id) {
     window.scrollTo(0, 0);
 }
 
-// ============ TASK ============
 function setTask() {
     let task = document.getElementById('mainTaskInput').value.trim();
     let step = document.getElementById('firstStepInput').value.trim();
     if (!task) { showToast('task লেখো'); return; }
     if (!step) step = 'শুরু করো';
 
-    data.task = task;
-    data.step = step;
-    saveData();
-
+    data.task = task; data.step = step; saveData();
     document.getElementById('displayTask').textContent = task;
     document.getElementById('displayStep').textContent = step;
     document.getElementById('focusTaskName').textContent = task;
@@ -1584,7 +1721,6 @@ function resetTask() {
     showScreen('homeScreen');
 }
 
-// ============ QUOTES ============
 const quotes = [
     "আগে create করো। consume পরে।",
     "Motivation লাগে না। 5 মিনিট লাগে।",
@@ -1607,7 +1743,6 @@ function randomQuote() {
 }
 setInterval(randomQuote, 12000);
 
-// ============ TIMER ============
 let timerInterval = null, timerSeconds = 0, totalSeconds = 0, isPaused = false;
 
 function startFocus(mins) {
@@ -1645,35 +1780,26 @@ function endFocus() {
     if (timerInterval) clearInterval(timerInterval);
     let minsWorked = Math.max(1, Math.round((totalSeconds - timerSeconds) / 60));
     data.focusSessions++; data.totalMinutes += minsWorked; saveData();
-
     document.getElementById('focusCount').textContent = data.focusSessions;
     document.getElementById('totalMins').textContent = data.totalMinutes;
     document.getElementById('progressBar').style.width = '0%';
-
     showToast('সেশন শেষ — ' + minsWorked + ' মিনিট');
     showScreen('dashScreen');
 }
 
-// ============ RESCUE ============
 const recoveryData = {
     scroll: { title: 'Scrolling বন্ধ করো', sub: 'তুমি stimulation চাচ্ছো।',
-        steps: ['ফোন উল্টে রাখো।', '10 সেকেন্ড চোখ বন্ধ।', 'Draft open করো।', '1 লাইন লেখো।', '3 মিনিট timer।']
-    },
+        steps: ['ফোন উল্টে রাখো।', '10 সেকেন্ড চোখ বন্ধ।', 'Draft open করো।', '1 লাইন লেখো।', '3 মিনিট timer।'] },
     gaming: { title: 'Game রেখে দাও', sub: 'এটা fake reward।',
-        steps: ['Game close করো।', 'দাঁড়াও 60 সেকেন্ড।', 'পানি খাও।', 'Task মনে করো।', '5 মিনিট কাজে বসো।']
-    },
+        steps: ['Game close করো।', 'দাঁড়াও 60 সেকেন্ড।', 'পানি খাও।', 'Task মনে করো।', '5 মিনিট কাজে বসো।'] },
     porn: { title: 'তুমি জানো এটা enemy', sub: '90 সেকেন্ড পার করো।',
-        steps: ['Screen থেকে দূরে।', 'ফোন অন্য room এ।', 'হাঁটো 1 মিনিট।', 'ঠান্ডা পানি মুখে।', 'কাজে ফেরো।']
-    },
+        steps: ['Screen থেকে দূরে।', 'ফোন অন্য room এ।', 'হাঁটো 1 মিনিট।', 'ঠান্ডা পানি মুখে।', 'কাজে ফেরো।'] },
     overthink: { title: 'ভাবনা বন্ধ করো', sub: 'করলে হবে।',
-        steps: ['2 লাইনে লেখো।', 'Actionable?', 'না হলে ছাড়ো।', '1 tiny step বের করো।', 'সেটা এখনই করো।']
-    },
+        steps: ['2 লাইনে লেখো।', 'Actionable?', 'না হলে ছাড়ো।', '1 tiny step বের করো।', 'সেটা এখনই করো।'] },
     bore: { title: 'Boring? স্বাভাবিক।', sub: 'শক্ত হও।',
-        steps: ['Full কাজ ভাবো না।', '1 ছোট piece।', 'Timer 3 মিনিট।', 'বাজে হলেও লেখো।', '3 মিনিট পর check।']
-    },
+        steps: ['Full কাজ ভাবো না।', '1 ছোট piece।', 'Timer 3 মিনিট।', 'বাজে হলেও লেখো।', '3 মিনিট পর check।'] },
     fear: { title: 'Overwhelmed?', sub: 'ভাঙো।',
-        steps: ['Project ভুলো।', 'পরের 1 step।', '5 মিনিটে হবে?', 'না হলে ছোট করো।', 'শুধু সেটা করো।']
-    }
+        steps: ['Project ভুলো।', 'পরের 1 step।', '5 মিনিটে হবে?', 'না হলে ছোট করো।', 'শুধু সেটা করো।'] }
 };
 
 function showRecovery(type) {
@@ -1694,7 +1820,6 @@ function showRecovery(type) {
 
 function backToWork() { showScreen('dashScreen'); randomQuote(); }
 
-// ============ IDEAS ============
 let currentFilter = 'all';
 let editingIdeaId = null;
 
@@ -1733,18 +1858,12 @@ function saveIdea() {
 
     if (editingIdeaId) {
         let idea = data.ideas.find(i => i.id === editingIdeaId);
-        if (idea) {
-            idea.title = title;
-            idea.desc = desc;
-            idea.category = category;
-        }
+        if (idea) { idea.title = title; idea.desc = desc; idea.category = category; }
         showToast('updated');
     } else {
         let newIdea = {
-            id: Date.now(),
-            title: title, desc: desc, category: category,
-            starred: false, done: false,
-            date: new Date().toISOString()
+            id: Date.now(), title: title, desc: desc, category: category,
+            starred: false, done: false, date: new Date().toISOString()
         };
         data.ideas.unshift(newIdea);
         data.todayIdeas = (data.todayIdeas || 0) + 1;
@@ -1774,9 +1893,7 @@ function toggleStar(id) {
 function toggleDone(id) {
     let idea = data.ideas.find(i => i.id === id);
     if (idea) {
-        idea.done = !idea.done;
-        saveData();
-        renderIdeas();
+        idea.done = !idea.done; saveData(); renderIdeas();
         showToast(idea.done ? 'done ✓' : 'reopened');
     }
 }
@@ -1854,7 +1971,6 @@ function updateIdeaCount() {
     document.getElementById('ideaTotalCount').textContent = data.ideas.length;
 }
 
-// ============ REVIEW ============
 function updateReview() {
     document.getElementById('revSessions').textContent = data.focusSessions;
     document.getElementById('revMinutes').textContent = data.totalMinutes;
@@ -1879,9 +1995,22 @@ document.getElementById('ideaInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') saveIdea();
 });
 
-// Make functions global
+// Enter key for login
+document.getElementById('authPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleAuth();
+});
+
+document.getElementById('forgotEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleForgotPassword();
+});
+
+// Make global
 window.switchAuth = switchAuth;
 window.handleAuth = handleAuth;
+window.togglePassword = togglePassword;
+window.showForgotView = showForgotView;
+window.showLoginView = showLoginView;
+window.handleForgotPassword = handleForgotPassword;
 window.logout = logout;
 window.goToAdmin = goToAdmin;
 window.openUserMenu = openUserMenu;
