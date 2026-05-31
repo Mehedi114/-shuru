@@ -198,6 +198,46 @@ body {
     font-weight: 500;
 }
 
+ 
+.sound-toggle {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-toggle:hover { background: rgba(255,255,255,0.25); }
+.sound-toggle.muted { opacity: 0.5; }   
+.sound-toggle {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-toggle:hover { background: rgba(255,255,255,0.25); }
+.sound-toggle.muted { opacity: 0.5; }
+
+.activity-top {
+    gap: 10px;
+}
+    
 .breathing-wrap {
     max-width: 420px;
     margin: 40px auto;
@@ -1428,6 +1468,7 @@ body {
     <div class="activity-top">
         <button class="dep-back" onclick="exitActivity()">← ফিরে যাই</button>
         <span class="activity-title">🫁 শ্বাস</span>
+            <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">🔊</button>
     </div>
 
     <!-- BREATHING VIEW -->
@@ -2187,6 +2228,99 @@ function selectMood(mood) {
 }
 
 // ============ BREATHING ACTIVITY ============
+// ============ SOUND SYSTEM ============
+let audioContext = null;
+let soundEnabled = localStorage.getItem('shuruSound') !== 'off';
+
+function initAudio() {
+    if (!audioContext) {
+        try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {
+            console.log('Audio not supported');
+        }
+    }
+}
+
+function playTone(startFreq, endFreq, duration, type = 'sine', volume = 0.15) {
+    if (!soundEnabled || !audioContext) return;
+
+    try {
+        let oscillator = audioContext.createOscillator();
+        let gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(startFreq, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(endFreq, audioContext.currentTime + duration);
+
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.1);
+        gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + duration - 0.2);
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+    } catch(e) {
+        console.log('Sound error:', e);
+    }
+}
+
+function playChord(frequencies, duration, volume = 0.1) {
+    if (!soundEnabled || !audioContext) return;
+
+    frequencies.forEach(freq => {
+        try {
+            let oscillator = audioContext.createOscillator();
+            let gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.3);
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        } catch(e) {}
+    });
+}
+
+function playInhaleSound() {
+    playTone(240, 360, 4, 'sine', 0.12);
+}
+
+function playHoldSound() {
+    playTone(440, 440, 0.5, 'sine', 0.08);
+}
+
+function playExhaleSound() {
+    playTone(360, 200, 8, 'sine', 0.12);
+}
+
+function playCompletionSound() {
+    playChord([523, 659, 784], 2, 0.1);
+}
+
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('shuruSound', soundEnabled ? 'on' : 'off');
+    updateSoundButton();
+}
+
+function updateSoundButton() {
+    let btn = document.getElementById('soundToggle');
+    if (btn) {
+        btn.textContent = soundEnabled ? '🔊' : '🔇';
+        btn.classList.toggle('muted', !soundEnabled);
+    }
+}
 let breathingInterval = null;
 let breathingCycle = 0;
 let breathingActive = false;
@@ -2207,6 +2341,8 @@ function startBreathingActivity() {
 
 function startBreathing() {
     if (breathingActive) return;
+    initAudio();
+    updateSoundButton();
     breathingActive = true;
     document.getElementById('startBreathBtn').style.display = 'none';
     breathingCycle = 0;
@@ -2223,18 +2359,21 @@ function runBreathCycle() {
     // INHALE — 4 seconds
     circle.className = 'breath-circle inhale';
     text.textContent = 'শ্বাস নাও';
+        playInhaleSound();
     countdown(4, count, () => {
         if (!breathingActive) return;
 
         // HOLD — 7 seconds
         circle.className = 'breath-circle hold';
         text.textContent = 'ধরে রাখো';
+                playHoldSound();
         countdown(7, count, () => {
             if (!breathingActive) return;
 
             // EXHALE — 8 seconds
             circle.className = 'breath-circle exhale';
             text.textContent = 'ছাড়ো';
+                        playExhaleSound();
             countdown(8, count, () => {
                 if (!breathingActive) return;
 
@@ -2274,6 +2413,7 @@ function countdown(seconds, element, callback) {
 }
 
 function completeBreathing() {
+        playCompletionSound();
     breathingActive = false;
     document.getElementById('breathingView').style.display = 'none';
     document.getElementById('completionView').style.display = 'block';
@@ -2501,7 +2641,8 @@ window.startBreathing = startBreathing;
 window.restartBreathing = restartBreathing;
 window.backToDepression = backToDepression;
 window.exitToHome = exitToHome;
-window.exitActivity = exitActivity;    
+window.exitActivity = exitActivity;
+window.toggleSound = toggleSound;    
 window.openIdeaModal = openIdeaModal;
 window.closeIdeaModal = closeIdeaModal;
 window.saveIdea = saveIdea;
