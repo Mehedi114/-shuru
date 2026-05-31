@@ -1706,6 +1706,7 @@ const recoveryData = {
     bore: { title: 'Boring? স্বাভাবিক।', sub: 'শক্ত হও।', steps: ['Full কাজ ভাবো না।', '1 ছোট piece।', 'Timer 3 মিনিট।', 'বাজে হলেও করো।', '3 মিনিট পর check।'] },
    fear: { title: 'Overwhelmed?', sub: 'ভাঙো।', steps: ['Project ভুলো।', 'পরের 1 step।', '5 মিনিটে হবে?', 'না হলে ছোট করো।', 'শুধু সেটা করো।'] },
     depressed: { title: 'আমি বুঝতে পারছি...', sub: 'তুমি একা না। আমি তোমার পাশে আছি।', steps: ['একটু থামো। কিছুক্ষণ পর depression mode আসছে।', 'এখন শুধু একটা গভীর শ্বাস নাও।', 'তুমি brave যে এই button চেপেছো।', 'আমরা একসাথে এগোবো।', 'খুব দ্রুত এই feature complete হবে।'] }
+};
 function showRecovery(type) {
     let info = recoveryData[type];
     if (!data.triggers[type]) data.triggers[type] = 0;
