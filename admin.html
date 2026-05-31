@@ -60,14 +60,12 @@ body {
 .admin-btn:hover { background: rgba(255,255,255,0.2); }
 .admin-btn.danger:hover { background: #c44; }
 
-/* CONTAINER */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px;
 }
 
-/* LOADER */
 .full-loader {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background: #f5f5f7;
@@ -92,7 +90,6 @@ body {
 
 .loader-text { font-size: 14px; color: #999; margin-top: 12px; }
 
-/* DENIED */
 .denied {
     text-align: center;
     padding: 80px 24px;
@@ -109,7 +106,6 @@ body {
 
 .denied-sub { font-size: 14px; color: #888; margin-bottom: 24px; }
 
-/* HEADING */
 .page-heading {
     font-size: 28px;
     font-weight: 700;
@@ -124,12 +120,12 @@ body {
     margin-bottom: 28px;
 }
 
-/* STATS OVERVIEW */
+/* STATS */
 .stats-overview {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 14px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .overview-card {
@@ -162,7 +158,66 @@ body {
     margin-top: 4px;
 }
 
-/* SECTION TITLE */
+/* PROFESSION STATS */
+.profession-stats {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.profession-stats h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profession-stats h3 span {
+    background: #f5f5f7;
+    color: #666;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.profession-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.prof-item {
+    background: #f5f5f7;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.prof-item:hover {
+    background: #1a1a1a;
+    color: #fff;
+    cursor: pointer;
+}
+
+.prof-item .p-icon { font-size: 22px; margin-bottom: 4px; }
+.prof-item .p-name { font-size: 11px; font-weight: 600; color: #444; }
+.prof-item:hover .p-name { color: #fff; }
+.prof-item .p-count {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 4px;
+    letter-spacing: -0.5px;
+}
+.prof-item:hover .p-count { color: #ffb800; }
+
 .section-title {
     font-size: 14px;
     font-weight: 700;
@@ -181,6 +236,39 @@ body {
     font-size: 11px;
     font-weight: 600;
 }
+
+/* FILTERS */
+.filter-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.filter-row::-webkit-scrollbar { display: none; }
+
+.f-chip {
+    padding: 8px 14px;
+    background: #ffffff;
+    border: 1px solid #efefef;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.f-chip.active {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #1a1a1a;
+}
+
+.f-chip:hover { border-color: #1a1a1a; }
+.f-chip.active:hover { color: #ffffff; }
 
 /* SEARCH */
 .search-bar {
@@ -206,7 +294,7 @@ body {
 
 .search-bar input::placeholder { color: #ccc; }
 
-/* USER LIST */
+/* USER GRID */
 .user-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -232,7 +320,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     padding-bottom: 16px;
     border-bottom: 1px solid #f5f5f7;
 }
@@ -248,6 +336,7 @@ body {
     justify-content: center;
     font-size: 16px;
     font-weight: 700;
+    flex-shrink: 0;
 }
 
 .user-meta { flex: 1; min-width: 0; }
@@ -278,6 +367,17 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.profession-badge {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #555;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 14px;
 }
 
 .user-stats {
@@ -369,12 +469,13 @@ body {
     padding: 12px 0;
     border-bottom: 1px solid #f5f5f7;
     font-size: 13px;
+    gap: 12px;
 }
 
 .detail-row:last-child { border-bottom: none; }
 
-.detail-label { color: #999; }
-.detail-value { color: #1a1a1a; font-weight: 600; }
+.detail-label { color: #999; flex-shrink: 0; }
+.detail-value { color: #1a1a1a; font-weight: 600; text-align: right; }
 
 .trigger-list {
     margin-top: 16px;
@@ -422,6 +523,7 @@ body {
     margin-bottom: 8px;
     font-size: 13px;
     color: #444;
+    word-break: break-word;
 }
 
 .idea-item .i-cat {
@@ -455,13 +557,11 @@ body {
 </head>
 <body>
 
-<!-- LOADER -->
 <div class="full-loader" id="loader">
     <div class="spinner"></div>
     <div class="loader-text">loading...</div>
 </div>
 
-<!-- DENIED -->
 <div id="deniedScreen" style="display:none;">
     <div class="denied">
         <div class="denied-icon">🔒</div>
@@ -471,7 +571,6 @@ body {
     </div>
 </div>
 
-<!-- ADMIN MAIN -->
 <div id="adminMain" style="display:none;">
 
 <div class="admin-topbar">
@@ -487,7 +586,6 @@ body {
     <h1 class="page-heading">Dashboard</h1>
     <p class="page-sub">সব user এর data এক জায়গায়</p>
 
-    <!-- OVERVIEW -->
     <div class="stats-overview" id="statsOverview">
         <div class="overview-card">
             <div class="overview-label">মোট User</div>
@@ -511,11 +609,23 @@ body {
         </div>
     </div>
 
-    <!-- USERS -->
+    <!-- PROFESSION STATS -->
+    <div class="profession-stats">
+        <h3>Profession Breakdown <span id="profCount">0 types</span></h3>
+        <div class="profession-list" id="professionList">
+            <div class="empty" style="grid-column:1/-1; padding:20px;">
+                <div class="empty-text" style="font-size:12px;">এখনো কোনো data নেই</div>
+            </div>
+        </div>
+    </div>
+
     <div class="section-title">
         <span>সব User</span>
         <span class="badge" id="userBadge">0</span>
     </div>
+
+    <!-- PROFESSION FILTER -->
+    <div class="filter-row" id="profFilter"></div>
 
     <div class="search-bar">
         <span style="font-size:14px; color:#ccc;">🔍</span>
@@ -528,19 +638,16 @@ body {
 
 </div>
 
-<!-- USER DETAIL MODAL -->
 <div class="modal-overlay" id="userModal">
     <div class="modal-box">
         <div class="modal-head">
             <h2 id="modalUserName">User Details</h2>
             <button class="modal-close" onclick="closeModal()">×</button>
         </div>
-        <div class="modal-body" id="modalBody">
-        </div>
+        <div class="modal-body" id="modalBody"></div>
     </div>
 </div>
 
-<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -573,22 +680,33 @@ window.dispatchEvent(new Event('firebaseReady'));
 </script>
 
 <script>
+const USER_TYPES = {
+    student: { icon: '🎓', name: 'Student' },
+    job: { icon: '💼', name: 'Job Holder' },
+    creator: { icon: '🎬', name: 'Creator' },
+    freelancer: { icon: '💻', name: 'Freelancer' },
+    business: { icon: '🏢', name: 'Business' },
+    writer: { icon: '✍️', name: 'Writer' },
+    designer: { icon: '🎨', name: 'Designer' },
+    teacher: { icon: '👨‍🏫', name: 'Teacher' },
+    healthcare: { icon: '👩‍⚕️', name: 'Healthcare' },
+    athlete: { icon: '🏃', name: 'Athlete' },
+    growth: { icon: '🙏', name: 'Growth' },
+    homemaker: { icon: '🏠', name: 'Homemaker' },
+    custom: { icon: '➕', name: 'Custom' }
+};
+
 let allUsers = [];
+let currentProfFilter = 'all';
 
 window.addEventListener('firebaseReady', () => {
     window.fbOnAuth(window.fbAuth, async (user) => {
         document.getElementById('loader').classList.add('hidden');
-
-        if (!user) {
-            window.location.href = 'index.html';
-            return;
-        }
-
+        if (!user) { window.location.href = 'index.html'; return; }
         if (user.email !== window.ADMIN_EMAIL) {
             document.getElementById('deniedScreen').style.display = 'block';
             return;
         }
-
         document.getElementById('adminMain').style.display = 'block';
         await loadAllUsers();
     });
@@ -604,6 +722,8 @@ async function loadAllUsers() {
             allUsers.push(u);
         });
         updateOverview();
+        renderProfessionStats();
+        renderProfessionFilter();
         renderUsers();
     } catch (err) {
         console.error('Load error:', err);
@@ -628,12 +748,87 @@ function updateOverview() {
     document.getElementById('userBadge').textContent = allUsers.length;
 }
 
+function renderProfessionStats() {
+    let profMap = {};
+    allUsers.forEach(u => {
+        let type = u.userType || 'unset';
+        if (!profMap[type]) profMap[type] = 0;
+        profMap[type]++;
+    });
+
+    let list = document.getElementById('professionList');
+    let typeCount = Object.keys(profMap).length;
+    document.getElementById('profCount').textContent = typeCount + ' types';
+
+    if (typeCount === 0) {
+        list.innerHTML = `<div class="empty" style="grid-column:1/-1; padding:20px;"><div class="empty-text" style="font-size:12px;">এখনো কোনো data নেই</div></div>`;
+        return;
+    }
+
+    // Sort by count desc
+    let sorted = Object.entries(profMap).sort((a, b) => b[1] - a[1]);
+
+    let html = '';
+    sorted.forEach(([type, count]) => {
+        let typeInfo;
+        if (type === 'unset') {
+            typeInfo = { icon: '❓', name: 'Not Set' };
+        } else {
+            typeInfo = USER_TYPES[type] || { icon: '👤', name: type };
+        }
+        html += `<div class="prof-item" onclick="filterByProf('${type}')">
+            <div class="p-icon">${typeInfo.icon}</div>
+            <div class="p-name">${typeInfo.name}</div>
+            <div class="p-count">${count}</div>
+        </div>`;
+    });
+    list.innerHTML = html;
+}
+
+function renderProfessionFilter() {
+    let filtersEl = document.getElementById('profFilter');
+    let profMap = {};
+    allUsers.forEach(u => {
+        let type = u.userType || 'unset';
+        if (!profMap[type]) profMap[type] = 0;
+        profMap[type]++;
+    });
+
+    let html = `<div class="f-chip ${currentProfFilter === 'all' ? 'active' : ''}" onclick="filterByProf('all')">সব (${allUsers.length})</div>`;
+
+    let sorted = Object.entries(profMap).sort((a, b) => b[1] - a[1]);
+    sorted.forEach(([type, count]) => {
+        let typeInfo;
+        if (type === 'unset') typeInfo = { icon: '❓', name: 'Not Set' };
+        else typeInfo = USER_TYPES[type] || { icon: '👤', name: type };
+
+        html += `<div class="f-chip ${currentProfFilter === type ? 'active' : ''}" onclick="filterByProf('${type}')">${typeInfo.icon} ${typeInfo.name} (${count})</div>`;
+    });
+    filtersEl.innerHTML = html;
+}
+
+function filterByProf(type) {
+    currentProfFilter = type;
+    renderProfessionFilter();
+    renderUsers();
+    window.scrollTo({ top: document.querySelector('.section-title').offsetTop - 20, behavior: 'smooth' });
+}
+
 function renderUsers() {
     let search = document.getElementById('userSearch').value.toLowerCase().trim();
+
     let filtered = allUsers.filter(u => {
+        // Profession filter
+        if (currentProfFilter !== 'all') {
+            let userType = u.userType || 'unset';
+            if (userType !== currentProfFilter) return false;
+        }
+
+        // Search filter
         if (!search) return true;
         return (u.name || '').toLowerCase().includes(search) ||
-               (u.email || '').toLowerCase().includes(search);
+               (u.email || '').toLowerCase().includes(search) ||
+               (u.customType || '').toLowerCase().includes(search);
     });
 
     let grid = document.getElementById('userGrid');
@@ -648,12 +843,22 @@ function renderUsers() {
 
     let html = '';
     filtered.forEach((u, idx) => {
+        let realIdx = allUsers.indexOf(u);
         let initial = (u.name || u.email || 'U').charAt(0).toUpperCase();
         let isAdmin = u.email === window.ADMIN_EMAIL;
         let ideasCount = (u.ideas || []).length;
 
+        let profBadge = '';
+        if (u.userType) {
+            let typeInfo = USER_TYPES[u.userType] || { icon: '👤', name: 'Other' };
+            let displayName = u.userType === 'custom' && u.customType ? u.customType : typeInfo.name;
+            profBadge = `<div class="profession-badge">${typeInfo.icon} ${escapeHtml(displayName)}</div>`;
+        } else {
+            profBadge = `<div class="profession-badge" style="background:#fff4e0; color:#a66;">❓ Not Set</div>`;
+        }
+
         html += `
-        <div class="user-card" onclick="showUserDetail(${idx})">
+        <div class="user-card" onclick="showUserDetail(${realIdx})">
             <div class="user-card-top">
                 <div class="user-avatar-big">${initial}</div>
                 <div class="user-meta">
@@ -662,6 +867,7 @@ function renderUsers() {
                 </div>
                 ${isAdmin ? '<span class="user-badge">Admin</span>' : ''}
             </div>
+            ${profBadge}
             <div class="user-stats">
                 <div class="u-stat">
                     <div class="u-stat-num">${u.focusSessions || 0}</div>
@@ -705,9 +911,17 @@ function showUserDetail(idx) {
         } catch(e) {}
     }
 
+    let profDisplay = '—';
+    if (u.userType) {
+        let typeInfo = USER_TYPES[u.userType] || { icon: '👤', name: 'Other' };
+        let displayName = u.userType === 'custom' && u.customType ? u.customType : typeInfo.name;
+        profDisplay = typeInfo.icon + ' ' + displayName;
+    }
+
     let html = `
         <div class="detail-row"><span class="detail-label">নাম</span><span class="detail-value">${escapeHtml(u.name || '—')}</span></div>
         <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">${escapeHtml(u.email || '—')}</span></div>
+        <div class="detail-row"><span class="detail-label">Profession</span><span class="detail-value">${escapeHtml(profDisplay)}</span></div>
         <div class="detail-row"><span class="detail-label">Account তৈরি</span><span class="detail-value">${createdDate}</span></div>
         <div class="detail-row"><span class="detail-label">শেষ active</span><span class="detail-value">${lastActive}</span></div>
         <div class="detail-row"><span class="detail-label">আজকের task</span><span class="detail-value">${escapeHtml(u.task || '—')}</span></div>
@@ -718,7 +932,6 @@ function showUserDetail(idx) {
         <div class="detail-row"><span class="detail-label">Streak</span><span class="detail-value">${u.streak || 0} দিন</span></div>
     `;
 
-    // Triggers breakdown
     if (u.triggers && Object.keys(u.triggers).length > 0) {
         let triggerNames = { scroll:'📱 Scrolling', gaming:'🎮 Gaming', porn:'◼ Porn',
             overthink:'🌀 Overthinking', bore:'😴 Boredom', fear:'😰 Fear' };
@@ -729,13 +942,11 @@ function showUserDetail(idx) {
         html += `</div>`;
     }
 
-    // Recent ideas
     if (u.ideas && u.ideas.length > 0) {
-        let categoryNames = { video:'🎬 Video', reel:'📱 Reel', post:'📝 Post', script:'📖 Script', other:'💭 Other' };
         html += `<div class="ideas-section"><h4>সব আইডিয়া (${u.ideas.length}টি)</h4>`;
         u.ideas.slice(0, 20).forEach(idea => {
             html += `<div class="idea-item">
-                <span class="i-cat">${categoryNames[idea.category] || idea.category}</span>
+                <span class="i-cat">${escapeHtml(idea.category || 'other')}</span>
                 ${idea.starred ? ' ⭐' : ''}
                 ${idea.done ? ' ✅' : ''}
                 <div>${escapeHtml(idea.title)}</div>
@@ -783,6 +994,7 @@ window.closeModal = closeModal;
 window.refreshData = refreshData;
 window.adminLogout = adminLogout;
 window.renderUsers = renderUsers;
+window.filterByProf = filterByProf;
 </script>
 
 </body>
