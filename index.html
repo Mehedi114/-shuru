@@ -395,79 +395,213 @@ body {
     line-height: 1.7;
     margin-bottom: 30px;
 
-/* ============ RAINDROPS ACTIVITY ============ */
+/* ============ PREMIUM RAINDROPS ACTIVITY ============ */
 .raindrops-area {
     position: relative;
     width: 100%;
-    max-width: 420px;
+    max-width: 380px;
     height: 400px;
-    margin: 20px auto;
+    margin: 24px auto;
     overflow: hidden;
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    background:
+        radial-gradient(ellipse at top, rgba(255,255,255,0.08) 0%, transparent 50%),
+        linear-gradient(180deg,
+            rgba(74, 88, 120, 0.4) 0%,
+            rgba(107, 124, 147, 0.3) 50%,
+            rgba(139, 155, 180, 0.4) 100%);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow:
+        inset 0 2px 20px rgba(255,255,255,0.1),
+        inset 0 -2px 20px rgba(0,0,0,0.15),
+        0 8px 32px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+}
+
+.raindrops-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.raindrops-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(0deg, rgba(173,216,230,0.1) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .raindrop {
     position: absolute;
-    width: 24px;
-    height: 32px;
+    width: 18px;
+    height: 26px;
     cursor: pointer;
-    transition: transform 0.2s;
-    animation: fall linear forwards;
     user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
+    animation: fall linear forwards;
+    z-index: 2;
+    background:
+        radial-gradient(ellipse at 30% 30%,
+            rgba(255,255,255,0.9) 0%,
+            rgba(173,216,230,0.7) 40%,
+            rgba(100,150,200,0.5) 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow:
+        inset -2px -3px 6px rgba(0,30,60,0.3),
+        inset 2px 2px 4px rgba(255,255,255,0.5),
+        0 0 12px rgba(173,216,230,0.4);
+    transform-origin: center;
+    transition: transform 0.15s ease;
+}
+
+.raindrop::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 4px;
+    height: 6px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    filter: blur(1px);
 }
 
 .raindrop:hover {
-    transform: scale(1.3);
+    transform: scale(1.4);
+    filter: brightness(1.2);
 }
 
+.raindrop.size-sm { width: 14px; height: 20px; }
+.raindrop.size-lg { width: 22px; height: 32px; }
+
 .raindrop.bursting {
-    animation: burst 0.5s ease forwards;
+    animation: burst 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     pointer-events: none;
 }
 
 @keyframes fall {
-    from { transform: translateY(-50px); }
-    to { transform: translateY(450px); }
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    to {
+        transform: translateY(450px);
+        opacity: 0;
+    }
 }
 
 @keyframes burst {
-    0% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
+    0% {
+        transform: scale(1.4);
+        opacity: 1;
+        filter: brightness(1.5);
+    }
+    50% {
+        transform: scale(2.2);
+        opacity: 0.7;
+        filter: brightness(2) blur(2px);
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+        filter: blur(4px);
+    }
 }
 
 .ripple {
     position: absolute;
-    border: 2px solid rgba(173,216,230,0.8);
+    border: 2px solid rgba(173,216,230,0.9);
     border-radius: 50%;
     pointer-events: none;
-    animation: ripple-effect 1s ease-out forwards;
+    animation: ripple-effect 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    z-index: 3;
+    box-shadow:
+        0 0 20px rgba(173,216,230,0.6),
+        inset 0 0 20px rgba(173,216,230,0.3);
+}
+
+.ripple-2 {
+    animation-delay: 0.15s;
+    border-color: rgba(255,255,255,0.5);
+}
+
+.ripple-3 {
+    animation-delay: 0.3s;
+    border-color: rgba(173,216,230,0.4);
 }
 
 @keyframes ripple-effect {
-    0% { width: 0; height: 0; opacity: 1; }
-    100% { width: 80px; height: 80px; opacity: 0; }
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 8px rgba(255,255,255,0.9);
+    animation: sparkle-out 0.8s ease-out forwards;
+    z-index: 4;
+}
+
+@keyframes sparkle-out {
+    0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3) translate(var(--tx), var(--ty));
+    }
 }
 
 .raindrops-counter {
     text-align: center;
-    margin: 20px 0;
-    color: rgba(255,255,255,0.8);
-    font-size: 14px;
+    margin: 24px 0 12px;
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
 }
 
 .raindrops-counter .count-num {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 200;
     color: #ffffff;
     display: block;
-    margin-bottom: 4px;
-    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 20px rgba(173,216,230,0.5);
+    animation: countGlow 2s ease-in-out infinite;
+}
+
+@keyframes countGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(173,216,230,0.5); }
+    50% { text-shadow: 0 0 30px rgba(173,216,230,0.8); }
 }
 
 .raindrops-instruction {
@@ -475,17 +609,17 @@ body {
     color: rgba(255,255,255,0.7);
     font-size: 13px;
     margin-bottom: 16px;
-    line-height: 1.6;
-    max-width: 420px;
+    line-height: 1.7;
+    max-width: 380px;
     margin-left: auto;
     margin-right: auto;
+    letter-spacing: 0.2px;
 }
 
 .raindrops-instruction strong {
     color: #ffffff;
-    font-weight: 600;
+    font-weight: 500;
 }
-
     
 /* ============ EMOTION RELEASE (RAINDROPS) ============ */
 .raindrops-area {
@@ -1651,7 +1785,7 @@ body {
         <button class="sound-toggle" id="soundToggleRain" onclick="toggleSound()">🔊</button>
     </div>
 
-    <div id="raindropsView">
+    <div id="raindropsView" style="max-width: 420px; margin: 0 auto; text-align: center; padding: 0 10px;">
         <p class="raindrops-instruction">
             প্রতিটা ফোঁটায় <strong>tap করো</strong>।<br>
             একটা একটা কষ্ট ছেড়ে দাও।
@@ -2751,7 +2885,11 @@ function createRaindrop() {
 
     let drop = document.createElement('div');
     drop.className = 'raindrop';
-    drop.textContent = '💧';
+
+    // Random size variation
+    let sizeRand = Math.random();
+    if (sizeRand < 0.3) drop.classList.add('size-sm');
+    else if (sizeRand > 0.7) drop.classList.add('size-lg');
 
     let areaWidth = area.offsetWidth;
     let leftPos = Math.random() * (areaWidth - 30);
@@ -2790,18 +2928,46 @@ function burstRaindrop(drop, event) {
     let areaRect = area.getBoundingClientRect();
     let dropRect = drop.getBoundingClientRect();
 
-    let ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    ripple.style.left = (dropRect.left - areaRect.left + 12 - 40) + 'px';
-    ripple.style.top = (dropRect.top - areaRect.top + 16 - 40) + 'px';
-    area.appendChild(ripple);
+    let centerX = dropRect.left - areaRect.left + dropRect.width / 2;
+    let centerY = dropRect.top - areaRect.top + dropRect.height / 2;
+
+    // Triple ripple effect
+    for (let i = 0; i < 3; i++) {
+        let ripple = document.createElement('div');
+        ripple.className = 'ripple' + (i > 0 ? ' ripple-' + (i + 1) : '');
+        ripple.style.left = (centerX - 50) + 'px';
+        ripple.style.top = (centerY - 50) + 'px';
+        area.appendChild(ripple);
+
+        setTimeout(() => {
+            if (ripple.parentNode) ripple.remove();
+        }, 1500);
+    }
+
+    // Sparkles
+    for (let i = 0; i < 6; i++) {
+        let sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        let angle = (Math.PI * 2 * i) / 6;
+        let distance = 40 + Math.random() * 30;
+        let tx = Math.cos(angle) * distance;
+        let ty = Math.sin(angle) * distance;
+        sparkle.style.setProperty('--tx', tx + 'px');
+        sparkle.style.setProperty('--ty', ty + 'px');
+        sparkle.style.left = centerX + 'px';
+        sparkle.style.top = centerY + 'px';
+        area.appendChild(sparkle);
+
+        setTimeout(() => {
+            if (sparkle.parentNode) sparkle.remove();
+        }, 900);
+    }
 
     playReleaseSound();
 
     setTimeout(() => {
         if (drop.parentNode) drop.remove();
-        if (ripple.parentNode) ripple.remove();
-    }, 600);
+    }, 700);
 }
 
 function playReleaseSound() {
