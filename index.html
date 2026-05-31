@@ -24,7 +24,7 @@ body {
     overflow-wrap: anywhere;
 }
 
-/* ============ AUTH SCREEN ============ */
+/* AUTH */
 .auth-screen {
     min-height: 100vh;
     display: flex;
@@ -38,7 +38,7 @@ body {
     background: #ffffff;
     border-radius: 20px;
     padding: 40px 28px;
-    max-width: 400px;
+    max-width: 420px;
     width: 100%;
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
@@ -104,16 +104,8 @@ body {
 .auth-input:focus { border-color: #1a1a1a; background: #ffffff; }
 .auth-input::placeholder { color: #bbb; }
 
-/* PASSWORD WRAPPER WITH EYE */
-.password-wrapper {
-    position: relative;
-    margin-bottom: 12px;
-}
-
-.password-wrapper input {
-    margin-bottom: 0;
-    padding-right: 48px;
-}
+.password-wrapper { position: relative; margin-bottom: 12px; }
+.password-wrapper input { margin-bottom: 0; padding-right: 48px; }
 
 .eye-toggle {
     position: absolute;
@@ -127,27 +119,18 @@ body {
     color: #999;
     padding: 4px 8px;
     line-height: 1;
-    transition: color 0.2s;
 }
 
 .eye-toggle:hover { color: #1a1a1a; }
 
-/* FORGOT PASSWORD LINK */
-.forgot-link {
-    text-align: right;
-    margin-bottom: 14px;
-    margin-top: -4px;
-}
-
+.forgot-link { text-align: right; margin-bottom: 14px; margin-top: -4px; }
 .forgot-link a {
     font-size: 12px;
     color: #999;
     text-decoration: none;
     cursor: pointer;
     font-weight: 500;
-    transition: color 0.2s;
 }
-
 .forgot-link a:hover { color: #1a1a1a; }
 
 .auth-btn {
@@ -202,45 +185,107 @@ body {
 
 .auth-loading.show { display: block; }
 
-.back-link {
-    text-align: center;
-    margin-top: 16px;
-}
-
-.back-link a {
-    font-size: 12px;
-    color: #999;
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: 500;
-}
-
+.back-link { text-align: center; margin-top: 16px; }
+.back-link a { font-size: 12px; color: #999; text-decoration: none; cursor: pointer; font-weight: 500; }
 .back-link a:hover { color: #1a1a1a; }
 
-.forgot-heading {
-    text-align: center;
-    margin-bottom: 20px;
+.forgot-heading { text-align: center; margin-bottom: 20px; }
+.forgot-heading h3 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.forgot-heading p { font-size: 12px; color: #999; line-height: 1.5; }
+
+/* ONBOARDING */
+.onboarding-screen {
+    min-height: 100vh;
+    background: #f5f5f7;
+    padding: 24px;
+    display: none;
 }
 
-.forgot-heading h3 {
-    font-size: 18px;
+.onboarding-screen.active { display: block; }
+
+.onboard-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    max-width: 500px;
+    margin: 24px auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.onboard-heading {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.onboard-heading h2 {
+    font-size: 24px;
     font-weight: 700;
     color: #1a1a1a;
-    margin-bottom: 6px;
-    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
 }
 
-.forgot-heading p {
-    font-size: 12px;
+.onboard-heading p {
+    font-size: 13px;
     color: #999;
     line-height: 1.5;
 }
 
-/* ============ APP MAIN ============ */
+.type-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.type-card {
+    background: #f5f5f7;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.type-card:hover { border-color: #ddd; }
+
+.type-card.selected {
+    background: #ffffff;
+    border-color: #1a1a1a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.type-icon { font-size: 28px; margin-bottom: 6px; }
+.type-name { font-size: 12px; font-weight: 600; color: #444; }
+.type-card.selected .type-name { color: #1a1a1a; }
+
+.custom-input-wrap {
+    margin-top: 12px;
+    margin-bottom: 16px;
+    display: none;
+}
+
+.custom-input-wrap.show { display: block; }
+
+.custom-input-wrap input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #f5f5f7;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    outline: none;
+}
+
+.custom-input-wrap input:focus { border-color: #1a1a1a; background: #fff; }
+
+/* APP */
 #appMain { display: none; }
 #appMain.active { display: block; }
 
-/* ============ TOP BAR ============ */
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -301,15 +346,11 @@ body {
     border-radius: 20px 20px 0 0;
     padding: 24px 20px 30px;
     animation: slideUp 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
-.user-menu-handle {
-    width: 40px;
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    margin: 0 auto 20px;
-}
+.user-menu-handle { width: 40px; height: 4px; background: #e0e0e0; border-radius: 10px; margin: 0 auto 20px; }
 
 .user-info {
     text-align: center;
@@ -318,14 +359,19 @@ body {
     margin-bottom: 16px;
 }
 
-.user-info .user-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 4px;
-}
-
+.user-info .user-name { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
 .user-info .user-email { font-size: 12px; color: #aaa; }
+
+.user-type-badge {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    background: #f5f5f7;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #666;
+    font-weight: 600;
+}
 
 .menu-item {
     display: block;
@@ -357,462 +403,214 @@ body {
 
 .screen.active { display: block; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 .greeting { font-size: 13px; color: #bbb; margin-bottom: 4px; font-weight: 400; }
-
-.main-heading {
-    font-size: 26px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 28px;
-    line-height: 1.35;
-    letter-spacing: -0.5px;
-}
+.main-heading { font-size: 26px; font-weight: 700; color: #1a1a1a; margin-bottom: 28px; line-height: 1.35; letter-spacing: -0.5px; }
 
 .section-label {
-    font-size: 10px;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 1.8px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    padding-left: 2px;
+    font-size: 10px; color: #aaa; text-transform: uppercase;
+    letter-spacing: 1.8px; font-weight: 600; margin-bottom: 12px; padding-left: 2px;
 }
 
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-    padding: 0 2px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px; padding: 0 2px;
 }
 
 .section-header .count { font-size: 12px; color: #999; font-weight: 500; }
 
 .input-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 20px 22px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    background: #ffffff; border-radius: 14px; padding: 20px 22px;
+    margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.04);
 }
 
 .input-card label {
-    font-size: 10px;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 10px;
+    font-size: 10px; color: #aaa; text-transform: uppercase;
+    letter-spacing: 1.5px; font-weight: 600; display: block; margin-bottom: 10px;
 }
 
 .input-card input, .input-card textarea, .input-card select {
-    width: 100%;
-    background: none;
-    border: none;
-    border-bottom: 1.5px solid #f0f0f0;
-    color: #1a1a1a;
-    font-size: 16px;
-    font-family: 'Inter', sans-serif;
-    padding: 10px 0;
-    outline: none;
-    transition: border-color 0.3s;
-    font-weight: 400;
+    width: 100%; background: none; border: none;
+    border-bottom: 1.5px solid #f0f0f0; color: #1a1a1a;
+    font-size: 16px; font-family: 'Inter', sans-serif;
+    padding: 10px 0; outline: none; transition: border-color 0.3s;
 }
 
 .input-card textarea {
-    resize: none;
-    min-height: 80px;
-    border-bottom: none;
-    border: 1.5px solid #f0f0f0;
-    border-radius: 10px;
-    padding: 12px;
-    line-height: 1.5;
+    resize: none; min-height: 80px; border-bottom: none;
+    border: 1.5px solid #f0f0f0; border-radius: 10px; padding: 12px; line-height: 1.5;
 }
 
-.input-card input:focus, .input-card textarea:focus, .input-card select:focus {
-    border-bottom-color: #1a1a1a;
-}
-
+.input-card input:focus, .input-card textarea:focus, .input-card select:focus { border-bottom-color: #1a1a1a; }
 .input-card textarea:focus { border-color: #1a1a1a; }
 .input-card input::placeholder, .input-card textarea::placeholder { color: #d5d5d5; font-weight: 300; }
 
 .btn-primary {
-    width: 100%;
-    padding: 16px;
-    background: #1a1a1a;
-    color: #ffffff;
-    border: none;
-    border-radius: 14px;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 6px;
+    width: 100%; padding: 16px; background: #1a1a1a; color: #ffffff;
+    border: none; border-radius: 14px; font-size: 15px;
+    font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; margin-top: 6px;
 }
 
 .btn-primary:hover { background: #2d2d2d; }
 .btn-primary:active { transform: scale(0.98); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .btn-outline {
-    width: 100%;
-    padding: 15px;
-    background: #ffffff;
-    color: #666;
-    border: 1.5px solid #e8e8e8;
-    border-radius: 14px;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: all 0.2s;
+    width: 100%; padding: 15px; background: #ffffff; color: #666;
+    border: 1.5px solid #e8e8e8; border-radius: 14px; font-size: 14px;
+    font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer;
+    margin-top: 8px; transition: all 0.2s;
 }
 
 .btn-outline:hover { border-color: #1a1a1a; color: #1a1a1a; }
 
 .btn-rescue {
-    width: 100%;
-    padding: 16px;
-    background: #ffffff;
-    color: #1a1a1a;
-    border: 2px solid #1a1a1a;
-    border-radius: 14px;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.2s;
+    width: 100%; padding: 16px; background: #ffffff; color: #1a1a1a;
+    border: 2px solid #1a1a1a; border-radius: 14px; font-size: 15px;
+    font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer;
+    margin-top: 10px; transition: all 0.2s;
 }
 
 .btn-rescue:hover { background: #1a1a1a; color: #fff; }
 
 .task-card {
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 32px 24px;
-    margin-bottom: 14px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.03);
+    background: #ffffff; border-radius: 18px; padding: 32px 24px;
+    margin-bottom: 14px; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.03);
 }
 
 .task-card-label {
-    font-size: 9px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 600;
-    margin-bottom: 14px;
+    font-size: 9px; color: #bbb; text-transform: uppercase;
+    letter-spacing: 2.5px; font-weight: 600; margin-bottom: 14px;
 }
 
 .task-card-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 10px;
-    letter-spacing: -0.3px;
-    line-height: 1.3;
+    font-size: 22px; font-weight: 700; color: #1a1a1a;
+    margin-bottom: 10px; letter-spacing: -0.3px; line-height: 1.3;
 }
 
 .task-card-step { font-size: 13px; color: #aaa; font-weight: 400; }
 .task-card-step span { color: #666; font-weight: 500; }
 
 .quote-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 14px;
-    text-align: center;
-    border: 1px solid rgba(0,0,0,0.04);
+    background: #ffffff; border-radius: 14px; padding: 22px;
+    margin-bottom: 14px; text-align: center; border: 1px solid rgba(0,0,0,0.04);
 }
 
 .quote-text { font-size: 13px; color: #bbb; font-weight: 400; line-height: 1.7; }
 
-.timer-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
-}
+.timer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 
 .timer-option {
-    background: #ffffff;
-    border: 1px solid #efefef;
-    border-radius: 14px;
-    padding: 20px 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
+    background: #ffffff; border: 1px solid #efefef; border-radius: 14px;
+    padding: 20px 10px; text-align: center; cursor: pointer; transition: all 0.2s;
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 
 .timer-option:hover { border-color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.timer-option .mins { font-size: 28px; font-weight: 700; color: #1a1a1a; display: block; letter-spacing: -1px; }
+.timer-option .mins-label { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-top: 2px; }
 
-.timer-option .mins {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1a1a1a;
-    display: block;
-    letter-spacing: -1px;
-}
-
-.timer-option .mins-label {
-    font-size: 9px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    margin-top: 2px;
-}
-
-.stats-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 20px;
-}
+.stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
 
 .stat-box {
-    background: #ffffff;
-    text-align: center;
-    padding: 20px 10px;
-    border-radius: 14px;
-    border: 1px solid #efefef;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    background: #ffffff; text-align: center; padding: 20px 10px;
+    border-radius: 14px; border: 1px solid #efefef; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
 }
 
-.stat-number {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1a1a1a;
-    display: block;
-    letter-spacing: -1px;
-}
-
-.stat-text {
-    font-size: 9px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    margin-top: 4px;
-}
+.stat-number { font-size: 28px; font-weight: 700; color: #1a1a1a; display: block; letter-spacing: -1px; }
+.stat-text { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-top: 4px; }
 
 .focus-wrapper { text-align: center; padding-top: 20px; }
 
 .focus-card {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 48px 24px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    background: #ffffff; border-radius: 24px; padding: 48px 24px;
+    margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.03);
 }
 
-.focus-label {
-    font-size: 9px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-weight: 600;
-    margin-bottom: 32px;
-}
-
-.focus-time {
-    font-size: 76px;
-    font-weight: 200;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: -3px;
-}
-
+.focus-label { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 4px; font-weight: 600; margin-bottom: 32px; }
+.focus-time { font-size: 76px; font-weight: 200; color: #1a1a1a; margin-bottom: 8px; font-variant-numeric: tabular-nums; letter-spacing: -3px; }
 .focus-task-name { font-size: 14px; color: #bbb; margin-bottom: 36px; font-weight: 400; }
 
-.progress-track {
-    width: 80%;
-    height: 2px;
-    background: #f0f0f0;
-    border-radius: 10px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #1a1a1a;
-    border-radius: 10px;
-    width: 0%;
-    transition: width 1s linear;
-}
+.progress-track { width: 80%; height: 2px; background: #f0f0f0; border-radius: 10px; margin: 0 auto; overflow: hidden; }
+.progress-fill { height: 100%; background: #1a1a1a; border-radius: 10px; width: 0%; transition: width 1s linear; }
 
 .focus-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
 
 .rescue-top { text-align: center; padding: 16px 0 24px; }
-
-.rescue-heading {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-}
-
+.rescue-heading { font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; letter-spacing: -0.5px; }
 .rescue-desc { font-size: 14px; color: #bbb; font-weight: 400; }
 
-.trigger-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-}
+.trigger-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
 
 .trigger-card {
-    background: #ffffff;
-    border: 1px solid #efefef;
-    border-radius: 14px;
-    padding: 22px 14px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 13px;
-    color: #888;
-    font-weight: 500;
+    background: #ffffff; border: 1px solid #efefef; border-radius: 14px;
+    padding: 22px 14px; text-align: center; cursor: pointer; transition: all 0.2s;
+    font-size: 13px; color: #888; font-weight: 500;
 }
 
 .trigger-card:hover { border-color: #1a1a1a; color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .trigger-card .t-icon { font-size: 22px; display: block; margin-bottom: 8px; }
 
 .recovery-list {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 8px 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    background: #ffffff; border-radius: 16px; padding: 8px 20px;
+    margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.04);
 }
 
-.recovery-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 18px 0;
-    border-bottom: 1px solid #f7f7f7;
-}
-
+.recovery-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid #f7f7f7; }
 .recovery-item:last-child { border-bottom: none; }
 
 .r-num {
-    width: 26px;
-    height: 26px;
-    background: #f5f5f7;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: #999;
-    flex-shrink: 0;
+    width: 26px; height: 26px; background: #f5f5f7; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #999; flex-shrink: 0;
 }
 
 .r-text { font-size: 14px; color: #444; line-height: 1.5; font-weight: 400; }
 
 .review-block {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 22px 24px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    background: #ffffff; border-radius: 16px; padding: 22px 24px;
+    margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     border: 1px solid rgba(0,0,0,0.04);
 }
 
-.review-block-label {
-    font-size: 9px;
-    color: #bbb;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.review-block-value {
-    font-size: 32px;
-    font-weight: 700;
-    color: #1a1a1a;
-    letter-spacing: -1px;
-}
-
+.review-block-label { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; }
+.review-block-value { font-size: 32px; font-weight: 700; color: #1a1a1a; letter-spacing: -1px; }
 .review-block-note { font-size: 12px; color: #aaa; margin-top: 6px; font-weight: 400; }
 
 .review-final {
-    background: #1a1a1a;
-    border-radius: 16px;
-    padding: 28px;
-    text-align: center;
-    margin-top: 16px;
+    background: #1a1a1a; border-radius: 16px; padding: 28px;
+    text-align: center; margin-top: 16px;
 }
 
 .review-final p { font-size: 15px; color: #ffffff; line-height: 1.6; font-weight: 400; }
 
 .idea-search {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: #ffffff; border-radius: 12px; padding: 12px 16px;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
     border: 1px solid #efefef;
 }
 
-.idea-search input {
-    flex: 1;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    color: #1a1a1a;
-}
-
+.idea-search input { flex: 1; border: none; outline: none; background: none; font-size: 14px; font-family: 'Inter', sans-serif; color: #1a1a1a; }
 .idea-search input::placeholder { color: #ccc; }
 
 .idea-filters {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    display: flex; gap: 8px; margin-bottom: 14px;
+    overflow-x: auto; padding-bottom: 4px;
 }
 
 .idea-filters::-webkit-scrollbar { display: none; }
 
 .filter-chip {
-    padding: 8px 14px;
-    background: #ffffff;
-    border: 1px solid #efefef;
-    border-radius: 20px;
-    font-size: 12px;
-    color: #888;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
+    padding: 8px 14px; background: #ffffff; border: 1px solid #efefef;
+    border-radius: 20px; font-size: 12px; color: #888; font-weight: 500;
+    cursor: pointer; white-space: nowrap; transition: all 0.2s;
 }
 
 .filter-chip.active { background: #1a1a1a; color: #ffffff; border-color: #1a1a1a; }
@@ -820,90 +618,41 @@ body {
 .filter-chip.active:hover { color: #ffffff; }
 
 .idea-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 18px 20px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.04);
-    animation: slideUp 0.3s ease;
+    background: #ffffff; border-radius: 14px; padding: 18px 20px;
+    margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04); animation: slideUp 0.3s ease;
 }
 
 .idea-card.done { opacity: 0.55; background: #fafafa; }
 .idea-card.done .idea-title { text-decoration: line-through; color: #999; }
 
-.idea-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-    gap: 10px;
-}
-
+.idea-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 10px; }
 .idea-title { font-size: 15px; font-weight: 600; color: #1a1a1a; line-height: 1.4; flex: 1; }
 
 .idea-star {
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #ddd;
-    transition: all 0.2s;
-    padding: 0;
-    line-height: 1;
+    background: none; border: none; font-size: 18px;
+    cursor: pointer; color: #ddd; transition: all 0.2s; padding: 0; line-height: 1;
 }
 
 .idea-star.starred { color: #ffb800; }
 
-.idea-desc {
-    font-size: 13px;
-    color: #888;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    white-space: pre-wrap;
-}
-
-.idea-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-}
+.idea-desc { font-size: 13px; color: #888; line-height: 1.5; margin-bottom: 10px; white-space: pre-wrap; }
+.idea-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
 
 .idea-tag {
-    display: inline-block;
-    padding: 4px 10px;
-    background: #f5f5f7;
-    border-radius: 10px;
-    font-size: 10px;
-    color: #666;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: inline-block; padding: 4px 10px; background: #f5f5f7;
+    border-radius: 10px; font-size: 10px; color: #666; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.5px;
 }
 
 .idea-date { font-size: 10px; color: #ccc; }
 
-.idea-actions {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #f5f5f7;
-}
+.idea-actions { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f5f5f7; }
 
 .idea-btn {
-    flex: 1;
-    padding: 8px;
-    background: none;
-    border: 1px solid #efefef;
-    border-radius: 8px;
-    font-size: 11px;
-    color: #888;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
+    flex: 1; padding: 8px; background: none; border: 1px solid #efefef;
+    border-radius: 8px; font-size: 11px; color: #888; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
 }
 
 .idea-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
@@ -916,23 +665,12 @@ body {
 .empty-state .empty-sub { font-size: 12px; color: #ccc; }
 
 .fab {
-    position: fixed;
-    bottom: 88px;
-    right: 50%;
-    transform: translateX(240px);
-    width: 56px;
-    height: 56px;
-    background: #1a1a1a;
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    font-weight: 300;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-    z-index: 90;
-    transition: all 0.2s;
-    display: none;
+    position: fixed; bottom: 88px; right: 50%;
+    transform: translateX(240px); width: 56px; height: 56px;
+    background: #1a1a1a; color: #ffffff; border: none; border-radius: 50%;
+    font-size: 24px; font-weight: 300; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2); z-index: 90;
+    transition: all 0.2s; display: none;
 }
 
 .fab.visible { display: block; }
@@ -944,66 +682,28 @@ body {
 }
 
 .modal-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 200;
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4); z-index: 200;
+    display: none; align-items: flex-end; justify-content: center;
 }
 
 .modal-overlay.active { display: flex; }
 
 .modal {
-    background: #ffffff;
-    width: 100%;
-    max-width: 480px;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 30px;
-    animation: slideUp 0.3s ease;
-    max-height: 85vh;
-    overflow-y: auto;
+    background: #ffffff; width: 100%; max-width: 480px;
+    border-radius: 20px 20px 0 0; padding: 24px 20px 30px;
+    animation: slideUp 0.3s ease; max-height: 85vh; overflow-y: auto;
 }
 
-.modal-handle {
-    width: 40px;
-    height: 4px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    margin: 0 auto 20px;
-}
-
-.modal-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 18px;
-    letter-spacing: -0.3px;
-}
-
-.modal-close {
-    background: none;
-    border: none;
-    color: #999;
-    font-size: 13px;
-    cursor: pointer;
-    padding: 10px;
-    width: 100%;
-    margin-top: 8px;
-    font-family: 'Inter', sans-serif;
-}
+.modal-handle { width: 40px; height: 4px; background: #e0e0e0; border-radius: 10px; margin: 0 auto 20px; }
+.modal-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 18px; letter-spacing: -0.3px; }
+.modal-close { background: none; border: none; color: #999; font-size: 13px; cursor: pointer; padding: 10px; width: 100%; margin-top: 8px; font-family: 'Inter', sans-serif; }
 
 .bottom-nav {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: #ffffff;
-    border-top: 1px solid #ebebeb;
-    display: flex;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 6px 0 14px;
-    z-index: 95;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #ffffff; border-top: 1px solid #ebebeb;
+    display: flex; max-width: 480px; margin: 0 auto;
+    padding: 6px 0 14px; z-index: 95;
 }
 
 .nav-btn { flex: 1; text-align: center; padding: 8px 4px; cursor: pointer; }
@@ -1018,49 +718,41 @@ body {
 .spacer { height: 16px; }
 
 .toast {
-    position: fixed;
-    bottom: 110px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #1a1a1a;
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 13px;
-    font-weight: 500;
-    z-index: 300;
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
+    position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%);
+    background: #1a1a1a; color: #fff; padding: 12px 24px;
+    border-radius: 30px; font-size: 13px; font-weight: 500;
+    z-index: 300; opacity: 0; transition: opacity 0.3s; pointer-events: none;
 }
 
 .toast.show { opacity: 1; }
 
 .full-loader {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #f5f5f7;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #f5f5f7; z-index: 1000; display: flex;
+    align-items: center; justify-content: center; flex-direction: column;
 }
 
 .full-loader.hidden { display: none; }
-
 .loader-text { font-size: 16px; color: #999; margin-top: 16px; font-weight: 500; }
 
 .spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid #f0f0f0;
-    border-top-color: #1a1a1a;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    width: 32px; height: 32px; border: 3px solid #f0f0f0;
+    border-top-color: #1a1a1a; border-radius: 50%; animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* SETTINGS MODAL */
+.settings-modal {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 30px;
+    animation: slideUp 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
 
 </style>
 </head>
@@ -1072,13 +764,12 @@ body {
     <div class="loader-text">শুরু...</div>
 </div>
 
-<!-- AUTH SCREEN -->
+<!-- AUTH -->
 <div class="auth-screen" id="authScreen" style="display:none;">
     <div class="auth-box">
         <div class="auth-logo">শুরু</div>
-        <div class="auth-tagline">আগে create করো। consume পরে।</div>
+        <div class="auth-tagline">আগে কাজ, পরে scroll।</div>
 
-        <!-- LOGIN/SIGNUP VIEW -->
         <div id="loginSignupView">
             <div class="auth-tab">
                 <button class="active" onclick="switchAuth('login')" id="tabLogin">Login</button>
@@ -1101,30 +792,41 @@ body {
             </div>
 
             <button class="auth-btn" id="authBtn" onclick="handleAuth()">Login</button>
-
             <div class="auth-loading" id="authLoading">অপেক্ষা করো...</div>
         </div>
 
-        <!-- FORGOT PASSWORD VIEW -->
         <div id="forgotView" style="display:none;">
             <div class="forgot-heading">
                 <h3>পাসওয়ার্ড reset</h3>
-                <p>তোমার email এ একটা link পাঠাবো।<br>সেটায় ক্লিক করে নতুন password set করো।</p>
+                <p>তোমার email এ link পাঠাবো।<br>সেটায় ক্লিক করে নতুন password দাও।</p>
             </div>
 
             <div class="auth-error" id="forgotError"></div>
             <div class="auth-success" id="forgotSuccess"></div>
 
             <input type="email" class="auth-input" id="forgotEmail" placeholder="তোমার email">
-
             <button class="auth-btn" id="forgotBtn" onclick="handleForgotPassword()">Reset Link পাঠাও</button>
-
             <div class="auth-loading" id="forgotLoading">পাঠানো হচ্ছে...</div>
-
-            <div class="back-link">
-                <a onclick="showLoginView()">← Login এ ফেরো</a>
-            </div>
+            <div class="back-link"><a onclick="showLoginView()">← Login এ ফেরো</a></div>
         </div>
+    </div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="onboarding-screen" id="onboardingScreen">
+    <div class="onboard-box">
+        <div class="onboard-heading">
+            <h2>তুমি কে?</h2>
+            <p>তোমার জন্য app টা personalize করতে চাই।</p>
+        </div>
+
+        <div class="type-grid" id="typeGrid"></div>
+
+        <div class="custom-input-wrap" id="customWrap">
+            <input type="text" id="customType" placeholder="তোমার profession লেখো..." maxlength="20">
+        </div>
+
+        <button class="btn-primary" id="onboardBtn" onclick="completeOnboarding()" disabled>চলো শুরু করি</button>
     </div>
 </div>
 
@@ -1142,16 +844,16 @@ body {
 <div class="screen active" id="homeScreen">
     <div class="spacer"></div>
     <p class="greeting" id="greetingText">শুভ সকাল</p>
-    <h1 class="main-heading">আজকে কী<br>create করবে?</h1>
+    <h1 class="main-heading">আজকে কী<br>করতে চাও?</h1>
 
     <div class="input-card">
-        <label>আজকের main task</label>
-        <input type="text" id="mainTaskInput" placeholder="১টা video script লেখা">
+        <label>আজকের main কাজ</label>
+        <input type="text" id="mainTaskInput" placeholder="তোমার আজকের লক্ষ্য...">
     </div>
 
     <div class="input-card">
         <label>প্রথম ছোট step</label>
-        <input type="text" id="firstStepInput" placeholder="hook লেখা শুরু করা">
+        <input type="text" id="firstStepInput" placeholder="কোথা থেকে শুরু করবে?">
     </div>
 
     <div class="spacer"></div>
@@ -1166,21 +868,15 @@ body {
     </div>
 
     <div class="quote-card">
-        <p class="quote-text" id="quoteText">"আগে create করো।"</p>
+        <p class="quote-text" id="quoteText">"আগে কাজ, পরে scroll।"</p>
     </div>
 
     <div class="section-label">ফোকাস শুরু করো</div>
 
     <div class="timer-grid">
-        <div class="timer-option" onclick="startFocus(3)">
-            <span class="mins">3</span><span class="mins-label">মিনিট</span>
-        </div>
-        <div class="timer-option" onclick="startFocus(15)">
-            <span class="mins">15</span><span class="mins-label">মিনিট</span>
-        </div>
-        <div class="timer-option" onclick="startFocus(25)">
-            <span class="mins">25</span><span class="mins-label">মিনিট</span>
-        </div>
+        <div class="timer-option" onclick="startFocus(3)"><span class="mins">3</span><span class="mins-label">মিনিট</span></div>
+        <div class="timer-option" onclick="startFocus(15)"><span class="mins">15</span><span class="mins-label">মিনিট</span></div>
+        <div class="timer-option" onclick="startFocus(25)"><span class="mins">25</span><span class="mins-label">মিনিট</span></div>
     </div>
 
     <button class="btn-primary" onclick="startFocus(5)">5 মিনিট — শুধু শুরু করো</button>
@@ -1192,32 +888,23 @@ body {
         <div class="stat-box"><span class="stat-number" id="ideaTotalCount">0</span><span class="stat-text">আইডিয়া</span></div>
     </div>
 
-    <div class="reset-link"><a onclick="resetTask()">নতুন task সেট করো</a></div>
+    <div class="reset-link"><a onclick="resetTask()">নতুন কাজ সেট করো</a></div>
 </div>
 
 <div class="screen" id="ideasScreen">
     <div class="spacer"></div>
     <p class="greeting">তোমার</p>
-    <h1 class="main-heading" style="margin-bottom:20px;">আইডিয়া</h1>
+    <h1 class="main-heading" style="margin-bottom:20px;">আইডিয়া / নোট</h1>
 
     <div class="idea-search">
         <span style="font-size:14px; color:#ccc;">🔍</span>
         <input type="text" id="ideaSearch" placeholder="search..." oninput="renderIdeas()">
     </div>
 
-    <div class="idea-filters" id="ideaFilters">
-        <div class="filter-chip active" onclick="filterIdeas('all', event)">সব</div>
-        <div class="filter-chip" onclick="filterIdeas('starred', event)">⭐ Starred</div>
-        <div class="filter-chip" onclick="filterIdeas('video', event)">🎬 Video</div>
-        <div class="filter-chip" onclick="filterIdeas('reel', event)">📱 Reel</div>
-        <div class="filter-chip" onclick="filterIdeas('post', event)">📝 Post</div>
-        <div class="filter-chip" onclick="filterIdeas('script', event)">📖 Script</div>
-        <div class="filter-chip" onclick="filterIdeas('other', event)">💭 Other</div>
-        <div class="filter-chip" onclick="filterIdeas('done', event)">✅ Done</div>
-    </div>
+    <div class="idea-filters" id="ideaFilters"></div>
 
     <div class="section-header">
-        <div class="section-label" style="margin-bottom:0;">সব আইডিয়া</div>
+        <div class="section-label" style="margin-bottom:0;">সব</div>
         <div class="count" id="ideaCount">0টি</div>
     </div>
 
@@ -1230,9 +917,7 @@ body {
             <div class="focus-label">ফোকাস মোড</div>
             <div class="focus-time" id="timerDisplay">05:00</div>
             <div class="focus-task-name" id="focusTaskName">—</div>
-            <div class="progress-track">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
+            <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
         </div>
 
         <div class="focus-actions">
@@ -1279,43 +964,29 @@ body {
     <p class="greeting">আজকের</p>
     <h1 class="main-heading" style="margin-bottom:20px;">রিভিউ</h1>
 
-    <div class="review-block">
-        <div class="review-block-label">ফোকাস সেশন</div>
-        <div class="review-block-value" id="revSessions">0</div>
-    </div>
-
-    <div class="review-block">
-        <div class="review-block-label">মোট মিনিট</div>
-        <div class="review-block-value" id="revMinutes">0</div>
-    </div>
-
-    <div class="review-block">
-        <div class="review-block-label">আইডিয়া</div>
-        <div class="review-block-value" id="revIdeas">0</div>
-    </div>
-
+    <div class="review-block"><div class="review-block-label">ফোকাস সেশন</div><div class="review-block-value" id="revSessions">0</div></div>
+    <div class="review-block"><div class="review-block-label">মোট মিনিট</div><div class="review-block-value" id="revMinutes">0</div></div>
+    <div class="review-block"><div class="review-block-label">আইডিয়া</div><div class="review-block-value" id="revIdeas">0</div></div>
     <div class="review-block">
         <div class="review-block-label">রেসকিউ</div>
         <div class="review-block-value" id="revRescues">0</div>
         <div class="review-block-note" id="revRescueNote"></div>
     </div>
 
-    <div class="review-final" id="reviewMsg">
-        <p>"তুমি ফিরে এসেছো।"</p>
-    </div>
-
+    <div class="review-final" id="reviewMsg"><p>"তুমি ফিরে এসেছো।"</p></div>
     <button class="btn-outline" onclick="showScreen('dashScreen')" style="margin-top:14px">ড্যাশবোর্ড</button>
 </div>
 
 <button class="fab" id="ideaFab" onclick="openIdeaModal()">+</button>
 
+<!-- IDEA MODAL -->
 <div class="modal-overlay" id="ideaModal">
     <div class="modal">
         <div class="modal-handle"></div>
         <div class="modal-title" id="modalTitle">নতুন আইডিয়া</div>
 
         <div class="input-card">
-            <label>আইডিয়া</label>
+            <label>আইডিয়া / নোট</label>
             <input type="text" id="ideaInput" placeholder="মনে আসছে যা...">
         </div>
 
@@ -1326,13 +997,7 @@ body {
 
         <div class="input-card">
             <label>Category</label>
-            <select id="ideaCategory">
-                <option value="video">🎬 Video</option>
-                <option value="reel">📱 Reel/Short</option>
-                <option value="post">📝 Post</option>
-                <option value="script">📖 Script/Hook</option>
-                <option value="other">💭 Other</option>
-            </select>
+            <select id="ideaCategory"></select>
         </div>
 
         <button class="btn-primary" onclick="saveIdea()">Save</button>
@@ -1340,38 +1005,48 @@ body {
     </div>
 </div>
 
+<!-- USER MENU -->
 <div class="user-menu-overlay" id="userMenu">
     <div class="user-menu">
         <div class="user-menu-handle"></div>
         <div class="user-info">
             <div class="user-name" id="menuUserName">User</div>
             <div class="user-email" id="menuUserEmail">email</div>
+            <div class="user-type-badge" id="userTypeBadge">User</div>
         </div>
         <button class="menu-item" onclick="closeUserMenu(); showScreen('reviewScreen')">📊 আমার রিভিউ</button>
+        <button class="menu-item" onclick="openChangeType()">🔄 Profession change</button>
         <button class="menu-item" id="adminMenuBtn" onclick="goToAdmin()" style="display:none;">👨‍💼 Admin Panel</button>
         <button class="menu-item danger" onclick="logout()">🚪 Logout</button>
         <button class="menu-item" onclick="closeUserMenu()" style="text-align:center; color:#aaa;">cancel</button>
     </div>
 </div>
 
+<!-- CHANGE TYPE MODAL -->
+<div class="modal-overlay" id="changeTypeModal">
+    <div class="settings-modal">
+        <div class="modal-handle"></div>
+        <div class="modal-title">তোমার profession select করো</div>
+
+        <div class="type-grid" id="changeTypeGrid"></div>
+
+        <div class="custom-input-wrap" id="changeCustomWrap">
+            <input type="text" id="changeCustomType" placeholder="তোমার profession লেখো..." maxlength="20">
+        </div>
+
+        <button class="btn-primary" onclick="saveChangeType()">Save</button>
+        <button class="modal-close" onclick="closeChangeType()">cancel</button>
+    </div>
+</div>
+
 <div class="toast" id="toast">saved</div>
 
 <div class="bottom-nav">
-    <div class="nav-btn active" onclick="showScreen('dashScreen')" id="navDash">
-        <span class="n-icon">◻</span><span class="n-text">হোম</span>
-    </div>
-    <div class="nav-btn" onclick="showScreen('ideasScreen')" id="navIdeas">
-        <span class="n-icon">💡</span><span class="n-text">আইডিয়া</span>
-    </div>
-    <div class="nav-btn" onclick="showScreen('focusScreen')" id="navFocus">
-        <span class="n-icon">◷</span><span class="n-text">ফোকাস</span>
-    </div>
-    <div class="nav-btn" onclick="showScreen('rescueScreen')" id="navRescue">
-        <span class="n-icon">↩</span><span class="n-text">রেসকিউ</span>
-    </div>
-    <div class="nav-btn" onclick="showScreen('reviewScreen')" id="navReview">
-        <span class="n-icon">≡</span><span class="n-text">রিভিউ</span>
-    </div>
+    <div class="nav-btn active" onclick="showScreen('dashScreen')" id="navDash"><span class="n-icon">◻</span><span class="n-text">হোম</span></div>
+    <div class="nav-btn" onclick="showScreen('ideasScreen')" id="navIdeas"><span class="n-icon">💡</span><span class="n-text">আইডিয়া</span></div>
+    <div class="nav-btn" onclick="showScreen('focusScreen')" id="navFocus"><span class="n-icon">◷</span><span class="n-text">ফোকাস</span></div>
+    <div class="nav-btn" onclick="showScreen('rescueScreen')" id="navRescue"><span class="n-icon">↩</span><span class="n-text">রেসকিউ</span></div>
+    <div class="nav-btn" onclick="showScreen('reviewScreen')" id="navReview"><span class="n-icon">≡</span><span class="n-text">রিভিউ</span></div>
 </div>
 
 </div>
@@ -1419,17 +1094,114 @@ window.dispatchEvent(new Event('firebaseReady'));
 </script>
 
 <script>
+// ============ USER TYPES & CATEGORIES ============
+const USER_TYPES = {
+    student: { icon: '🎓', name: 'Student', categories: [
+        {id:'study', icon:'📚', name:'Study/Note'},
+        {id:'assignment', icon:'📝', name:'Assignment'},
+        {id:'exam', icon:'🎯', name:'Exam Prep'},
+        {id:'project', icon:'📖', name:'Project'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    job: { icon: '💼', name: 'Job Holder', categories: [
+        {id:'task', icon:'✅', name:'Task'},
+        {id:'email', icon:'📧', name:'Email'},
+        {id:'report', icon:'📊', name:'Report'},
+        {id:'meeting', icon:'🤝', name:'Meeting'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    creator: { icon: '🎬', name: 'Content Creator', categories: [
+        {id:'video', icon:'🎬', name:'Video'},
+        {id:'reel', icon:'📱', name:'Reel/Short'},
+        {id:'post', icon:'📝', name:'Post'},
+        {id:'script', icon:'📖', name:'Script'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    freelancer: { icon: '💻', name: 'Freelancer', categories: [
+        {id:'client', icon:'💼', name:'Client Work'},
+        {id:'pitch', icon:'💌', name:'Pitch'},
+        {id:'portfolio', icon:'🎨', name:'Portfolio'},
+        {id:'learning', icon:'📚', name:'Learning'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    business: { icon: '🏢', name: 'Business Owner', categories: [
+        {id:'strategy', icon:'📈', name:'Strategy'},
+        {id:'marketing', icon:'📣', name:'Marketing'},
+        {id:'operations', icon:'⚙️', name:'Operations'},
+        {id:'finance', icon:'💰', name:'Finance'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    writer: { icon: '✍️', name: 'Writer', categories: [
+        {id:'article', icon:'📝', name:'Article'},
+        {id:'story', icon:'📖', name:'Story/Book'},
+        {id:'edit', icon:'✏️', name:'Edit'},
+        {id:'research', icon:'🔍', name:'Research'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    designer: { icon: '🎨', name: 'Designer', categories: [
+        {id:'design', icon:'🎨', name:'Design'},
+        {id:'brief', icon:'📋', name:'Brief'},
+        {id:'revision', icon:'🔄', name:'Revision'},
+        {id:'practice', icon:'🎯', name:'Practice'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    teacher: { icon: '👨‍🏫', name: 'Teacher', categories: [
+        {id:'lesson', icon:'📖', name:'Lesson Plan'},
+        {id:'check', icon:'✅', name:'Check Papers'},
+        {id:'prep', icon:'📚', name:'Class Prep'},
+        {id:'research', icon:'🔍', name:'Research'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    healthcare: { icon: '👩‍⚕️', name: 'Healthcare', categories: [
+        {id:'patient', icon:'🏥', name:'Patient Notes'},
+        {id:'study', icon:'📚', name:'Study/CME'},
+        {id:'admin', icon:'📋', name:'Admin'},
+        {id:'research', icon:'🔍', name:'Research'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    athlete: { icon: '🏃', name: 'Athlete/Fitness', categories: [
+        {id:'workout', icon:'💪', name:'Workout'},
+        {id:'training', icon:'🎯', name:'Training'},
+        {id:'diet', icon:'🥗', name:'Diet Plan'},
+        {id:'recovery', icon:'🧘', name:'Recovery'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    growth: { icon: '🙏', name: 'Personal Growth', categories: [
+        {id:'reading', icon:'📚', name:'Reading'},
+        {id:'meditation', icon:'🧘', name:'Meditation'},
+        {id:'journal', icon:'📔', name:'Journal'},
+        {id:'skill', icon:'🎯', name:'Skill Build'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    homemaker: { icon: '🏠', name: 'Homemaker', categories: [
+        {id:'home', icon:'🏠', name:'Home Task'},
+        {id:'family', icon:'👨‍👩‍👧', name:'Family'},
+        {id:'cooking', icon:'🍳', name:'Cooking'},
+        {id:'personal', icon:'🌸', name:'Personal'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]},
+    custom: { icon: '➕', name: 'Custom', categories: [
+        {id:'task', icon:'📌', name:'Task'},
+        {id:'idea', icon:'💡', name:'Idea'},
+        {id:'project', icon:'🎯', name:'Project'},
+        {id:'learning', icon:'📚', name:'Learning'},
+        {id:'other', icon:'💭', name:'Other'}
+    ]}
+};
+
 let currentUser = null;
 let data = {
     task: '', step: '',
     focusSessions: 0, totalMinutes: 0,
     rescueCount: 0, triggers: {}, streak: 0,
     ideas: [], todayIdeas: 0,
-    name: '', email: ''
+    name: '', email: '',
+    userType: '', customType: ''
 };
 
 let authMode = 'login';
 let firebaseReady = false;
+let selectedType = '';
 
 window.addEventListener('firebaseReady', () => {
     firebaseReady = true;
@@ -1441,7 +1213,13 @@ function initAuth() {
         if (user) {
             currentUser = user;
             await loadUserData();
-            showApp();
+
+            // Check if user has selected type
+            if (!data.userType) {
+                showOnboarding();
+            } else {
+                showApp();
+            }
         } else {
             showAuthScreen();
         }
@@ -1452,11 +1230,67 @@ function showAuthScreen() {
     document.getElementById('loader').classList.add('hidden');
     document.getElementById('authScreen').style.display = 'flex';
     document.getElementById('appMain').classList.remove('active');
+    document.getElementById('onboardingScreen').classList.remove('active');
+}
+
+function showOnboarding() {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('appMain').classList.remove('active');
+    document.getElementById('onboardingScreen').classList.add('active');
+    renderTypeGrid('typeGrid', selectType);
+}
+
+function renderTypeGrid(gridId, clickHandler) {
+    let grid = document.getElementById(gridId);
+    let html = '';
+    for (let key in USER_TYPES) {
+        let t = USER_TYPES[key];
+        html += `<div class="type-card" data-type="${key}" onclick="${clickHandler.name}('${key}', this)">
+            <div class="type-icon">${t.icon}</div>
+            <div class="type-name">${t.name}</div>
+        </div>`;
+    }
+    grid.innerHTML = html;
+}
+
+function selectType(type, el) {
+    selectedType = type;
+    document.querySelectorAll('#typeGrid .type-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+
+    let customWrap = document.getElementById('customWrap');
+    if (type === 'custom') {
+        customWrap.classList.add('show');
+        setTimeout(() => document.getElementById('customType').focus(), 100);
+    } else {
+        customWrap.classList.remove('show');
+    }
+
+    document.getElementById('onboardBtn').disabled = false;
+}
+
+async function completeOnboarding() {
+    if (!selectedType) { showToast('select করো'); return; }
+
+    let customName = '';
+    if (selectedType === 'custom') {
+        customName = document.getElementById('customType').value.trim();
+        if (!customName) { showToast('তোমার profession লেখো'); return; }
+    }
+
+    data.userType = selectedType;
+    data.customType = customName;
+    await saveData();
+
+    document.getElementById('onboardingScreen').classList.remove('active');
+    showApp();
 }
 
 function showApp() {
     document.getElementById('loader').classList.add('hidden');
     document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('onboardingScreen').classList.remove('active');
     document.getElementById('appMain').classList.add('active');
 
     let initial = (data.name || currentUser.email).charAt(0).toUpperCase();
@@ -1464,12 +1298,19 @@ function showApp() {
     document.getElementById('menuUserName').textContent = data.name || 'User';
     document.getElementById('menuUserEmail').textContent = currentUser.email;
 
+    // User type badge
+    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
+    let displayName = data.userType === 'custom' && data.customType ? data.customType : typeData.name;
+    document.getElementById('userTypeBadge').textContent = typeData.icon + ' ' + displayName;
+
     if (currentUser.email === window.ADMIN_EMAIL) {
         document.getElementById('adminMenuBtn').style.display = 'block';
     }
 
     document.getElementById('streakCount').textContent = data.streak;
     updateIdeaCount();
+    renderIdeaFilters();
+    renderCategoryDropdown();
 
     if (data.task) {
         document.getElementById('displayTask').textContent = data.task;
@@ -1485,26 +1326,105 @@ function showApp() {
     randomQuote();
 }
 
-// ============ PASSWORD TOGGLE ============
-function togglePassword(inputId, btn) {
-    let input = document.getElementById(inputId);
-    if (input.type === 'password') {
-        input.type = 'text';
-        btn.textContent = '🙈';
+function renderIdeaFilters() {
+    let filtersEl = document.getElementById('ideaFilters');
+    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
+
+    let html = `<div class="filter-chip active" onclick="filterIdeas('all', event)">সব</div>
+                <div class="filter-chip" onclick="filterIdeas('starred', event)">⭐ Starred</div>`;
+
+    typeData.categories.forEach(c => {
+        html += `<div class="filter-chip" onclick="filterIdeas('${c.id}', event)">${c.icon} ${c.name}</div>`;
+    });
+
+    html += `<div class="filter-chip" onclick="filterIdeas('done', event)">✅ Done</div>`;
+    filtersEl.innerHTML = html;
+}
+
+function renderCategoryDropdown() {
+    let select = document.getElementById('ideaCategory');
+    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
+    let html = '';
+    typeData.categories.forEach(c => {
+        html += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
+    });
+    select.innerHTML = html;
+}
+
+// ============ CHANGE TYPE ============
+function openChangeType() {
+    closeUserMenu();
+    document.getElementById('changeTypeModal').classList.add('active');
+    renderTypeGrid('changeTypeGrid', selectChangeType);
+
+    // Pre-select current
+    setTimeout(() => {
+        let current = document.querySelector(`#changeTypeGrid .type-card[data-type="${data.userType}"]`);
+        if (current) current.classList.add('selected');
+
+        if (data.userType === 'custom') {
+            document.getElementById('changeCustomWrap').classList.add('show');
+            document.getElementById('changeCustomType').value = data.customType || '';
+        }
+    }, 50);
+}
+
+function closeChangeType() {
+    document.getElementById('changeTypeModal').classList.remove('active');
+}
+
+let newSelectedType = '';
+function selectChangeType(type, el) {
+    newSelectedType = type;
+    document.querySelectorAll('#changeTypeGrid .type-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+
+    let wrap = document.getElementById('changeCustomWrap');
+    if (type === 'custom') {
+        wrap.classList.add('show');
+        setTimeout(() => document.getElementById('changeCustomType').focus(), 100);
     } else {
-        input.type = 'password';
-        btn.textContent = '👁';
+        wrap.classList.remove('show');
     }
 }
 
-// ============ FORGOT PASSWORD ============
+async function saveChangeType() {
+    if (!newSelectedType) newSelectedType = data.userType;
+
+    let customName = '';
+    if (newSelectedType === 'custom') {
+        customName = document.getElementById('changeCustomType').value.trim();
+        if (!customName) { showToast('profession লেখো'); return; }
+    }
+
+    data.userType = newSelectedType;
+    data.customType = customName;
+    await saveData();
+
+    let typeData = USER_TYPES[data.userType];
+    let displayName = data.userType === 'custom' && data.customType ? data.customType : typeData.name;
+    document.getElementById('userTypeBadge').textContent = typeData.icon + ' ' + displayName;
+
+    renderIdeaFilters();
+    renderCategoryDropdown();
+
+    closeChangeType();
+    showToast('updated ✓');
+}
+
+// PASSWORD TOGGLE
+function togglePassword(inputId, btn) {
+    let input = document.getElementById(inputId);
+    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+    else { input.type = 'password'; btn.textContent = '👁'; }
+}
+
+// FORGOT
 function showForgotView() {
     document.getElementById('loginSignupView').style.display = 'none';
     document.getElementById('forgotView').style.display = 'block';
     document.getElementById('forgotError').classList.remove('show');
     document.getElementById('forgotSuccess').classList.remove('show');
-
-    // Pre-fill email if already typed
     let emailVal = document.getElementById('authEmail').value.trim();
     if (emailVal) document.getElementById('forgotEmail').value = emailVal;
 }
@@ -1524,29 +1444,22 @@ async function handleForgotPassword() {
     errEl.classList.remove('show');
     sucEl.classList.remove('show');
 
-    if (!email) {
-        errEl.textContent = 'email দাও';
-        errEl.classList.add('show');
-        return;
-    }
+    if (!email) { errEl.textContent = 'email দাও'; errEl.classList.add('show'); return; }
 
     btnEl.disabled = true;
     loadEl.classList.add('show');
 
     try {
         await window.fbResetPassword(window.fbAuth, email);
-        sucEl.innerHTML = '✓ Reset link পাঠানো হয়েছে!<br><span style="font-size:11px; color:#777;">তোমার email check করো (spam folder সহ)</span>';
+        sucEl.innerHTML = '✓ Reset link পাঠানো হয়েছে!<br><span style="font-size:11px; color:#777;">email check করো</span>';
         sucEl.classList.add('show');
         document.getElementById('forgotEmail').value = '';
-
-        setTimeout(() => {
-            showLoginView();
-        }, 4000);
+        setTimeout(() => showLoginView(), 4000);
     } catch (err) {
-        let msg = 'কিছু একটা ভুল হয়েছে';
+        let msg = 'ভুল হয়েছে';
         if (err.code === 'auth/invalid-email') msg = 'email ঠিকমতো লেখো';
-        if (err.code === 'auth/user-not-found') msg = 'এই email এ কোনো account নেই';
-        if (err.code === 'auth/too-many-requests') msg = 'অনেকবার try করেছো। একটু পর আবার চেষ্টা করো।';
+        if (err.code === 'auth/user-not-found') msg = 'এই email এ account নেই';
+        if (err.code === 'auth/too-many-requests') msg = 'একটু পর চেষ্টা করো';
         errEl.textContent = msg;
         errEl.classList.add('show');
     }
@@ -1555,7 +1468,7 @@ async function handleForgotPassword() {
     loadEl.classList.remove('show');
 }
 
-// ============ AUTH ============
+// AUTH
 function switchAuth(mode) {
     authMode = mode;
     document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
@@ -1564,7 +1477,6 @@ function switchAuth(mode) {
     document.getElementById('authBtn').textContent = mode === 'login' ? 'Login' : 'Sign Up';
     document.getElementById('forgotLink').style.display = mode === 'login' ? 'block' : 'none';
     document.getElementById('authError').classList.remove('show');
-    document.getElementById('authSuccess').classList.remove('show');
 }
 
 async function handleAuth() {
@@ -1593,7 +1505,8 @@ async function handleAuth() {
                 focusSessions: 0, totalMinutes: 0,
                 rescueCount: 0, triggers: {}, streak: 0,
                 ideas: [], todayIdeas: 0,
-                task: '', step: ''
+                task: '', step: '',
+                userType: '', customType: ''
             });
         } else {
             await window.fbSignIn(window.fbAuth, email, password);
@@ -1626,9 +1539,10 @@ async function loadUserData() {
             let loaded = docSnap.data();
             data = Object.assign(data, loaded);
             if (!data.ideas) data.ideas = [];
+            if (!data.userType) data.userType = '';
             data.email = currentUser.email;
         }
-    } catch (err) { console.error('Load error:', err); }
+    } catch (err) { console.error('Load:', err); }
 }
 
 async function saveData() {
@@ -1641,17 +1555,16 @@ async function saveData() {
             rescueCount: data.rescueCount, triggers: data.triggers,
             streak: data.streak, ideas: data.ideas,
             todayIdeas: data.todayIdeas,
+            userType: data.userType, customType: data.customType || '',
             lastActive: window.fbServerTime()
         });
-    } catch (err) { console.error('Save error:', err); }
+    } catch (err) { console.error('Save:', err); }
 }
 
 async function logout() {
     if (!confirm('Logout করবে?')) return;
-    try {
-        await window.fbSignOut(window.fbAuth);
-        location.reload();
-    } catch (err) { showToast('logout error'); }
+    try { await window.fbSignOut(window.fbAuth); location.reload(); }
+    catch (err) { showToast('error'); }
 }
 
 function goToAdmin() { window.location.href = 'admin.html'; }
@@ -1659,9 +1572,8 @@ function goToAdmin() { window.location.href = 'admin.html'; }
 function openUserMenu() { document.getElementById('userMenu').classList.add('active'); }
 function closeUserMenu() { document.getElementById('userMenu').classList.remove('active'); }
 
-document.getElementById('userMenu').addEventListener('click', function(e) {
-    if (e.target === this) closeUserMenu();
-});
+document.getElementById('userMenu').addEventListener('click', function(e) { if (e.target === this) closeUserMenu(); });
+document.getElementById('changeTypeModal').addEventListener('click', function(e) { if (e.target === this) closeChangeType(); });
 
 function setGreeting() {
     let h = new Date().getHours();
@@ -1690,14 +1602,13 @@ function showScreen(id) {
     let fab = document.getElementById('ideaFab');
     if (id === 'ideasScreen' || id === 'dashScreen') fab.classList.add('visible');
     else fab.classList.remove('visible');
-
     window.scrollTo(0, 0);
 }
 
 function setTask() {
     let task = document.getElementById('mainTaskInput').value.trim();
     let step = document.getElementById('firstStepInput').value.trim();
-    if (!task) { showToast('task লেখো'); return; }
+    if (!task) { showToast('কাজ লেখো'); return; }
     if (!step) step = 'শুরু করো';
 
     data.task = task; data.step = step; saveData();
@@ -1708,7 +1619,7 @@ function setTask() {
 }
 
 function resetTask() {
-    if (!confirm('সব data reset করবে?')) return;
+    if (!confirm('সব reset করবে?')) return;
     data.task = ''; data.step = '';
     data.focusSessions = 0; data.totalMinutes = 0;
     data.rescueCount = 0; data.triggers = {};
@@ -1722,24 +1633,25 @@ function resetTask() {
 }
 
 const quotes = [
-    "আগে create করো। consume পরে।",
+    "আগে কাজ, পরে scroll।",
     "Motivation লাগে না। 5 মিনিট লাগে।",
     "Overthinking কাজ না। শুরু করো।",
     "Perfect হতে হবে না। done হতে হবে।",
     "তুমি lazy না। তুমি stuck।",
-    "Facebook পরে। Draft আগে।",
+    "Facebook পরে। কাজ আগে।",
     "3 মিনিট। শুধু 3 মিনিট।",
-    "Ugly draft > no draft.",
+    "শুরু করলেই অর্ধেক done.",
     "Scroll করলে কিছু হবে না।",
-    "Create before consume.",
+    "Action > planning",
     "শুরু করো। বাকিটা আসবে।",
     "তোমার future self ধন্যবাদ দিবে।",
-    "Ideas আসছে? এখনই capture করো।"
+    "ছোট step। বড় change।",
+    "এখন না করলে কখন?",
+    "Done > perfect"
 ];
 
 function randomQuote() {
-    document.getElementById('quoteText').textContent =
-        '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
+    document.getElementById('quoteText').textContent = '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
 }
 setInterval(randomQuote, 12000);
 
@@ -1758,8 +1670,7 @@ function startFocus(mins) {
         if (!isPaused) {
             timerSeconds--;
             updateTimerDisplay();
-            document.getElementById('progressBar').style.width =
-                ((totalSeconds - timerSeconds) / totalSeconds * 100) + '%';
+            document.getElementById('progressBar').style.width = ((totalSeconds - timerSeconds) / totalSeconds * 100) + '%';
             if (timerSeconds <= 0) { clearInterval(timerInterval); endFocus(); }
         }
     }, 1000);
@@ -1767,8 +1678,7 @@ function startFocus(mins) {
 
 function updateTimerDisplay() {
     let m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
-    document.getElementById('timerDisplay').textContent =
-        String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    document.getElementById('timerDisplay').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
 }
 
 function pauseTimer() {
@@ -1788,32 +1698,22 @@ function endFocus() {
 }
 
 const recoveryData = {
-    scroll: { title: 'Scrolling বন্ধ করো', sub: 'তুমি stimulation চাচ্ছো।',
-        steps: ['ফোন উল্টে রাখো।', '10 সেকেন্ড চোখ বন্ধ।', 'Draft open করো।', '1 লাইন লেখো।', '3 মিনিট timer।'] },
-    gaming: { title: 'Game রেখে দাও', sub: 'এটা fake reward।',
-        steps: ['Game close করো।', 'দাঁড়াও 60 সেকেন্ড।', 'পানি খাও।', 'Task মনে করো।', '5 মিনিট কাজে বসো।'] },
-    porn: { title: 'তুমি জানো এটা enemy', sub: '90 সেকেন্ড পার করো।',
-        steps: ['Screen থেকে দূরে।', 'ফোন অন্য room এ।', 'হাঁটো 1 মিনিট।', 'ঠান্ডা পানি মুখে।', 'কাজে ফেরো।'] },
-    overthink: { title: 'ভাবনা বন্ধ করো', sub: 'করলে হবে।',
-        steps: ['2 লাইনে লেখো।', 'Actionable?', 'না হলে ছাড়ো।', '1 tiny step বের করো।', 'সেটা এখনই করো।'] },
-    bore: { title: 'Boring? স্বাভাবিক।', sub: 'শক্ত হও।',
-        steps: ['Full কাজ ভাবো না।', '1 ছোট piece।', 'Timer 3 মিনিট।', 'বাজে হলেও লেখো।', '3 মিনিট পর check।'] },
-    fear: { title: 'Overwhelmed?', sub: 'ভাঙো।',
-        steps: ['Project ভুলো।', 'পরের 1 step।', '5 মিনিটে হবে?', 'না হলে ছোট করো।', 'শুধু সেটা করো।'] }
+    scroll: { title: 'Scrolling বন্ধ করো', sub: 'তুমি stimulation চাচ্ছো।', steps: ['ফোন উল্টে রাখো।', '10 সেকেন্ড চোখ বন্ধ।', 'কাজ open করো।', '1 step করো।', '3 মিনিট timer।'] },
+    gaming: { title: 'Game রেখে দাও', sub: 'এটা fake reward।', steps: ['Game close করো।', 'দাঁড়াও 60 সেকেন্ড।', 'পানি খাও।', 'Task মনে করো।', '5 মিনিট কাজে বসো।'] },
+    porn: { title: 'তুমি জানো এটা enemy', sub: '90 সেকেন্ড পার করো।', steps: ['Screen থেকে দূরে।', 'ফোন অন্য room এ।', 'হাঁটো 1 মিনিট।', 'ঠান্ডা পানি মুখে।', 'কাজে ফেরো।'] },
+    overthink: { title: 'ভাবনা বন্ধ করো', sub: 'করলে হবে।', steps: ['2 লাইনে লেখো।', 'Actionable?', 'না হলে ছাড়ো।', '1 tiny step বের করো।', 'সেটা এখনই করো।'] },
+    bore: { title: 'Boring? স্বাভাবিক।', sub: 'শক্ত হও।', steps: ['Full কাজ ভাবো না।', '1 ছোট piece।', 'Timer 3 মিনিট।', 'বাজে হলেও করো।', '3 মিনিট পর check।'] },
+    fear: { title: 'Overwhelmed?', sub: 'ভাঙো।', steps: ['Project ভুলো।', 'পরের 1 step।', '5 মিনিটে হবে?', 'না হলে ছোট করো।', 'শুধু সেটা করো।'] }
 };
 
 function showRecovery(type) {
     let info = recoveryData[type];
     if (!data.triggers[type]) data.triggers[type] = 0;
     data.triggers[type]++; data.rescueCount++; saveData();
-
     document.getElementById('recoveryTitle').textContent = info.title;
     document.getElementById('recoverySub').textContent = info.sub;
-
     let html = '';
-    info.steps.forEach((s, i) => {
-        html += `<div class="recovery-item"><div class="r-num">${i + 1}</div><div class="r-text">${s}</div></div>`;
-    });
+    info.steps.forEach((s, i) => { html += `<div class="recovery-item"><div class="r-num">${i+1}</div><div class="r-text">${s}</div></div>`; });
     document.getElementById('recoverySteps').innerHTML = html;
     showScreen('recoveryScreen');
 }
@@ -1826,6 +1726,7 @@ let editingIdeaId = null;
 function openIdeaModal(ideaId) {
     editingIdeaId = ideaId || null;
     document.getElementById('modalTitle').textContent = ideaId ? 'edit' : 'নতুন আইডিয়া';
+    renderCategoryDropdown();
 
     if (ideaId) {
         let idea = data.ideas.find(i => i.id === ideaId);
@@ -1837,7 +1738,6 @@ function openIdeaModal(ideaId) {
     } else {
         document.getElementById('ideaInput').value = '';
         document.getElementById('ideaDesc').value = '';
-        document.getElementById('ideaCategory').value = 'video';
     }
 
     document.getElementById('ideaModal').classList.add('active');
@@ -1879,9 +1779,7 @@ function saveIdea() {
 function deleteIdea(id) {
     if (!confirm('Delete?')) return;
     data.ideas = data.ideas.filter(i => i.id !== id);
-    saveData();
-    updateIdeaCount();
-    renderIdeas();
+    saveData(); updateIdeaCount(); renderIdeas();
     showToast('deleted');
 }
 
@@ -1892,10 +1790,7 @@ function toggleStar(id) {
 
 function toggleDone(id) {
     let idea = data.ideas.find(i => i.id === id);
-    if (idea) {
-        idea.done = !idea.done; saveData(); renderIdeas();
-        showToast(idea.done ? 'done ✓' : 'reopened');
-    }
+    if (idea) { idea.done = !idea.done; saveData(); renderIdeas(); showToast(idea.done ? 'done ✓' : 'reopened'); }
 }
 
 function filterIdeas(filter, ev) {
@@ -1908,6 +1803,9 @@ function filterIdeas(filter, ev) {
 function renderIdeas() {
     let list = document.getElementById('ideasList');
     let search = document.getElementById('ideaSearch').value.toLowerCase().trim();
+    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
+    let catMap = {};
+    typeData.categories.forEach(c => { catMap[c.id] = c.icon + ' ' + c.name; });
 
     let filtered = data.ideas.filter(idea => {
         if (currentFilter === 'starred' && !idea.starred) return false;
@@ -1927,11 +1825,10 @@ function renderIdeas() {
         return;
     }
 
-    let categoryNames = { video:'🎬 Video', reel:'📱 Reel', post:'📝 Post', script:'📖 Script', other:'💭 Other' };
-
     let html = '';
     filtered.forEach(idea => {
         let dateStr = formatDate(new Date(idea.date));
+        let catLabel = catMap[idea.category] || idea.category;
         html += `<div class="idea-card ${idea.done ? 'done' : ''}">
             <div class="idea-header">
                 <div class="idea-title">${escapeHtml(idea.title)}</div>
@@ -1939,7 +1836,7 @@ function renderIdeas() {
             </div>
             ${idea.desc ? `<div class="idea-desc">${escapeHtml(idea.desc)}</div>` : ''}
             <div class="idea-footer">
-                <span class="idea-tag">${categoryNames[idea.category] || idea.category}</span>
+                <span class="idea-tag">${catLabel}</span>
                 <span class="idea-date">${dateStr}</span>
             </div>
             <div class="idea-actions">
@@ -1978,33 +1875,19 @@ function updateReview() {
     document.getElementById('revRescues').textContent = data.rescueCount;
 
     if (data.rescueCount > 0) {
-        document.getElementById('revRescueNote').textContent =
-            data.rescueCount + ' বার slip — কিন্তু ফিরে এসেছো';
+        document.getElementById('revRescueNote').textContent = data.rescueCount + ' বার slip — কিন্তু ফিরে এসেছো';
     }
 
     let msgs = ["তুমি ফিরে এসেছো।", "আজকেও count।", "কাল আরেকটু।", "তুমি try করেছো।"];
-    document.getElementById('reviewMsg').innerHTML =
-        '<p>"' + msgs[Math.floor(Math.random() * msgs.length)] + '"</p>';
+    document.getElementById('reviewMsg').innerHTML = '<p>"' + msgs[Math.floor(Math.random() * msgs.length)] + '"</p>';
 }
 
-document.getElementById('ideaModal').addEventListener('click', function(e) {
-    if (e.target === this) closeIdeaModal();
-});
+document.getElementById('ideaModal').addEventListener('click', function(e) { if (e.target === this) closeIdeaModal(); });
+document.getElementById('ideaInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') saveIdea(); });
+document.getElementById('authPassword').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleAuth(); });
+document.getElementById('forgotEmail').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleForgotPassword(); });
 
-document.getElementById('ideaInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') saveIdea();
-});
-
-// Enter key for login
-document.getElementById('authPassword').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleAuth();
-});
-
-document.getElementById('forgotEmail').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') handleForgotPassword();
-});
-
-// Make global
+// GLOBALS
 window.switchAuth = switchAuth;
 window.handleAuth = handleAuth;
 window.togglePassword = togglePassword;
@@ -2031,6 +1914,12 @@ window.toggleStar = toggleStar;
 window.toggleDone = toggleDone;
 window.filterIdeas = filterIdeas;
 window.renderIdeas = renderIdeas;
+window.selectType = selectType;
+window.completeOnboarding = completeOnboarding;
+window.openChangeType = openChangeType;
+window.closeChangeType = closeChangeType;
+window.selectChangeType = selectChangeType;
+window.saveChangeType = saveChangeType;
 </script>
 
 </body>
