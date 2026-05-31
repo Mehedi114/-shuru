@@ -24,6 +24,146 @@ body {
     overflow-wrap: anywhere;
 }
 
+    /* ============ DEPRESSION MODE ============ */
+.depression-screen {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #4a5878 0%, #6b7c93 50%, #8b9bb4 100%);
+    padding: 30px 24px 120px;
+    color: #ffffff;
+    animation: gentleFade 0.8s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 150;
+}
+
+.depression-screen.active { display: block; }
+
+@keyframes gentleFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.dep-back {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 32px;
+    transition: all 0.3s;
+}
+
+.dep-back:hover { background: rgba(255,255,255,0.25); }
+
+.dep-welcome {
+    max-width: 420px;
+    margin: 20px auto 40px;
+    text-align: center;
+}
+
+.dep-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+    animation: gentlePulse 3s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+.dep-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+}
+
+.dep-message {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.dep-subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.mood-grid {
+    max-width: 420px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.mood-card {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+}
+
+.mood-card:hover {
+    background: rgba(255,255,255,0.22);
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.mood-card:active {
+    transform: translateY(0);
+}
+
+.mood-emoji {
+    font-size: 32px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.mood-text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.95);
+}
+
+.dep-footer {
+    max-width: 420px;
+    margin: 32px auto 0;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.dep-footer-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+}
 /* AUTH */
 .auth-screen {
     min-height: 100vh;
@@ -1039,7 +1179,59 @@ body {
         <button class="modal-close" onclick="closeChangeType()">cancel</button>
     </div>
 </div>
+<!-- ============ DEPRESSION MODE SCREEN ============ -->
+<div class="depression-screen" id="depressionScreen">
+    <button class="dep-back" onclick="exitDepressionMode()">← ফিরে যাই</button>
 
+    <div class="dep-welcome">
+        <div class="dep-icon">🌧</div>
+        <h1 class="dep-title">আমি জানি, এখন কঠিন।</h1>
+        <p class="dep-message">তুমি একা না।</p>
+        <p class="dep-message">এই অনুভূতি real, এটা valid।</p>
+        <p class="dep-message">আমি তোমার পাশে আছি।</p>
+    </div>
+
+    <p class="dep-subtitle">এখন তোমার কেমন লাগছে?</p>
+
+    <div class="mood-grid">
+        <div class="mood-card" onclick="selectMood('heavy')">
+            <span class="mood-emoji">😔</span>
+            <div class="mood-text">খুব ভার লাগছে</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('crying')">
+            <span class="mood-emoji">😢</span>
+            <div class="mood-text">কান্না পাচ্ছে</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('empty')">
+            <span class="mood-emoji">😶</span>
+            <div class="mood-text">কিছুই ভালো লাগছে না</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('numb')">
+            <span class="mood-emoji">🌫</span>
+            <div class="mood-text">অসাড় লাগছে</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('hopeless')">
+            <span class="mood-emoji">😞</span>
+            <div class="mood-text">হতাশ লাগছে</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('tired')">
+            <span class="mood-emoji">😴</span>
+            <div class="mood-text">ক্লান্ত লাগছে</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('hurt')">
+            <span class="mood-emoji">💔</span>
+            <div class="mood-text">আঘাত পেয়েছি</div>
+        </div>
+        <div class="mood-card" onclick="selectMood('overwhelmed')">
+            <span class="mood-emoji">🤯</span>
+            <div class="mood-text">মাথা কাজ করছে না</div>
+        </div>
+    </div>
+
+    <div class="dep-footer">
+        <p class="dep-footer-text">তুমি যা feel করছো — সেটা ঠিক আছে।<br>সময় নাও। তাড়া নেই।</p>
+    </div>
+</div>
 <div class="toast" id="toast">saved</div>
 
 <div class="bottom-nav">
@@ -1708,6 +1900,13 @@ const recoveryData = {
     depressed: { title: 'আমি বুঝতে পারছি...', sub: 'তুমি একা না। আমি তোমার পাশে আছি।', steps: ['একটু থামো। কিছুক্ষণ পর depression mode আসছে।', 'এখন শুধু একটা গভীর শ্বাস নাও।', 'তুমি brave যে এই button চেপেছো।', 'আমরা একসাথে এগোবো।', 'খুব দ্রুত এই feature complete হবে।'] }
 };
 function showRecovery(type) {
+    if (type === 'depressed') {
+        if (!data.triggers[type]) data.triggers[type] = 0;
+        data.triggers[type]++; data.rescueCount++; saveData();
+        enterDepressionMode();
+        return;
+    }
+
     let info = recoveryData[type];
     if (!data.triggers[type]) data.triggers[type] = 0;
     data.triggers[type]++; data.rescueCount++; saveData();
@@ -1717,6 +1916,31 @@ function showRecovery(type) {
     info.steps.forEach((s, i) => { html += `<div class="recovery-item"><div class="r-num">${i+1}</div><div class="r-text">${s}</div></div>`; });
     document.getElementById('recoverySteps').innerHTML = html;
     showScreen('recoveryScreen');
+}
+
+function enterDepressionMode() {
+    document.getElementById('depressionScreen').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function exitDepressionMode() {
+    document.getElementById('depressionScreen').classList.remove('active');
+    document.body.style.overflow = '';
+    showScreen('dashScreen');
+}
+
+function selectMood(mood) {
+    const messages = {
+        heavy: 'এই ভার তুমি একা বইছো না।',
+        crying: 'কান্নাটা ছেড়ে দাও। এটা শুদ্ধতা।',
+        empty: 'Numbness মানে দুর্বলতা না।',
+        numb: 'তুমি নিজেকে অনুভব করতে চাও।',
+        hopeless: 'আজ হতাশ হলেও, কাল নতুন দিন।',
+        tired: 'ক্লান্তি মানে শরীর কথা বলছে।',
+        hurt: 'যেই আঘাত করুক — তোমার ব্যথা real।',
+        overwhelmed: 'Brain overload। একটু থামো।'
+    };
+    alert('💙 ' + (messages[mood] || 'আমি পাশে আছি।') + '\n\nএই mood এর activity পরের patch এ আসছে।');
 }
 
 function backToWork() { showScreen('dashScreen'); randomQuote(); }
@@ -1907,6 +2131,9 @@ window.pauseTimer = pauseTimer;
 window.endFocus = endFocus;
 window.showRecovery = showRecovery;
 window.backToWork = backToWork;
+window.enterDepressionMode = enterDepressionMode;
+window.exitDepressionMode = exitDepressionMode;
+window.selectMood = selectMood;
 window.openIdeaModal = openIdeaModal;
 window.closeIdeaModal = closeIdeaModal;
 window.saveIdea = saveIdea;
