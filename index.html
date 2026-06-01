@@ -486,6 +486,205 @@ body {
     font-weight: 600;
 }
 
+/* ============ THREE LIGHTS ACTIVITY ============ */
+.lights-container {
+    max-width: 420px;
+    margin: 30px auto;
+    padding: 0 16px;
+}
+
+.light-progress {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.light-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: all 0.4s;
+}
+
+.light-dot.active {
+    background: rgba(255,220,150,0.9);
+    box-shadow: 0 0 12px rgba(255,220,150,0.6);
+}
+
+.light-dot.completed {
+    background: rgba(255,220,150,1);
+    box-shadow: 0 0 16px rgba(255,220,150,0.8);
+}
+
+.light-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    animation: lightFadeIn 0.6s ease;
+}
+
+@keyframes lightFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.light-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: candleFlicker 2s ease-in-out infinite;
+}
+
+@keyframes candleFlicker {
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+.light-number {
+    font-size: 11px;
+    color: rgba(255,220,150,0.9);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.light-question {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+}
+
+.light-hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 22px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.light-input {
+    width: 100%;
+    background: rgba(0,0,0,0.15);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    resize: none;
+    min-height: 80px;
+    line-height: 1.6;
+    transition: all 0.3s;
+}
+
+.light-input:focus {
+    border-color: rgba(255,220,150,0.6);
+    background: rgba(0,0,0,0.25);
+}
+
+.light-input::placeholder {
+    color: rgba(255,255,255,0.3);
+}
+
+.light-btn {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255,220,150,0.9);
+    color: #4a3818;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: all 0.2s;
+    letter-spacing: 0.2px;
+}
+
+.light-btn:hover { background: rgba(255,220,150,1); }
+.light-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.lights-summary {
+    text-align: center;
+    max-width: 420px;
+    margin: 20px auto;
+    padding: 0 16px;
+}
+
+.summary-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+}
+
+.summary-subtitle {
+    font-size: 13px;
+    color: rgba(255,220,150,0.9);
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.light-result {
+    background: linear-gradient(135deg, rgba(255,220,150,0.12) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,220,150,0.25);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.result-label {
+    font-size: 10px;
+    color: rgba(255,220,150,0.8);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.result-text {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 1.6;
+    font-weight: 400;
+    word-break: break-word;
+}
+
+.lights-final {
+    background: linear-gradient(135deg, rgba(255,220,150,0.15) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,220,150,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.lights-final p {
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
+}    
+
     
 /* ============ EMOTION RELEASE (RAINDROPS) ============ */
 .raindrops-area {
@@ -1684,6 +1883,68 @@ body {
         <button class="activity-btn-outline" onclick="exitToHomeFromRain()">কাজে ফিরে যাই</button>
     </div>
 </div>
+<!-- ============ THREE LIGHTS ACTIVITY ============ -->
+<div class="activity-screen" id="lightsScreen">
+    <div class="activity-top">
+        <button class="dep-back" onclick="exitLights()">← ফিরে যাই</button>
+        <span class="activity-title">🕯 তিনটা আলো</span>
+        <button class="sound-toggle" id="soundToggleLights" onclick="toggleSound()">🔊</button>
+    </div>
+
+    <div id="lightsView">
+        <div class="lights-container">
+            <div class="light-progress">
+                <div class="light-dot active" id="dot1"></div>
+                <div class="light-dot" id="dot2"></div>
+                <div class="light-dot" id="dot3"></div>
+            </div>
+
+            <div class="light-card" id="lightCard">
+                <div class="light-icon" id="lightIcon">🕯</div>
+                <div class="light-number" id="lightNumber">আলো ১ / ৩</div>
+                <h2 class="light-question" id="lightQuestion">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
+                <p class="light-hint" id="lightHint">যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি, এই app খুলেছি...</p>
+                <textarea class="light-input" id="lightInput" placeholder="যা মনে আসছে লেখো..." maxlength="200"></textarea>
+                <button class="light-btn" id="lightSaveBtn" onclick="saveLight()">পরবর্তী আলো →</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightsCompletion" style="display:none;">
+        <div class="lights-summary">
+            <h2 class="summary-title">তোমার তিনটা আলো</h2>
+            <p class="summary-subtitle">✨ তুমি এগুলো খুঁজে পেয়েছো</p>
+
+            <div class="light-result">
+                <div class="result-label">🕯 আজকের আলো</div>
+                <div class="result-text" id="result1">—</div>
+            </div>
+
+            <div class="light-result">
+                <div class="result-label">💛 জীবনের আলো</div>
+                <div class="result-text" id="result2">—</div>
+            </div>
+
+            <div class="light-result">
+                <div class="result-label">🌅 কালকের আলো</div>
+                <div class="result-text" id="result3">—</div>
+            </div>
+
+            <div class="lights-final">
+                <p>
+                    হতাশা মানে অন্ধকার।<br>
+                    কিন্তু তুমি এইমাত্র <strong>তিনটা আলো</strong> খুঁজে পেয়েছো।<br><br>
+                    এগুলো রোজ মনে রেখো।<br>
+                    Brain তোমাকে আবার ভালো লাগাবে।
+                </p>
+            </div>
+
+            <button class="activity-btn-primary" onclick="restartLights()">আরো একবার</button>
+            <button class="activity-btn-outline" onclick="backToDepressionFromLights()">অন্য কিছু try করি</button>
+            <button class="activity-btn-outline" onclick="exitToHomeFromLights()">কাজে ফিরে যাই</button>
+        </div>
+    </div>
+</div>    
 <!-- ============ RAINDROPS ACTIVITY SCREEN ============ -->
 <div class="activity-screen" id="raindropsScreen">
     <div class="activity-top">
@@ -2476,6 +2737,11 @@ function selectMood(mood) {
         startBreathingActivity();
         return;
     }
+        // Hopeless mood → Three Lights
+    if (mood === 'hopeless') {
+        startLightsActivity();
+        return;
+    }
         // Crying mood → Raindrops activity
     if (mood === 'crying') {
         startRaindropsActivity();
@@ -2860,6 +3126,128 @@ function cleanupRaindrops() {
     if (raindropsInterval) clearInterval(raindropsInterval);
     if (raindropsTimer) clearTimeout(raindropsTimer);
 }
+
+// ============ THREE LIGHTS ACTIVITY ============
+let currentLightStep = 1;
+let lightAnswers = ['', '', ''];
+
+const lightQuestions = [
+    {
+        icon: '🕯',
+        number: 'আলো ১ / ৩',
+        question: 'আজকে কী ছোট কিছু ঠিক হয়েছে?',
+        hint: 'যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি, এই app খুলেছি...',
+        placeholder: 'যা মনে আসছে লেখো...'
+    },
+    {
+        icon: '💛',
+        number: 'আলো ২ / ৩',
+        question: 'জীবনে কী একটা ভালো জিনিস আছে?',
+        hint: 'family, friend, একটা hobby, একটা skill — যা থাকতে নাও পারতো...',
+        placeholder: 'একটা ভালো জিনিস লেখো...'
+    },
+    {
+        icon: '🌅',
+        number: 'আলো ৩ / ৩',
+        question: 'কাল ছোট কী ভালো হতে পারে?',
+        hint: 'বড় কিছু না — শুধু একটা সম্ভাবনা। চা খাওয়া, sunlight, একটা গান...',
+        placeholder: 'একটা সম্ভাবনা লেখো...'
+    }
+];
+
+function startLightsActivity() {
+    document.getElementById('lightsScreen').classList.add('active');
+    document.getElementById('lightsView').style.display = 'block';
+    document.getElementById('lightsCompletion').style.display = 'none';
+    currentLightStep = 1;
+    lightAnswers = ['', '', ''];
+    updateSoundButton();
+    showLightStep(1);
+}
+
+function showLightStep(step) {
+    let q = lightQuestions[step - 1];
+
+    document.getElementById('lightIcon').textContent = q.icon;
+    document.getElementById('lightNumber').textContent = q.number;
+    document.getElementById('lightQuestion').textContent = q.question;
+    document.getElementById('lightHint').textContent = q.hint;
+    document.getElementById('lightInput').value = '';
+    document.getElementById('lightInput').placeholder = q.placeholder;
+
+    // Update button text
+    if (step === 3) {
+        document.getElementById('lightSaveBtn').textContent = 'সব আলো একসাথে দেখি ✨';
+    } else {
+        document.getElementById('lightSaveBtn').textContent = 'পরবর্তী আলো →';
+    }
+
+    // Update progress dots
+    for (let i = 1; i <= 3; i++) {
+        let dot = document.getElementById('dot' + i);
+        dot.classList.remove('active', 'completed');
+        if (i < step) dot.classList.add('completed');
+        else if (i === step) dot.classList.add('active');
+    }
+
+    // Animate card
+    let card = document.getElementById('lightCard');
+    card.style.animation = 'none';
+    setTimeout(() => {
+        card.style.animation = 'lightFadeIn 0.6s ease';
+    }, 10);
+
+    // Focus input
+    setTimeout(() => {
+        document.getElementById('lightInput').focus();
+    }, 400);
+}
+
+function saveLight() {
+    let input = document.getElementById('lightInput').value.trim();
+    if (!input) {
+        showToast('একটু লেখো');
+        return;
+    }
+
+    lightAnswers[currentLightStep - 1] = input;
+    playReleaseSound();
+
+    if (currentLightStep < 3) {
+        currentLightStep++;
+        showLightStep(currentLightStep);
+    } else {
+        completeLights();
+    }
+}
+
+function completeLights() {
+    playCompletionSound();
+    document.getElementById('result1').textContent = lightAnswers[0];
+    document.getElementById('result2').textContent = lightAnswers[1];
+    document.getElementById('result3').textContent = lightAnswers[2];
+    document.getElementById('lightsView').style.display = 'none';
+    document.getElementById('lightsCompletion').style.display = 'block';
+}
+
+function restartLights() {
+    startLightsActivity();
+}
+
+function backToDepressionFromLights() {
+    document.getElementById('lightsScreen').classList.remove('active');
+}
+
+function exitToHomeFromLights() {
+    document.getElementById('lightsScreen').classList.remove('active');
+    document.getElementById('depressionScreen').classList.remove('active');
+    document.body.style.overflow = '';
+    showScreen('dashScreen');
+}
+
+function exitLights() {
+    document.getElementById('lightsScreen').classList.remove('active');
+}    
     
 function backToWork() { showScreen('dashScreen'); randomQuote(); }
 
@@ -3065,7 +3453,13 @@ window.restartRaindrops = restartRaindrops;
 window.backToDepressionFromRain = backToDepressionFromRain;
 window.exitToHomeFromRain = exitToHomeFromRain;
 window.exitRaindrops = exitRaindrops;
-window.completeRaindrops = completeRaindrops;    
+window.completeRaindrops = completeRaindrops;   
+window.startLightsActivity = startLightsActivity;
+window.saveLight = saveLight;
+window.restartLights = restartLights;
+window.backToDepressionFromLights = backToDepressionFromLights;
+window.exitToHomeFromLights = exitToHomeFromLights;
+window.exitLights = exitLights;    
 window.openIdeaModal = openIdeaModal;
 window.closeIdeaModal = closeIdeaModal;
 window.saveIdea = saveIdea;
