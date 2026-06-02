@@ -1,3479 +1,741 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>শুরু</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; word-wrap: break-word; overflow-wrap: break-word; }
-html, body { overflow-x: hidden; max-width: 100%; }
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #f5f5f7;
-    color: #1a1a1a;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-}
-
-::selection { background: #1a1a1a; color: #fff; }
-
-.idea-title, .idea-desc, .task-card-title {
-    word-break: break-word;
-    overflow-wrap: anywhere;
-}
-
-    /* ============ DEPRESSION MODE ============ */
-.depression-screen {
-    display: none;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #4a5878 0%, #6b7c93 50%, #8b9bb4 100%);
-    padding: 30px 24px 120px;
-    color: #ffffff;
-    animation: gentleFade 0.8s ease;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
-    z-index: 150;
-}
-
-.depression-screen.active { display: block; }
-
-@keyframes gentleFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.dep-back {
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 32px;
-    transition: all 0.3s;
-}
-
-.dep-back:hover { background: rgba(255,255,255,0.25); }
-
-.dep-welcome {
-    max-width: 420px;
-    margin: 20px auto 40px;
-    text-align: center;
-}
-
-.dep-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
-    opacity: 0.9;
-    animation: gentlePulse 3s ease-in-out infinite;
-}
-
-@keyframes gentlePulse {
-    0%, 100% { transform: scale(1); opacity: 0.9; }
-    50% { transform: scale(1.05); opacity: 1; }
-}
-
-.dep-title {
-    font-size: 26px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    line-height: 1.4;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-}
-
-.dep-message {
-    font-size: 15px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.85);
-    font-weight: 400;
-    margin-bottom: 8px;
-}
-
-.dep-subtitle {
-    font-size: 14px;
-    color: rgba(255,255,255,0.7);
-    margin-top: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: 400;
-}
-
-.mood-grid {
-    max-width: 420px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.mood-card {
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 16px;
-    padding: 20px 14px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #ffffff;
-}
-
-.mood-card:hover {
-    background: rgba(255,255,255,0.22);
-    transform: translateY(-2px);
-    border-color: rgba(255,255,255,0.3);
-}
-
-.mood-card:active {
-    transform: translateY(0);
-}
-
-.mood-emoji {
-    font-size: 32px;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.mood-text {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.4;
-    color: rgba(255,255,255,0.95);
-}
-
-.dep-footer {
-    max-width: 420px;
-    margin: 32px auto 0;
-    text-align: center;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.dep-footer-text {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
-}
-
- /* ============ BREATHING ACTIVITY ============ */
-.activity-screen {
-    display: none;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #4a5878 0%, #6b7c93 50%, #8b9bb4 100%);
-    padding: 30px 24px;
-    color: #ffffff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow-y: auto;
-    z-index: 160;
-    animation: gentleFade 0.6s ease;
-}
-
-.activity-screen.active { display: block; }
-
-.activity-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 420px;
-    margin: 0 auto 20px;
-}
-
-.activity-title {
-    font-size: 14px;
-    color: rgba(255,255,255,0.7);
-    font-weight: 500;
-}
-
- 
-.sound-toggle {
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sound-toggle:hover { background: rgba(255,255,255,0.25); }
-.sound-toggle.muted { opacity: 0.5; }   
-.sound-toggle {
-    background: rgba(255,255,255,0.15);
-    border: none;
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sound-toggle:hover { background: rgba(255,255,255,0.25); }
-.sound-toggle.muted { opacity: 0.5; }
-
-.activity-top {
-    gap: 10px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shuru - Premium Wellness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-.breathing-wrap {
-    max-width: 420px;
-    margin: 40px auto;
-    text-align: center;
-}
-
-.breath-instruction {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 30px;
-    line-height: 1.6;
-    font-weight: 400;
-}
-
-.breath-circle-container {
-    width: 280px;
-    height: 280px;
-    margin: 0 auto 30px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.breath-circle {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 70%);
-    border: 2px solid rgba(255,255,255,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s ease;
-    position: absolute;
-    box-shadow: 0 0 40px rgba(255,255,255,0.2);
-}
-
-.breath-circle.inhale {
-    transform: scale(1.6);
-    background: radial-gradient(circle, rgba(173,216,230,0.5) 0%, rgba(173,216,230,0.2) 70%);
-    border-color: rgba(173,216,230,0.6);
-    box-shadow: 0 0 60px rgba(173,216,230,0.4);
-}
-
-.breath-circle.hold {
-    transform: scale(1.6);
-    background: radial-gradient(circle, rgba(221,160,221,0.5) 0%, rgba(221,160,221,0.2) 70%);
-    border-color: rgba(221,160,221,0.6);
-    box-shadow: 0 0 60px rgba(221,160,221,0.4);
-}
-
-.breath-circle.exhale {
-    transform: scale(0.8);
-    background: radial-gradient(circle, rgba(144,238,144,0.4) 0%, rgba(144,238,144,0.1) 70%);
-    border-color: rgba(144,238,144,0.5);
-    box-shadow: 0 0 30px rgba(144,238,144,0.3);
-}
-
-.breath-text {
-    font-size: 18px;
-    font-weight: 500;
-    color: #ffffff;
-    letter-spacing: 0.5px;
-    z-index: 2;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
-
-.breath-count {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 4px;
-    font-weight: 400;
-}
-
-.breath-cycle-info {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    margin-top: 20px;
-    font-weight: 400;
-}
-
-.breath-cycle-info span {
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 16px;
-}
-
-.activity-actions {
-    max-width: 420px;
-    margin: 30px auto 0;
-}
-
-.activity-btn-primary {
-    width: 100%;
-    padding: 14px;
-    background: rgba(255,255,255,0.95);
-    color: #4a5878;
-    border: none;
-    border-radius: 14px;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.2s;
-}
-
-.activity-btn-primary:hover { background: #fff; }
-
-.activity-btn-outline {
-    width: 100%;
-    padding: 14px;
-    background: transparent;
-    color: rgba(255,255,255,0.9);
-    border: 1.5px solid rgba(255,255,255,0.3);
-    border-radius: 14px;
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: all 0.2s;
-}
-
-.activity-btn-outline:hover {
-    border-color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.1);
-}
-
-.completion-screen {
-    text-align: center;
-    padding: 40px 20px;
-    max-width: 420px;
-    margin: 0 auto;
-}
-
-.completion-icon {
-    font-size: 56px;
-    margin-bottom: 20px;
-    animation: gentlePulse 2s ease-in-out infinite;
-}
-
-.completion-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 14px;
-    line-height: 1.4;
-}
-
-.completion-message {
-    font-size: 14px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.7;
-    margin-bottom: 30px;
-
-/* ============ RAINDROPS ACTIVITY ============ */
-.raindrops-area {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    height: 400px;
-    margin: 20px auto;
-    overflow: hidden;
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.raindrop {
-    position: absolute;
-    width: 24px;
-    height: 32px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    animation: fall linear forwards;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-}
-
-.raindrop:hover {
-    transform: scale(1.3);
-}
-
-.raindrop.bursting {
-    animation: burst 0.5s ease forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    from { transform: translateY(-50px); }
-    to { transform: translateY(450px); }
-}
-
-@keyframes burst {
-    0% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
-}
-
-.ripple {
-    position: absolute;
-    border: 2px solid rgba(173,216,230,0.8);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: ripple-effect 1s ease-out forwards;
-}
-
-@keyframes ripple-effect {
-    0% { width: 0; height: 0; opacity: 1; }
-    100% { width: 80px; height: 80px; opacity: 0; }
-}
-
-.raindrops-counter {
-    text-align: center;
-    margin: 20px 0;
-    color: rgba(255,255,255,0.8);
-    font-size: 14px;
-}
-
-.raindrops-counter .count-num {
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-    display: block;
-    margin-bottom: 4px;
-    letter-spacing: -0.5px;
-}
-
-.raindrops-instruction {
-    text-align: center;
-    color: rgba(255,255,255,0.7);
-    font-size: 13px;
-    margin-bottom: 16px;
-    line-height: 1.6;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.raindrops-instruction strong {
-    color: #ffffff;
-    font-weight: 600;
-}
-
-/* ============ THREE LIGHTS ACTIVITY ============ */
-.lights-container {
-    max-width: 420px;
-    margin: 30px auto;
-    padding: 0 16px;
-}
-
-.light-progress {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 28px;
-}
-
-.light-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    transition: all 0.4s;
-}
-
-.light-dot.active {
-    background: rgba(255,220,150,0.9);
-    box-shadow: 0 0 12px rgba(255,220,150,0.6);
-}
-
-.light-dot.completed {
-    background: rgba(255,220,150,1);
-    box-shadow: 0 0 16px rgba(255,220,150,0.8);
-}
-
-.light-card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    padding: 32px 24px;
-    text-align: center;
-    animation: lightFadeIn 0.6s ease;
-}
-
-@keyframes lightFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.light-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-    display: inline-block;
-    animation: candleFlicker 2s ease-in-out infinite;
-}
-
-@keyframes candleFlicker {
-    0%, 100% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.05); filter: brightness(1.2); }
-}
-
-.light-number {
-    font-size: 11px;
-    color: rgba(255,220,150,0.9);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.light-question {
-    font-size: 18px;
-    font-weight: 500;
-    color: #ffffff;
-    margin-bottom: 8px;
-    line-height: 1.5;
-    letter-spacing: -0.3px;
-}
-
-.light-hint {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 22px;
-    line-height: 1.6;
-    font-style: italic;
-}
-
-.light-input {
-    width: 100%;
-    background: rgba(0,0,0,0.15);
-    border: 1.5px solid rgba(255,255,255,0.2);
-    border-radius: 14px;
-    padding: 16px 18px;
-    color: #ffffff;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-    resize: none;
-    min-height: 80px;
-    line-height: 1.6;
-    transition: all 0.3s;
-}
-
-.light-input:focus {
-    border-color: rgba(255,220,150,0.6);
-    background: rgba(0,0,0,0.25);
-}
-
-.light-input::placeholder {
-    color: rgba(255,255,255,0.3);
-}
-
-.light-btn {
-    width: 100%;
-    padding: 14px;
-    background: rgba(255,220,150,0.9);
-    color: #4a3818;
-    border: none;
-    border-radius: 14px;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 14px;
-    transition: all 0.2s;
-    letter-spacing: 0.2px;
-}
-
-.light-btn:hover { background: rgba(255,220,150,1); }
-.light-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-.lights-summary {
-    text-align: center;
-    max-width: 420px;
-    margin: 20px auto;
-    padding: 0 16px;
-}
-
-.summary-title {
-    font-size: 22px;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 8px;
-    line-height: 1.4;
-    letter-spacing: -0.3px;
-}
-
-.summary-subtitle {
-    font-size: 13px;
-    color: rgba(255,220,150,0.9);
-    margin-bottom: 28px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-.light-result {
-    background: linear-gradient(135deg, rgba(255,220,150,0.12) 0%, rgba(255,255,255,0.05) 100%);
-    border: 1px solid rgba(255,220,150,0.25);
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 12px;
-    text-align: left;
-}
-
-.result-label {
-    font-size: 10px;
-    color: rgba(255,220,150,0.8);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.result-text {
-    font-size: 15px;
-    color: #ffffff;
-    line-height: 1.6;
-    font-weight: 400;
-    word-break: break-word;
-}
-
-.lights-final {
-    background: linear-gradient(135deg, rgba(255,220,150,0.15) 0%, rgba(255,255,255,0.05) 100%);
-    border: 1px solid rgba(255,220,150,0.3);
-    border-radius: 16px;
-    padding: 24px;
-    margin: 20px 0;
-    text-align: center;
-}
-
-.lights-final p {
-    color: rgba(255,255,255,0.95);
-    font-size: 14px;
-    line-height: 1.7;
-    font-weight: 400;
-}    
-
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        app: {
+                            bg: '#0A1128', // Deep premium navy
+                            card: '#151E32', // Slightly lighter navy for cards
+                            border: '#1F2942',
+                            teal: '#14B8A6',
+                            emerald: '#059669'
+                        }
+                    },
+                    animation: {
+                        'breathe-circle': 'breathe 16s infinite ease-in-out',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        breathe: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
+                            '25%': { transform: 'scale(1.5)', opacity: '1' }, // Inhale
+                            '50%': { transform: 'scale(1.5)', opacity: '1' }, // Hold
+                            '75%': { transform: 'scale(1)', opacity: '0.8' }, // Exhale
+                        },
+                        fadeIn: {
+                            from: { opacity: '0', transform: 'translateY(10px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
-/* ============ EMOTION RELEASE (RAINDROPS) ============ */
-.raindrops-area {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    height: 400px;
-    margin: 20px auto;
-    overflow: hidden;
-    border-radius: 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.raindrop {
-    position: absolute;
-    width: 24px;
-    height: 32px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    animation: fall linear forwards;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.raindrop:hover {
-    transform: scale(1.3);
-}
-
-.raindrop.bursting {
-    animation: burst 0.5s ease forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    from { transform: translateY(-50px); }
-    to { transform: translateY(450px); }
-}
-
-@keyframes burst {
-    0% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
-}
-
-.ripple {
-    position: absolute;
-    border: 2px solid rgba(173,216,230,0.8);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: ripple-effect 1s ease-out forwards;
-}
-
-@keyframes ripple-effect {
-    0% { width: 0; height: 0; opacity: 1; }
-    100% { width: 80px; height: 80px; opacity: 0; }
-}
-
-.raindrops-counter {
-    text-align: center;
-    margin: 20px 0;
-    color: rgba(255,255,255,0.8);
-    font-size: 14px;
-}
-
-.raindrops-counter .count-num {
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-    display: block;
-    margin-bottom: 4px;
-    letter-spacing: -0.5px;
-}
-
-.raindrops-instruction {
-    text-align: center;
-    color: rgba(255,255,255,0.7);
-    font-size: 13px;
-    margin-bottom: 16px;
-    line-height: 1.6;
-}
-
-.raindrops-instruction strong {
-    color: #ffffff;
-    font-weight: 600;
-}
-}   
-/* AUTH */
-.auth-screen {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: #f5f5f7;
-}
-
-.auth-box {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 40px 28px;
-    max-width: 420px;
-    width: 100%;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-
-.auth-logo {
-    font-size: 32px;
-    font-weight: 700;
-    color: #1a1a1a;
-    text-align: center;
-    margin-bottom: 8px;
-    letter-spacing: -1px;
-}
-
-.auth-tagline {
-    font-size: 13px;
-    color: #aaa;
-    text-align: center;
-    margin-bottom: 32px;
-}
-
-.auth-tab {
-    display: flex;
-    background: #f5f5f7;
-    border-radius: 12px;
-    padding: 4px;
-    margin-bottom: 24px;
-}
-
-.auth-tab button {
-    flex: 1;
-    padding: 10px;
-    background: none;
-    border: none;
-    font-size: 13px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    color: #999;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.2s;
-}
-
-.auth-tab button.active {
-    background: #ffffff;
-    color: #1a1a1a;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.auth-input {
-    width: 100%;
-    padding: 14px 16px;
-    background: #f5f5f7;
-    border: 1.5px solid transparent;
-    border-radius: 12px;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-    outline: none;
-    transition: all 0.2s;
-}
-
-.auth-input:focus { border-color: #1a1a1a; background: #ffffff; }
-.auth-input::placeholder { color: #bbb; }
-
-.password-wrapper { position: relative; margin-bottom: 12px; }
-.password-wrapper input { margin-bottom: 0; padding-right: 48px; }
-
-.eye-toggle {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #999;
-    padding: 4px 8px;
-    line-height: 1;
-}
-
-.eye-toggle:hover { color: #1a1a1a; }
-
-.forgot-link { text-align: right; margin-bottom: 14px; margin-top: -4px; }
-.forgot-link a {
-    font-size: 12px;
-    color: #999;
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: 500;
-}
-.forgot-link a:hover { color: #1a1a1a; }
-
-.auth-btn {
-    width: 100%;
-    padding: 14px;
-    background: #1a1a1a;
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: all 0.2s;
-}
-
-.auth-btn:hover { background: #2d2d2d; }
-.auth-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.auth-error {
-    background: #fef0f0;
-    color: #c44;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 12px;
-    margin-bottom: 12px;
-    display: none;
-}
-
-.auth-error.show { display: block; }
-
-.auth-success {
-    background: #e8f7ed;
-    color: #2a9d4a;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 12px;
-    margin-bottom: 12px;
-    display: none;
-}
-
-.auth-success.show { display: block; }
-
-.auth-loading {
-    text-align: center;
-    color: #aaa;
-    font-size: 12px;
-    margin-top: 12px;
-    display: none;
-}
-
-.auth-loading.show { display: block; }
-
-.back-link { text-align: center; margin-top: 16px; }
-.back-link a { font-size: 12px; color: #999; text-decoration: none; cursor: pointer; font-weight: 500; }
-.back-link a:hover { color: #1a1a1a; }
-
-.forgot-heading { text-align: center; margin-bottom: 20px; }
-.forgot-heading h3 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
-.forgot-heading p { font-size: 12px; color: #999; line-height: 1.5; }
-
-/* ONBOARDING */
-.onboarding-screen {
-    min-height: 100vh;
-    background: #f5f5f7;
-    padding: 24px;
-    display: none;
-}
-
-.onboarding-screen.active { display: block; }
-
-.onboard-box {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 32px 24px;
-    max-width: 500px;
-    margin: 24px auto;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-
-.onboard-heading {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.onboard-heading h2 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-}
-
-.onboard-heading p {
-    font-size: 13px;
-    color: #999;
-    line-height: 1.5;
-}
-
-.type-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 16px;
-}
-
-.type-card {
-    background: #f5f5f7;
-    border: 2px solid transparent;
-    border-radius: 14px;
-    padding: 16px 12px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.type-card:hover { border-color: #ddd; }
-
-.type-card.selected {
-    background: #ffffff;
-    border-color: #1a1a1a;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-.type-icon { font-size: 28px; margin-bottom: 6px; }
-.type-name { font-size: 12px; font-weight: 600; color: #444; }
-.type-card.selected .type-name { color: #1a1a1a; }
-
-.custom-input-wrap {
-    margin-top: 12px;
-    margin-bottom: 16px;
-    display: none;
-}
-
-.custom-input-wrap.show { display: block; }
-
-.custom-input-wrap input {
-    width: 100%;
-    padding: 14px 16px;
-    background: #f5f5f7;
-    border: 1.5px solid transparent;
-    border-radius: 12px;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    color: #1a1a1a;
-    outline: none;
-}
-
-.custom-input-wrap input:focus { border-color: #1a1a1a; background: #fff; }
-
-/* APP */
-#appMain { display: none; }
-#appMain.active { display: block; }
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 24px;
-    background: #ffffff;
-    border-bottom: 1px solid #ebebeb;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.logo { font-size: 21px; font-weight: 700; color: #1a1a1a; letter-spacing: -0.5px; }
-.topbar-right { display: flex; align-items: center; gap: 10px; }
-
-.streak-box {
-    background: #f5f5f7;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    color: #999;
-    font-weight: 500;
-}
-
-.streak-box span { color: #1a1a1a; font-weight: 700; }
-
-.user-avatar {
-    width: 32px;
-    height: 32px;
-    background: #1a1a1a;
-    color: #ffffff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* USER MENU */
-.user-menu-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 200;
-    display: none;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-.user-menu-overlay.active { display: flex; }
-
-.user-menu {
-    background: #ffffff;
-    width: 100%;
-    max-width: 480px;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 30px;
-    animation: slideUp 0.3s ease;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.user-menu-handle { width: 40px; height: 4px; background: #e0e0e0; border-radius: 10px; margin: 0 auto 20px; }
-
-.user-info {
-    text-align: center;
-    padding: 12px 0 24px;
-    border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 16px;
-}
-
-.user-info .user-name { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
-.user-info .user-email { font-size: 12px; color: #aaa; }
-
-.user-type-badge {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 4px 12px;
-    background: #f5f5f7;
-    border-radius: 12px;
-    font-size: 11px;
-    color: #666;
-    font-weight: 600;
-}
-
-.menu-item {
-    display: block;
-    width: 100%;
-    padding: 14px 16px;
-    background: none;
-    border: none;
-    text-align: left;
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-    color: #1a1a1a;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background 0.2s;
-}
-
-.menu-item:hover { background: #f5f5f7; }
-.menu-item.danger { color: #c44; }
-
-/* SCREENS */
-.screen {
-    display: none;
-    padding: 24px 20px;
-    max-width: 480px;
-    margin: 0 auto;
-    animation: fadeIn 0.35s ease;
-    padding-bottom: 110px;
-}
-
-.screen.active { display: block; }
-
-@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-.greeting { font-size: 13px; color: #bbb; margin-bottom: 4px; font-weight: 400; }
-.main-heading { font-size: 26px; font-weight: 700; color: #1a1a1a; margin-bottom: 28px; line-height: 1.35; letter-spacing: -0.5px; }
-
-.section-label {
-    font-size: 10px; color: #aaa; text-transform: uppercase;
-    letter-spacing: 1.8px; font-weight: 600; margin-bottom: 12px; padding-left: 2px;
-}
-
-.section-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 14px; padding: 0 2px;
-}
-
-.section-header .count { font-size: 12px; color: #999; font-weight: 500; }
-
-.input-card {
-    background: #ffffff; border-radius: 14px; padding: 20px 22px;
-    margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.04);
-}
-
-.input-card label {
-    font-size: 10px; color: #aaa; text-transform: uppercase;
-    letter-spacing: 1.5px; font-weight: 600; display: block; margin-bottom: 10px;
-}
-
-.input-card input, .input-card textarea, .input-card select {
-    width: 100%; background: none; border: none;
-    border-bottom: 1.5px solid #f0f0f0; color: #1a1a1a;
-    font-size: 16px; font-family: 'Inter', sans-serif;
-    padding: 10px 0; outline: none; transition: border-color 0.3s;
-}
-
-.input-card textarea {
-    resize: none; min-height: 80px; border-bottom: none;
-    border: 1.5px solid #f0f0f0; border-radius: 10px; padding: 12px; line-height: 1.5;
-}
-
-.input-card input:focus, .input-card textarea:focus, .input-card select:focus { border-bottom-color: #1a1a1a; }
-.input-card textarea:focus { border-color: #1a1a1a; }
-.input-card input::placeholder, .input-card textarea::placeholder { color: #d5d5d5; font-weight: 300; }
-
-.btn-primary {
-    width: 100%; padding: 16px; background: #1a1a1a; color: #ffffff;
-    border: none; border-radius: 14px; font-size: 15px;
-    font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer;
-    transition: all 0.2s; margin-top: 6px;
-}
-
-.btn-primary:hover { background: #2d2d2d; }
-.btn-primary:active { transform: scale(0.98); }
-.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.btn-outline {
-    width: 100%; padding: 15px; background: #ffffff; color: #666;
-    border: 1.5px solid #e8e8e8; border-radius: 14px; font-size: 14px;
-    font-family: 'Inter', sans-serif; font-weight: 500; cursor: pointer;
-    margin-top: 8px; transition: all 0.2s;
-}
-
-.btn-outline:hover { border-color: #1a1a1a; color: #1a1a1a; }
-
-.btn-rescue {
-    width: 100%; padding: 16px; background: #ffffff; color: #1a1a1a;
-    border: 2px solid #1a1a1a; border-radius: 14px; font-size: 15px;
-    font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer;
-    margin-top: 10px; transition: all 0.2s;
-}
-
-.btn-rescue:hover { background: #1a1a1a; color: #fff; }
-
-.task-card {
-    background: #ffffff; border-radius: 18px; padding: 32px 24px;
-    margin-bottom: 14px; text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.03);
-}
-
-.task-card-label {
-    font-size: 9px; color: #bbb; text-transform: uppercase;
-    letter-spacing: 2.5px; font-weight: 600; margin-bottom: 14px;
-}
-
-.task-card-title {
-    font-size: 22px; font-weight: 700; color: #1a1a1a;
-    margin-bottom: 10px; letter-spacing: -0.3px; line-height: 1.3;
-}
-
-.task-card-step { font-size: 13px; color: #aaa; font-weight: 400; }
-.task-card-step span { color: #666; font-weight: 500; }
-
-.quote-card {
-    background: #ffffff; border-radius: 14px; padding: 22px;
-    margin-bottom: 14px; text-align: center; border: 1px solid rgba(0,0,0,0.04);
-}
-
-.quote-text { font-size: 13px; color: #bbb; font-weight: 400; line-height: 1.7; }
-
-.timer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-
-.timer-option {
-    background: #ffffff; border: 1px solid #efefef; border-radius: 14px;
-    padding: 20px 10px; text-align: center; cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-}
-
-.timer-option:hover { border-color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.timer-option .mins { font-size: 28px; font-weight: 700; color: #1a1a1a; display: block; letter-spacing: -1px; }
-.timer-option .mins-label { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-top: 2px; }
-
-.stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; }
-
-.stat-box {
-    background: #ffffff; text-align: center; padding: 20px 10px;
-    border-radius: 14px; border: 1px solid #efefef; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-}
-
-.stat-number { font-size: 28px; font-weight: 700; color: #1a1a1a; display: block; letter-spacing: -1px; }
-.stat-text { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-top: 4px; }
-
-.focus-wrapper { text-align: center; padding-top: 20px; }
-
-.focus-card {
-    background: #ffffff; border-radius: 24px; padding: 48px 24px;
-    margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.03);
-}
-
-.focus-label { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 4px; font-weight: 600; margin-bottom: 32px; }
-.focus-time { font-size: 76px; font-weight: 200; color: #1a1a1a; margin-bottom: 8px; font-variant-numeric: tabular-nums; letter-spacing: -3px; }
-.focus-task-name { font-size: 14px; color: #bbb; margin-bottom: 36px; font-weight: 400; }
-
-.progress-track { width: 80%; height: 2px; background: #f0f0f0; border-radius: 10px; margin: 0 auto; overflow: hidden; }
-.progress-fill { height: 100%; background: #1a1a1a; border-radius: 10px; width: 0%; transition: width 1s linear; }
-
-.focus-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-
-.rescue-top { text-align: center; padding: 16px 0 24px; }
-.rescue-heading { font-size: 24px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; letter-spacing: -0.5px; }
-.rescue-desc { font-size: 14px; color: #bbb; font-weight: 400; }
-
-.trigger-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-
-.trigger-card {
-    background: #ffffff; border: 1px solid #efefef; border-radius: 14px;
-    padding: 22px 14px; text-align: center; cursor: pointer; transition: all 0.2s;
-    font-size: 13px; color: #888; font-weight: 500;
-}
-
-.trigger-card:hover { border-color: #1a1a1a; color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-.trigger-card .t-icon { font-size: 22px; display: block; margin-bottom: 8px; }
-
-.recovery-list {
-    background: #ffffff; border-radius: 16px; padding: 8px 20px;
-    margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.04);
-}
-
-.recovery-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid #f7f7f7; }
-.recovery-item:last-child { border-bottom: none; }
-
-.r-num {
-    width: 26px; height: 26px; background: #f5f5f7; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: #999; flex-shrink: 0;
-}
-
-.r-text { font-size: 14px; color: #444; line-height: 1.5; font-weight: 400; }
-
-.review-block {
-    background: #ffffff; border-radius: 16px; padding: 22px 24px;
-    margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.04);
-}
-
-.review-block-label { font-size: 9px; color: #bbb; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 8px; }
-.review-block-value { font-size: 32px; font-weight: 700; color: #1a1a1a; letter-spacing: -1px; }
-.review-block-note { font-size: 12px; color: #aaa; margin-top: 6px; font-weight: 400; }
-
-.review-final {
-    background: #1a1a1a; border-radius: 16px; padding: 28px;
-    text-align: center; margin-top: 16px;
-}
-
-.review-final p { font-size: 15px; color: #ffffff; line-height: 1.6; font-weight: 400; }
-
-.idea-search {
-    background: #ffffff; border-radius: 12px; padding: 12px 16px;
-    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-    border: 1px solid #efefef;
-}
-
-.idea-search input { flex: 1; border: none; outline: none; background: none; font-size: 14px; font-family: 'Inter', sans-serif; color: #1a1a1a; }
-.idea-search input::placeholder { color: #ccc; }
-
-.idea-filters {
-    display: flex; gap: 8px; margin-bottom: 14px;
-    overflow-x: auto; padding-bottom: 4px;
-}
-
-.idea-filters::-webkit-scrollbar { display: none; }
-
-.filter-chip {
-    padding: 8px 14px; background: #ffffff; border: 1px solid #efefef;
-    border-radius: 20px; font-size: 12px; color: #888; font-weight: 500;
-    cursor: pointer; white-space: nowrap; transition: all 0.2s;
-}
-
-.filter-chip.active { background: #1a1a1a; color: #ffffff; border-color: #1a1a1a; }
-.filter-chip:hover { border-color: #1a1a1a; }
-.filter-chip.active:hover { color: #ffffff; }
-
-.idea-card {
-    background: #ffffff; border-radius: 14px; padding: 18px 20px;
-    margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.04); animation: slideUp 0.3s ease;
-}
-
-.idea-card.done { opacity: 0.55; background: #fafafa; }
-.idea-card.done .idea-title { text-decoration: line-through; color: #999; }
-
-.idea-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 10px; }
-.idea-title { font-size: 15px; font-weight: 600; color: #1a1a1a; line-height: 1.4; flex: 1; }
-
-.idea-star {
-    background: none; border: none; font-size: 18px;
-    cursor: pointer; color: #ddd; transition: all 0.2s; padding: 0; line-height: 1;
-}
-
-.idea-star.starred { color: #ffb800; }
-
-.idea-desc { font-size: 13px; color: #888; line-height: 1.5; margin-bottom: 10px; white-space: pre-wrap; }
-.idea-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
-
-.idea-tag {
-    display: inline-block; padding: 4px 10px; background: #f5f5f7;
-    border-radius: 10px; font-size: 10px; color: #666; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.5px;
-}
-
-.idea-date { font-size: 10px; color: #ccc; }
-
-.idea-actions { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #f5f5f7; }
-
-.idea-btn {
-    flex: 1; padding: 8px; background: none; border: 1px solid #efefef;
-    border-radius: 8px; font-size: 11px; color: #888; font-weight: 500;
-    cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
-}
-
-.idea-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
-.idea-btn.danger:hover { border-color: #d44; color: #d44; }
-.idea-btn.success:hover { border-color: #2a9d4a; color: #2a9d4a; }
-
-.empty-state { text-align: center; padding: 60px 20px; color: #ccc; }
-.empty-state .empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
-.empty-state .empty-text { font-size: 14px; color: #aaa; margin-bottom: 6px; font-weight: 500; }
-.empty-state .empty-sub { font-size: 12px; color: #ccc; }
-
-.fab {
-    position: fixed; bottom: 88px; right: 50%;
-    transform: translateX(240px); width: 56px; height: 56px;
-    background: #1a1a1a; color: #ffffff; border: none; border-radius: 50%;
-    font-size: 24px; font-weight: 300; cursor: pointer;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.2); z-index: 90;
-    transition: all 0.2s; display: none;
-}
-
-.fab.visible { display: block; }
-.fab:hover { background: #2d2d2d; transform: translateX(240px) scale(1.05); }
-
-@media (max-width: 520px) {
-    .fab { right: 20px; transform: none; }
-    .fab:hover { transform: scale(1.05); }
-}
-
-.modal-overlay {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.4); z-index: 200;
-    display: none; align-items: flex-end; justify-content: center;
-}
-
-.modal-overlay.active { display: flex; }
-
-.modal {
-    background: #ffffff; width: 100%; max-width: 480px;
-    border-radius: 20px 20px 0 0; padding: 24px 20px 30px;
-    animation: slideUp 0.3s ease; max-height: 85vh; overflow-y: auto;
-}
-
-.modal-handle { width: 40px; height: 4px; background: #e0e0e0; border-radius: 10px; margin: 0 auto 20px; }
-.modal-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 18px; letter-spacing: -0.3px; }
-.modal-close { background: none; border: none; color: #999; font-size: 13px; cursor: pointer; padding: 10px; width: 100%; margin-top: 8px; font-family: 'Inter', sans-serif; }
-
-.bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: #ffffff; border-top: 1px solid #ebebeb;
-    display: flex; max-width: 480px; margin: 0 auto;
-    padding: 6px 0 14px; z-index: 95;
-}
-
-.nav-btn { flex: 1; text-align: center; padding: 8px 4px; cursor: pointer; }
-.nav-btn .n-icon { font-size: 17px; display: block; margin-bottom: 3px; opacity: 0.25; }
-.nav-btn .n-text { font-size: 9px; color: #ccc; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
-.nav-btn.active .n-icon { opacity: 1; }
-.nav-btn.active .n-text { color: #1a1a1a; }
-
-.reset-link { text-align: center; margin-top: 20px; }
-.reset-link a { font-size: 12px; color: #ccc; text-decoration: none; cursor: pointer; font-weight: 400; }
-.reset-link a:hover { color: #1a1a1a; }
-.spacer { height: 16px; }
-
-.toast {
-    position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%);
-    background: #1a1a1a; color: #fff; padding: 12px 24px;
-    border-radius: 30px; font-size: 13px; font-weight: 500;
-    z-index: 300; opacity: 0; transition: opacity 0.3s; pointer-events: none;
-}
-
-.toast.show { opacity: 1; }
-
-.full-loader {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: #f5f5f7; z-index: 1000; display: flex;
-    align-items: center; justify-content: center; flex-direction: column;
-}
-
-.full-loader.hidden { display: none; }
-.loader-text { font-size: 16px; color: #999; margin-top: 16px; font-weight: 500; }
-
-.spinner {
-    width: 32px; height: 32px; border: 3px solid #f0f0f0;
-    border-top-color: #1a1a1a; border-radius: 50%; animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* SETTINGS MODAL */
-.settings-modal {
-    background: #ffffff;
-    width: 100%;
-    max-width: 480px;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 30px;
-    animation: slideUp 0.3s ease;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-</style>
+    <style>
+        body {
+            background-color: #050814; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #F8FAFC;
+        }
+        
+        /* Hide scrollbar for a native app feel */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .premium-gradient {
+            background: linear-gradient(135deg, #14B8A6 0%, #059669 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #2DD4BF, #34D399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #app-container {
+            width: 100%;
+            height: 100dvh;
+            max-width: 414px; 
+            background-color: #0A1128;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-col;
+        }
+
+        @media (min-width: 640px) {
+            #app-container {
+                height: 850px;
+                border-radius: 40px;
+                box-shadow: 0 25px 50px -12px rgba(20, 184, 166, 0.15), 0 0 0 8px #1E293B;
+            }
+        }
+
+        .view {
+            display: none;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            padding-bottom: 100px;
+        }
+        
+        .view.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #14B8A6;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #1F2942;
+            border-radius: 2px;
+        }
+
+        /* Custom Toast Notification */
+        #toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+    </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div class="full-loader" id="loader">
-    <div class="spinner"></div>
-    <div class="loader-text">শুরু...</div>
-</div>
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl opacity-0 pointer-events-none z-[100] flex items-center gap-3">
+        <i id="toast-icon" class="ph-fill text-xl"></i>
+        <span id="toast-msg" class="text-sm font-medium"></span>
+    </div>
 
-<!-- AUTH -->
-<div class="auth-screen" id="authScreen" style="display:none;">
-    <div class="auth-box">
-        <div class="auth-logo">শুরু</div>
-        <div class="auth-tagline">আগে কাজ, পরে scroll।</div>
-
-        <div id="loginSignupView">
-            <div class="auth-tab">
-                <button class="active" onclick="switchAuth('login')" id="tabLogin">Login</button>
-                <button onclick="switchAuth('signup')" id="tabSignup">Sign Up</button>
+    <div id="app-container">
+        
+        <!-- ========================================== -->
+        <!-- 1. LOGIN SCREEN                            -->
+        <!-- ========================================== -->
+        <div id="view-login" class="view active premium-gradient absolute inset-0 z-50 p-8 flex flex-col justify-center pb-0" style="padding-bottom: 0;">
+            <div class="flex flex-col items-center mb-12">
+                <div class="w-20 h-20 bg-white/20 rounded-3xl backdrop-blur-md flex items-center justify-center mb-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/20">
+                    <i class="ph ph-wave-sine text-4xl text-white"></i>
+                </div>
+                <h1 class="text-4xl font-semibold text-white tracking-tight mb-2">Serene</h1>
+                <p class="text-teal-100 text-sm">Your pocket of calm</p>
             </div>
 
-            <div class="auth-error" id="authError"></div>
-            <div class="auth-success" id="authSuccess"></div>
+            <div class="bg-white/10 backdrop-blur-xl rounded-[32px] p-6 border border-white/20 shadow-xl w-full">
+                <div class="mb-5">
+                    <label class="text-xs font-medium text-teal-100 uppercase tracking-wider mb-2 block">Email</label>
+                    <div class="relative">
+                        <input type="email" placeholder="alex@serene.app" class="w-full bg-black/20 text-white placeholder-white/50 rounded-xl px-4 py-4 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all text-sm">
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <label class="text-xs font-medium text-teal-100 uppercase tracking-wider mb-2 block">Password</label>
+                    <div class="relative">
+                        <input type="password" placeholder="••••••••" class="w-full bg-black/20 text-white placeholder-white/50 rounded-xl px-4 py-4 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all text-sm">
+                        <i class="ph ph-eye absolute right-4 top-1/2 transform -translate-y-1/2 text-white/50 cursor-pointer"></i>
+                    </div>
+                </div>
 
-            <input type="text" class="auth-input" id="authName" placeholder="তোমার নাম" style="display:none;">
-            <input type="email" class="auth-input" id="authEmail" placeholder="email">
-
-            <div class="password-wrapper">
-                <input type="password" class="auth-input" id="authPassword" placeholder="password">
-                <button type="button" class="eye-toggle" onclick="togglePassword('authPassword', this)">👁</button>
+                <button onclick="window.loginWithGoogle()" class="w-full bg-white text-teal-700 font-semibold rounded-xl py-4 hover:bg-teal-50 transition-colors shadow-lg flex items-center justify-center gap-2 mb-4">
+                    Continue <i class="ph-bold ph-arrow-right"></i>
+                </button>
             </div>
 
-            <div class="forgot-link" id="forgotLink">
-                <a onclick="showForgotView()">পাসওয়ার্ড ভুলে গেছো?</a>
+            <div class="flex items-center gap-4 my-8 w-full px-4">
+                <div class="h-[1px] bg-white/20 flex-1"></div>
+                <span class="text-xs text-teal-100 uppercase tracking-wider">or continue with</span>
+                <div class="h-[1px] bg-white/20 flex-1"></div>
             </div>
 
-            <button class="auth-btn" id="authBtn" onclick="handleAuth()">Login</button>
-            <div class="auth-loading" id="authLoading">অপেক্ষা করো...</div>
-        </div>
-
-        <div id="forgotView" style="display:none;">
-            <div class="forgot-heading">
-                <h3>পাসওয়ার্ড reset</h3>
-                <p>তোমার email এ link পাঠাবো।<br>সেটায় ক্লিক করে নতুন password দাও।</p>
+            <div class="flex gap-4 w-full">
+                <button class="flex-1 bg-black/20 hover:bg-black/30 backdrop-blur-md border border-white/10 rounded-xl py-4 flex items-center justify-center gap-2 transition-all">
+                    <i class="ph-fill ph-apple-logo text-xl"></i> <span class="text-sm font-medium">Apple</span>
+                </button>
+                <button onclick="window.loginWithGoogle()" class="flex-1 bg-black/20 hover:bg-black/30 backdrop-blur-md border border-white/10 rounded-xl py-4 flex items-center justify-center gap-2 transition-all relative overflow-hidden group">
+                    <div id="google-login-loader" class="absolute inset-0 bg-black/40 flex items-center justify-center hidden">
+                        <i class="ph ph-spinner animate-spin text-white text-xl"></i>
+                    </div>
+                    <i class="ph-fill ph-google-logo text-xl text-white"></i> <span class="text-sm font-medium">Google</span>
+                </button>
             </div>
-
-            <div class="auth-error" id="forgotError"></div>
-            <div class="auth-success" id="forgotSuccess"></div>
-
-            <input type="email" class="auth-input" id="forgotEmail" placeholder="তোমার email">
-            <button class="auth-btn" id="forgotBtn" onclick="handleForgotPassword()">Reset Link পাঠাও</button>
-            <div class="auth-loading" id="forgotLoading">পাঠানো হচ্ছে...</div>
-            <div class="back-link"><a onclick="showLoginView()">← Login এ ফেরো</a></div>
-        </div>
-    </div>
-</div>
-
-<!-- ONBOARDING -->
-<div class="onboarding-screen" id="onboardingScreen">
-    <div class="onboard-box">
-        <div class="onboard-heading">
-            <h2>তুমি কে?</h2>
-            <p>তোমার জন্য app টা personalize করতে চাই।</p>
+            
+            <p class="text-center text-xs text-teal-100 mt-auto mb-8">Don't have an account? <a href="#" class="font-bold text-white">Join Free</a></p>
         </div>
 
-        <div class="type-grid" id="typeGrid"></div>
-
-        <div class="custom-input-wrap" id="customWrap">
-            <input type="text" id="customType" placeholder="তোমার profession লেখো..." maxlength="20">
-        </div>
-
-        <button class="btn-primary" id="onboardBtn" onclick="completeOnboarding()" disabled>চলো শুরু করি</button>
-    </div>
-</div>
-
-<!-- MAIN APP -->
-<div id="appMain">
-
-<div class="topbar">
-    <div class="logo">শুরু</div>
-    <div class="topbar-right">
-        <div class="streak-box">streak <span id="streakCount">0</span></div>
-        <div class="user-avatar" id="userAvatar" onclick="openUserMenu()">U</div>
-    </div>
-</div>
-
-<div class="screen active" id="homeScreen">
-    <div class="spacer"></div>
-    <p class="greeting" id="greetingText">শুভ সকাল</p>
-    <h1 class="main-heading">আজকে কী<br>করতে চাও?</h1>
-
-    <div class="input-card">
-        <label>আজকের main কাজ</label>
-        <input type="text" id="mainTaskInput" placeholder="তোমার আজকের লক্ষ্য...">
-    </div>
-
-    <div class="input-card">
-        <label>প্রথম ছোট step</label>
-        <input type="text" id="firstStepInput" placeholder="কোথা থেকে শুরু করবে?">
-    </div>
-
-    <div class="spacer"></div>
-    <button class="btn-primary" onclick="setTask()">শুরু করি</button>
-</div>
-
-<div class="screen" id="dashScreen">
-    <div class="task-card">
-        <div class="task-card-label">আজকের লক্ষ্য</div>
-        <div class="task-card-title" id="displayTask">—</div>
-        <div class="task-card-step">next → <span id="displayStep">—</span></div>
-    </div>
-
-    <div class="quote-card">
-        <p class="quote-text" id="quoteText">"আগে কাজ, পরে scroll।"</p>
-    </div>
-
-    <div class="section-label">ফোকাস শুরু করো</div>
-
-    <div class="timer-grid">
-        <div class="timer-option" onclick="startFocus(3)"><span class="mins">3</span><span class="mins-label">মিনিট</span></div>
-        <div class="timer-option" onclick="startFocus(15)"><span class="mins">15</span><span class="mins-label">মিনিট</span></div>
-        <div class="timer-option" onclick="startFocus(25)"><span class="mins">25</span><span class="mins-label">মিনিট</span></div>
-    </div>
-
-    <button class="btn-primary" onclick="startFocus(5)">5 মিনিট — শুধু শুরু করো</button>
-    <button class="btn-rescue" onclick="showScreen('rescueScreen')">আমাকে ফিরিয়ে আনো</button>
-
-    <div class="stats-row">
-        <div class="stat-box"><span class="stat-number" id="focusCount">0</span><span class="stat-text">সেশন</span></div>
-        <div class="stat-box"><span class="stat-number" id="totalMins">0</span><span class="stat-text">মিনিট</span></div>
-        <div class="stat-box"><span class="stat-number" id="ideaTotalCount">0</span><span class="stat-text">আইডিয়া</span></div>
-    </div>
-
-    <div class="reset-link"><a onclick="resetTask()">নতুন কাজ সেট করো</a></div>
-</div>
-
-<div class="screen" id="ideasScreen">
-    <div class="spacer"></div>
-    <p class="greeting">তোমার</p>
-    <h1 class="main-heading" style="margin-bottom:20px;">আইডিয়া / নোট</h1>
-
-    <div class="idea-search">
-        <span style="font-size:14px; color:#ccc;">🔍</span>
-        <input type="text" id="ideaSearch" placeholder="search..." oninput="renderIdeas()">
-    </div>
-
-    <div class="idea-filters" id="ideaFilters"></div>
-
-    <div class="section-header">
-        <div class="section-label" style="margin-bottom:0;">সব</div>
-        <div class="count" id="ideaCount">0টি</div>
-    </div>
-
-    <div id="ideasList"></div>
-</div>
-
-<div class="screen" id="focusScreen">
-    <div class="focus-wrapper">
-        <div class="focus-card">
-            <div class="focus-label">ফোকাস মোড</div>
-            <div class="focus-time" id="timerDisplay">05:00</div>
-            <div class="focus-task-name" id="focusTaskName">—</div>
-            <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
-        </div>
-
-        <div class="focus-actions">
-            <button class="btn-outline" onclick="pauseTimer()" id="pauseBtn">pause</button>
-            <button class="btn-outline" onclick="showScreen('rescueScreen')">slipping</button>
-        </div>
-
-        <button class="btn-primary" onclick="endFocus()">সেশন শেষ</button>
-    </div>
-</div>
-
-<div class="screen" id="rescueScreen">
-    <div class="rescue-top">
-        <div class="rescue-heading">কিসে টানছে?</div>
-        <div class="rescue-desc">সৎ হও।</div>
-    </div>
-
-    <div class="trigger-options">
-        <div class="trigger-card" onclick="showRecovery('scroll')"><span class="t-icon">📱</span>Scrolling</div>
-        <div class="trigger-card" onclick="showRecovery('gaming')"><span class="t-icon">🎮</span>Gaming</div>
-        <div class="trigger-card" onclick="showRecovery('porn')"><span class="t-icon">◼</span>Porn</div>
-        <div class="trigger-card" onclick="showRecovery('overthink')"><span class="t-icon">◎</span>Overthinking</div>
-        <div class="trigger-card" onclick="showRecovery('bore')"><span class="t-icon">—</span>Boring</div>
-        <div class="trigger-card" onclick="showRecovery('fear')"><span class="t-icon">△</span>Overwhelm</div>
-     <div class="trigger-card" onclick="showRecovery('depressed')" style="grid-column: span 2; background: linear-gradient(135deg, #6b7c93 0%, #8b9bb4 100%); color: #fff; border-color: transparent;"><span class="t-icon" style="color:#fff;">💙</span>মন খারাপ / Depressed</div>
-    </div>
-
-    <button class="btn-outline" onclick="showScreen('dashScreen')">ফিরে যাও</button>
-</div>
-
-<div class="screen" id="recoveryScreen">
-    <div class="rescue-top">
-        <div class="rescue-heading" id="recoveryTitle">ফিরে আসো</div>
-        <div class="rescue-desc" id="recoverySub">তুমি stuck।</div>
-    </div>
-
-    <div class="recovery-list" id="recoverySteps"></div>
-
-    <button class="btn-primary" onclick="backToWork()">কাজে ফিরে যাচ্ছি</button>
-    <button class="btn-outline" onclick="startFocus(3)">শুধু 3 মিনিট দিই</button>
-</div>
-
-<div class="screen" id="reviewScreen">
-    <div class="spacer"></div>
-    <p class="greeting">আজকের</p>
-    <h1 class="main-heading" style="margin-bottom:20px;">রিভিউ</h1>
-
-    <div class="review-block"><div class="review-block-label">ফোকাস সেশন</div><div class="review-block-value" id="revSessions">0</div></div>
-    <div class="review-block"><div class="review-block-label">মোট মিনিট</div><div class="review-block-value" id="revMinutes">0</div></div>
-    <div class="review-block"><div class="review-block-label">আইডিয়া</div><div class="review-block-value" id="revIdeas">0</div></div>
-    <div class="review-block">
-        <div class="review-block-label">রেসকিউ</div>
-        <div class="review-block-value" id="revRescues">0</div>
-        <div class="review-block-note" id="revRescueNote"></div>
-    </div>
-
-    <div class="review-final" id="reviewMsg"><p>"তুমি ফিরে এসেছো।"</p></div>
-    <button class="btn-outline" onclick="showScreen('dashScreen')" style="margin-top:14px">ড্যাশবোর্ড</button>
-</div>
-
-<button class="fab" id="ideaFab" onclick="openIdeaModal()">+</button>
-
-<!-- IDEA MODAL -->
-<div class="modal-overlay" id="ideaModal">
-    <div class="modal">
-        <div class="modal-handle"></div>
-        <div class="modal-title" id="modalTitle">নতুন আইডিয়া</div>
-
-        <div class="input-card">
-            <label>আইডিয়া / নোট</label>
-            <input type="text" id="ideaInput" placeholder="মনে আসছে যা...">
-        </div>
-
-        <div class="input-card">
-            <label>বিস্তারিত (optional)</label>
-            <textarea id="ideaDesc" placeholder="আরো detail..."></textarea>
-        </div>
-
-        <div class="input-card">
-            <label>Category</label>
-            <select id="ideaCategory"></select>
-        </div>
-
-        <button class="btn-primary" onclick="saveIdea()">Save</button>
-        <button class="modal-close" onclick="closeIdeaModal()">cancel</button>
-    </div>
-</div>
-
-<!-- USER MENU -->
-<div class="user-menu-overlay" id="userMenu">
-    <div class="user-menu">
-        <div class="user-menu-handle"></div>
-        <div class="user-info">
-            <div class="user-name" id="menuUserName">User</div>
-            <div class="user-email" id="menuUserEmail">email</div>
-            <div class="user-type-badge" id="userTypeBadge">User</div>
-        </div>
-        <button class="menu-item" onclick="closeUserMenu(); showScreen('reviewScreen')">📊 আমার রিভিউ</button>
-        <button class="menu-item" onclick="openChangeType()">🔄 Profession change</button>
-        <button class="menu-item" id="adminMenuBtn" onclick="goToAdmin()" style="display:none;">👨‍💼 Admin Panel</button>
-        <button class="menu-item danger" onclick="logout()">🚪 Logout</button>
-        <button class="menu-item" onclick="closeUserMenu()" style="text-align:center; color:#aaa;">cancel</button>
-    </div>
-</div>
-
-<!-- CHANGE TYPE MODAL -->
-<div class="modal-overlay" id="changeTypeModal">
-    <div class="settings-modal">
-        <div class="modal-handle"></div>
-        <div class="modal-title">তোমার profession select করো</div>
-
-        <div class="type-grid" id="changeTypeGrid"></div>
-
-        <div class="custom-input-wrap" id="changeCustomWrap">
-            <input type="text" id="changeCustomType" placeholder="তোমার profession লেখো..." maxlength="20">
-        </div>
-
-        <button class="btn-primary" onclick="saveChangeType()">Save</button>
-        <button class="modal-close" onclick="closeChangeType()">cancel</button>
-    </div>
-</div>
-<!-- ============ DEPRESSION MODE SCREEN ============ -->
-<div class="depression-screen" id="depressionScreen">
-    <button class="dep-back" onclick="exitDepressionMode()">← ফিরে যাই</button>
-
-    <div class="dep-welcome">
-        <div class="dep-icon">🌧</div>
-        <h1 class="dep-title">আমি জানি, এখন কঠিন।</h1>
-        <p class="dep-message">তুমি একা না।</p>
-        <p class="dep-message">এই অনুভূতি real, এটা valid।</p>
-        <p class="dep-message">আমি তোমার পাশে আছি।</p>
-    </div>
-
-    <p class="dep-subtitle">এখন তোমার কেমন লাগছে?</p>
-
-    <div class="mood-grid">
-        <div class="mood-card" onclick="selectMood('heavy')">
-            <span class="mood-emoji">😔</span>
-            <div class="mood-text">খুব ভার লাগছে</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('crying')">
-            <span class="mood-emoji">😢</span>
-            <div class="mood-text">কান্না পাচ্ছে</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('empty')">
-            <span class="mood-emoji">😶</span>
-            <div class="mood-text">কিছুই ভালো লাগছে না</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('numb')">
-            <span class="mood-emoji">🌫</span>
-            <div class="mood-text">অসাড় লাগছে</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('hopeless')">
-            <span class="mood-emoji">😞</span>
-            <div class="mood-text">হতাশ লাগছে</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('tired')">
-            <span class="mood-emoji">😴</span>
-            <div class="mood-text">ক্লান্ত লাগছে</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('hurt')">
-            <span class="mood-emoji">💔</span>
-            <div class="mood-text">আঘাত পেয়েছি</div>
-        </div>
-        <div class="mood-card" onclick="selectMood('overwhelmed')">
-            <span class="mood-emoji">🤯</span>
-            <div class="mood-text">মাথা কাজ করছে না</div>
-        </div>
-    </div>
-
-    <div class="dep-footer">
-        <p class="dep-footer-text">তুমি যা feel করছো — সেটা ঠিক আছে।<br>সময় নাও। তাড়া নেই।</p>
-    </div>
-</div>
-    <!-- ============ EMOTION RELEASE (RAINDROPS) SCREEN ============ -->
-<div class="activity-screen" id="raindropsScreen">
-    <div class="activity-top">
-        <button class="dep-back" onclick="exitRaindrops()">← ফিরে যাই</button>
-        <span class="activity-title">🌧 কষ্ট ছাড়ো</span>
-        <button class="sound-toggle" id="soundToggleRain" onclick="toggleSound()">🔊</button>
-    </div>
-
-   <div id="raindropsView" style="max-width: 420px; margin: 0 auto; text-align: center; padding: 0 16px;">
-        <p class="raindrops-instruction">
-            প্রতিটা ফোঁটায় <strong>tap করো</strong>।<br>
-            একটা একটা কষ্ট ছেড়ে দাও।
-        </p>
-
-        <div class="raindrops-counter">
-            <span class="count-num" id="dropsReleased">0</span>
-            কষ্ট release হয়েছে
-        </div>
-
-        <div class="raindrops-area" id="raindropsArea"></div>
-
-        <div class="activity-actions">
-            <button class="activity-btn-primary" id="startRaindropsBtn" onclick="startRaindrops()">শুরু করি</button>
-            <button class="activity-btn-outline" onclick="completeRaindrops()">এখনই শেষ করি</button>
-        </div>
-    </div>
-
-    <div class="completion-screen" id="raindropsCompletion" style="display:none;">
-        <div class="completion-icon">🌸</div>
-        <h2 class="completion-title">তোমার কষ্টগুলো এখন<br>বৃষ্টি হয়ে চলে গেলো।</h2>
-        <p class="completion-message">
-            তুমি <strong id="releasedTotal">0</strong>টা কষ্ট release করেছো।<br>
-            কান্না দুর্বলতা না — এটা <strong>শুদ্ধতা</strong>।<br><br>
-            একটু হালকা লাগছে?
-        </p>
-
-        <button class="activity-btn-primary" onclick="restartRaindrops()">আরো করি</button>
-        <button class="activity-btn-outline" onclick="backToDepressionFromRain()">অন্য কিছু try করি</button>
-        <button class="activity-btn-outline" onclick="exitToHomeFromRain()">কাজে ফিরে যাই</button>
-    </div>
-</div>
-<!-- ============ THREE LIGHTS ACTIVITY ============ -->
-<div class="activity-screen" id="lightsScreen">
-    <div class="activity-top">
-        <button class="dep-back" onclick="exitLights()">← ফিরে যাই</button>
-        <span class="activity-title">🕯 তিনটা আলো</span>
-        <button class="sound-toggle" id="soundToggleLights" onclick="toggleSound()">🔊</button>
-    </div>
-
-<div id="lightsView" style="max-width: 420px; margin: 0 auto; padding: 0 16px;">        <div class="lights-container">
-            <div class="light-progress" style="display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;">
-                <div class="light-dot active" id="dot1" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,220,150,0.9); box-shadow: 0 0 12px rgba(255,220,150,0.6);"></div>
-<div class="light-dot" id="dot2" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2);"></div>
-<div class="light-dot" id="dot3" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2);"></div>
-            </div>
-
-            <div class="light-card" id="lightCard" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 32px 24px; text-align: center; margin-top: 20px;">
-                <div class="light-icon" id="lightIcon" style="font-size: 48px; margin-bottom: 16px;">🕯</div>
-                <div class="light-number" id="lightNumber" style="font-size: 11px; color: rgba(255,220,150,0.9); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px;">আলো ১ / ৩</div>
-                <h2 class="light-question" id="lightQuestion" style="font-size: 20px; font-weight: 500; color: #fff; margin-bottom: 10px; line-height: 1.5;">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
-                <p class="light-hint" id="lightHint" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 22px; line-height: 1.6; font-style: italic;">যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি, এই app খুলেছি...</p>
-                <textarea class="light-input" id="lightInput" placeholder="যা মনে আসছে লেখো..." maxlength="200" style="width: 100%; background: rgba(0,0,0,0.2); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 16px; color: #fff; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; resize: none; min-height: 80px; line-height: 1.6; box-sizing: border-box;"></textarea>
-                <button class="light-btn" id="lightSaveBtn" onclick="saveLight()" style="width: 100%; padding: 14px; background: rgba(255,220,150,0.9); color: #4a3818; border: none; border-radius: 14px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; margin-top: 14px;">পরবর্তী আলো →</button>
-            </div>
-        </div>
-    </div>
-
-   <div id="lightsCompletion" style="display:none; max-width: 420px; margin: 0 auto; padding: 0 16px;">
-        <div class="lights-summary">
-            <h2 class="summary-title">তোমার তিনটা আলো</h2>
-            <p class="summary-subtitle">✨ তুমি এগুলো খুঁজে পেয়েছো</p>
-
-            <div class="light-result">
-                <div class="result-label">🕯 আজকের আলো</div>
-                <div class="result-text" id="result1">—</div>
-            </div>
-
-            <div class="light-result">
-                <div class="result-label">💛 জীবনের আলো</div>
-                <div class="result-text" id="result2">—</div>
-            </div>
-
-            <div class="light-result">
-                <div class="result-label">🌅 কালকের আলো</div>
-                <div class="result-text" id="result3">—</div>
-            </div>
-
-            <div class="lights-final">
-                <p>
-                    হতাশা মানে অন্ধকার।<br>
-                    কিন্তু তুমি এইমাত্র <strong>তিনটা আলো</strong> খুঁজে পেয়েছো।<br><br>
-                    এগুলো রোজ মনে রেখো।<br>
-                    Brain তোমাকে আবার ভালো লাগাবে।
-                </p>
-            </div>
-
-            <button class="activity-btn-primary" onclick="restartLights()">আরো একবার</button>
-            <button class="activity-btn-outline" onclick="backToDepressionFromLights()">অন্য কিছু try করি</button>
-            <button class="activity-btn-outline" onclick="exitToHomeFromLights()">কাজে ফিরে যাই</button>
-        </div>
-    </div>
-</div>    
-<!-- ============ RAINDROPS ACTIVITY SCREEN ============ -->
-<div class="activity-screen" id="raindropsScreen">
-    <div class="activity-top">
-        <button class="dep-back" onclick="exitRaindrops()">← ফিরে যাই</button>
-        <span class="activity-title">🌧 কষ্ট ছাড়ো</span>
-        <button class="sound-toggle" id="soundToggleRain" onclick="toggleSound()">🔊</button>
-    </div>
-
-    <div id="raindropsView">
-        <p class="raindrops-instruction">
-            প্রতিটা ফোঁটায় <strong>tap করো</strong>।<br>
-            একটা একটা কষ্ট ছেড়ে দাও।
-        </p>
-
-        <div class="raindrops-counter">
-            <span class="count-num" id="dropsReleased">0</span>
-            কষ্ট release হয়েছে
-        </div>
-
-        <div class="raindrops-area" id="raindropsArea"></div>
-
-        <div class="activity-actions">
-            <button class="activity-btn-primary" id="startRaindropsBtn" onclick="startRaindrops()">শুরু করি</button>
-            <button class="activity-btn-outline" onclick="completeRaindrops()">এখনই শেষ করি</button>
-        </div>
-    </div>
-
-    <div class="completion-screen" id="raindropsCompletion" style="display:none;">
-        <div class="completion-icon">🌸</div>
-        <h2 class="completion-title">তোমার কষ্টগুলো এখন<br>বৃষ্টি হয়ে চলে গেলো।</h2>
-        <p class="completion-message">
-            তুমি <strong id="releasedTotal">0</strong>টা কষ্ট release করেছো।<br>
-            কান্না দুর্বলতা না — এটা <strong>শুদ্ধতা</strong>।<br><br>
-            একটু হালকা লাগছে?
-        </p>
-
-        <button class="activity-btn-primary" onclick="restartRaindrops()">আরো করি</button>
-        <button class="activity-btn-outline" onclick="backToDepressionFromRain()">অন্য কিছু try করি</button>
-        <button class="activity-btn-outline" onclick="exitToHomeFromRain()">কাজে ফিরে যাই</button>
-    </div>
-</div>
-    
-<!-- ============ BREATHING ACTIVITY SCREEN ============ -->
-<div class="activity-screen" id="breathingScreen">
-    <div class="activity-top">
-        <button class="dep-back" onclick="exitActivity()">← ফিরে যাই</button>
-        <span class="activity-title">🫁 শ্বাস</span>
-            <button class="sound-toggle" id="soundToggle" onclick="toggleSound()">🔊</button>
-    </div>
-
-    <!-- BREATHING VIEW -->
-    <div class="breathing-wrap" id="breathingView">
-        <p class="breath-instruction">circle এর সাথে শ্বাস নাও।<br>আমি guide করছি।</p>
-
-        <div class="breath-circle-container">
-            <div class="breath-circle" id="breathCircle">
+        <!-- ========================================== -->
+        <!-- 2. DASHBOARD / HOME                        -->
+        <!-- ========================================== -->
+        <div id="view-home" class="view px-6 pt-10">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
                 <div>
-                    <div class="breath-text" id="breathText">শুরু করো</div>
-                    <div class="breath-count" id="breathCount"></div>
+                    <p class="text-sm text-slate-400">Good morning <span class="text-yellow-400">✨</span></p>
+                    <h2 id="user-display-name" class="text-2xl font-semibold mt-1">Explorer</h2>
+                </div>
+                <div class="w-12 h-12 rounded-full bg-app-card border-2 border-app-border overflow-hidden cursor-pointer" onclick="window.switchTab('settings')">
+                    <img id="user-display-photo" src="https://placehold.co/100x100/14B8A6/ffffff?text=U" alt="Profile" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- Streak Card -->
+            <div class="premium-gradient rounded-3xl p-6 mb-8 relative overflow-hidden shadow-[0_10px_30px_rgba(20,184,166,0.2)]">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="relative z-10 flex justify-between items-center">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <i class="ph-fill ph-fire text-orange-300 text-xl"></i>
+                            <h3 class="font-semibold text-lg">14 Day Streak!</h3>
+                        </div>
+                        <p class="text-sm text-teal-50">Keep up the amazing work</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-teal-100 mb-1">Next milestone</p>
+                        <p class="font-semibold flex items-center gap-1 justify-end"><span class="text-xl">21</span> days <i class="ph-fill ph-trophy text-yellow-300"></i></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Quick Actions</h4>
+            <div class="grid grid-cols-4 gap-4 mb-8">
+                <button onclick="window.switchTab('mood')" class="flex flex-col items-center gap-2 group">
+                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#2563EB]/10 border-[#2563EB]/20 group-hover:bg-[#2563EB]/20 transition-all">
+                        <i class="ph-fill ph-smiley text-[#60A5FA] text-2xl"></i>
+                    </div>
+                    <span class="text-[10px] font-medium text-slate-300">Check-in</span>
+                </button>
+                <button onclick="window.switchTab('focus')" class="flex flex-col items-center gap-2 group">
+                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#14B8A6]/10 border-[#14B8A6]/20 group-hover:bg-[#14B8A6]/20 transition-all">
+                        <i class="ph-fill ph-timer text-[#2DD4BF] text-2xl"></i>
+                    </div>
+                    <span class="text-[10px] font-medium text-slate-300">Focus</span>
+                </button>
+                <button onclick="window.switchTab('ideas')" class="flex flex-col items-center gap-2 group">
+                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#F59E0B]/10 border-[#F59E0B]/20 group-hover:bg-[#F59E0B]/20 transition-all">
+                        <i class="ph-fill ph-lightbulb text-[#FBBF24] text-2xl"></i>
+                    </div>
+                    <span class="text-[10px] font-medium text-slate-300">Ideas</span>
+                </button>
+                <button onclick="window.switchTab('rescue')" class="flex flex-col items-center gap-2 group">
+                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#EF4444]/10 border-[#EF4444]/20 group-hover:bg-[#EF4444]/20 transition-all">
+                        <i class="ph-fill ph-lifebuoy text-[#F87171] text-2xl"></i>
+                    </div>
+                    <span class="text-[10px] font-medium text-slate-300">Rescue</span>
+                </button>
+            </div>
+
+            <!-- Today's Progress -->
+            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Today's Progress</h4>
+            <div class="app-card rounded-3xl p-5 border border-app-border mb-8 bg-app-card">
+                <div class="flex justify-between items-end mb-3">
+                    <p class="text-sm font-medium">Daily Wellness Score</p>
+                    <p class="text-xl font-bold text-gradient">72%</p>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2 mb-6">
+                    <div class="premium-gradient h-2 rounded-full" style="width: 72%"></div>
                 </div>
             </div>
         </div>
 
-        <div class="breath-cycle-info">
-            cycle: <span id="cycleCount">0</span> / 4
+        <!-- ========================================== -->
+        <!-- 3. MOOD CHECK-IN                           -->
+        <!-- ========================================== -->
+        <div id="view-mood" class="view px-6 pt-12 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-blue-500/10 blur-[80px] rounded-full pointer-events-none"></div>
+            
+            <div class="text-center mb-10 relative z-10">
+                <h3 class="text-sm text-slate-400 tracking-widest uppercase mb-2">How are you feeling?</h3>
+                <h2 class="text-3xl font-semibold">Check In</h2>
+                <p class="text-sm text-slate-500 mt-2" id="mood-date">Today</p>
+            </div>
+
+            <div class="bg-app-card border border-app-border rounded-3xl p-6 mb-8 shadow-xl relative z-10">
+                <div class="grid grid-cols-4 gap-y-6 gap-x-2" id="emoji-grid">
+                    <!-- Emojis will be handled by JS to toggle active state -->
+                    <div onclick="window.selectMood(this, 'Happy')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">😊</div>
+                        <span class="text-[10px] text-slate-400">Happy</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Sad')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">😢</div>
+                        <span class="text-[10px] text-slate-400">Sad</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Calm')" class="mood-emoji active flex flex-col items-center gap-2 cursor-pointer transition-transform bg-teal-500/10 rounded-xl p-1 border border-teal-500/30">
+                        <div class="w-10 h-10 flex items-center justify-center text-3xl">😌</div>
+                        <span class="text-[10px] text-teal-400 font-medium">Calm</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Anxious')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">😰</div>
+                        <span class="text-[10px] text-slate-400">Anxious</span>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="window.saveMood()" id="save-mood-btn" class="w-full premium-gradient text-white font-semibold rounded-2xl py-4 shadow-[0_10px_20px_rgba(20,184,166,0.3)] transition-all hover:scale-[1.02] relative z-10 flex items-center justify-center gap-2">
+                Save & Continue <i class="ph-bold ph-arrow-right"></i>
+            </button>
         </div>
 
-        <div class="activity-actions">
-            <button class="activity-btn-primary" id="startBreathBtn" onclick="startBreathing()">শুরু করি</button>
-            <button class="activity-btn-outline" onclick="exitActivity()">যথেষ্ট হয়েছে</button>
+        <!-- ========================================== -->
+        <!-- 4. BREATHE / RELAX                         -->
+        <!-- ========================================== -->
+        <div id="view-breathe" class="view relative overflow-hidden bg-[#070b1a]">
+            <div class="absolute inset-0 z-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+            
+            <div class="relative z-10 flex flex-col h-full items-center pt-16 pb-10 px-6">
+                <h3 class="text-xs text-slate-400 tracking-widest uppercase mb-1">Box Breathing</h3>
+                <h2 class="text-xl font-medium mb-12">4-4-4-4 Pattern</h2>
+
+                <div class="bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-slate-300 mb-auto backdrop-blur-sm">
+                    Session: <span id="breathe-timer">0:00</span>
+                </div>
+
+                <div class="relative w-64 h-64 flex items-center justify-center my-auto">
+                    <div id="breathe-ring" class="absolute w-48 h-48 rounded-full border border-teal-500/50 shadow-[0_0_50px_rgba(20,184,166,0.3)] animate-breathe-circle" style="animation-play-state: paused;"></div>
+                    <div id="breathe-bg" class="absolute w-48 h-48 rounded-full bg-gradient-to-tr from-[#14B8A6]/20 to-[#3B82F6]/20 backdrop-blur-md animate-breathe-circle" style="animation-delay: 0.1s; animation-play-state: paused;"></div>
+                    
+                    <div class="absolute flex flex-col items-center justify-center z-20">
+                        <span id="breathe-instruction" class="text-sm tracking-widest uppercase text-teal-200 mb-1">Ready</span>
+                        <span id="breathe-count" class="text-5xl font-light">-</span>
+                    </div>
+                </div>
+
+                <button onclick="window.toggleBreathing()" id="breathe-btn" class="w-full bg-app-card border border-app-border text-white font-medium rounded-2xl py-4 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 mt-auto">
+                    <i class="ph-fill ph-play text-teal-400"></i> Start Session
+                </button>
+            </div>
         </div>
+
+        <!-- ========================================== -->
+        <!-- 5. FOCUS TIMER                             -->
+        <!-- ========================================== -->
+        <div id="view-focus" class="view px-6 pt-12 text-center relative">
+            <h2 class="text-2xl font-semibold mb-2 mt-4">Deep Focus</h2>
+            <p class="text-slate-400 text-sm mb-12">Block distractions and get work done.</p>
+
+            <div class="relative w-64 h-64 mx-auto flex items-center justify-center mb-12">
+                <svg class="w-full h-full transform -rotate-90 drop-shadow-2xl absolute inset-0">
+                    <circle cx="128" cy="128" r="120" stroke="#1F2942" stroke-width="8" fill="none" />
+                    <circle cx="128" cy="128" r="120" stroke="#14B8A6" stroke-width="8" fill="none" stroke-dasharray="753" stroke-dashoffset="150" stroke-linecap="round" />
+                </svg>
+                <div class="flex flex-col items-center relative z-10">
+                    <span class="text-6xl font-light tracking-tighter">25:00</span>
+                    <span class="text-sm text-teal-400 mt-2 tracking-widest uppercase">Focusing</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 6. BRAIN DUMP / IDEAS                      -->
+        <!-- ========================================== -->
+        <div id="view-ideas" class="view px-6 pt-12 relative">
+            <h2 class="text-2xl font-semibold mb-2 mt-4 ml-2">Brain Dump</h2>
+            <p class="text-slate-400 text-sm mb-8 ml-2">Clear your mind. Write it down securely.</p>
+
+            <textarea id="brain-dump-text" class="w-full h-48 bg-app-card border border-app-border rounded-3xl p-6 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-teal-500 transition-all resize-none mb-6 shadow-inner" placeholder="What's causing you stress right now? Type it out and let it go..."></textarea>
+            
+            <button onclick="window.saveBrainDump()" id="save-idea-btn" class="w-full premium-gradient text-white font-semibold rounded-2xl py-4 shadow-lg hover:scale-[1.02] transition-transform flex justify-center items-center gap-2">
+                <i class="ph-bold ph-paper-plane-right"></i> Save Thought
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 7. RESCUE CENTER                           -->
+        <!-- ========================================== -->
+        <div id="view-rescue" class="view px-6 pt-12 relative">
+            <div class="text-center mb-10 mt-4">
+                <h2 class="text-3xl font-bold text-red-400 mb-2">Rescue Center</h2>
+                <p class="text-slate-400 text-sm">Emergency actions for overwhelming moments.</p>
+            </div>
+
+            <div class="space-y-4">
+                <button onclick="window.switchTab('breathe')" class="w-full bg-app-card border border-red-500/20 p-5 rounded-3xl flex items-center gap-4 hover:bg-red-500/10 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-warning-circle text-2xl"></i>
+                    </div>
+                    <div class="text-left flex-1">
+                        <h3 class="font-semibold text-slate-200">Panic Attack</h3>
+                        <p class="text-xs text-slate-400 mt-1">Start immediate breathing</p>
+                    </div>
+                    <i class="ph ph-caret-right text-slate-600"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 8. SETTINGS                                -->
+        <!-- ========================================== -->
+        <div id="view-settings" class="view px-0 pt-0">
+            <div class="premium-gradient pt-16 pb-12 px-6 rounded-b-[40px] shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
+                
+                <div class="flex justify-between items-center mb-8 relative z-10">
+                    <h2 class="text-lg font-semibold text-white ml-auto mr-auto">Settings</h2>
+                </div>
+
+                <div class="bg-black/20 backdrop-blur-md border border-white/20 rounded-3xl p-5 flex items-center gap-4 relative z-10">
+                    <div class="w-16 h-16 rounded-full bg-white/20 overflow-hidden border-2 border-white/50">
+                        <img id="settings-photo" src="https://placehold.co/100x100/1E293B/ffffff?text=U" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <h3 id="settings-name" class="font-semibold text-lg text-white">Explorer</h3>
+                        <p id="settings-email" class="text-xs text-teal-100 mb-1">Not logged in</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 mt-8">
+                <button onclick="window.logoutUser()" class="w-full bg-red-500/10 text-red-400 border border-red-500/20 font-medium rounded-xl py-3 hover:bg-red-500/20 transition-colors">
+                    Sign Out
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- BOTTOM NAVIGATION                          -->
+        <!-- ========================================== -->
+        <nav id="bottom-nav" class="absolute bottom-0 w-full h-24 bg-[#0A1128]/90 backdrop-blur-xl border-t border-white/5 flex justify-around items-center px-4 pb-4 z-40 hidden">
+            <button onclick="window.switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 p-2 text-teal-400">
+                <i class="ph-fill ph-house text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Home</span>
+            </button>
+            <button onclick="window.switchTab('mood')" id="nav-mood" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 hover:text-slate-300 transition-colors">
+                <i class="ph-fill ph-smiley text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Mood</span>
+            </button>
+            
+            <div class="relative -top-5">
+                <button onclick="window.switchTab('breathe')" id="nav-breathe" class="w-14 h-14 rounded-full premium-gradient shadow-[0_8px_20px_rgba(20,184,166,0.4)] flex items-center justify-center text-white hover:scale-105 transition-transform border-4 border-[#0A1128]">
+                    <i class="ph-fill ph-wind text-2xl"></i>
+                </button>
+            </div>
+            
+            <button onclick="window.switchTab('ideas')" id="nav-ideas" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 hover:text-slate-300 transition-colors">
+                <i class="ph-fill ph-notebook text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Journal</span>
+            </button>
+            <button onclick="window.switchTab('settings')" id="nav-settings" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 hover:text-slate-300 transition-colors">
+                <i class="ph-fill ph-user text-2xl mb-1"></i>
+                <span class="text-[10px] font-medium">Profile</span>
+            </button>
+        </nav>
+
     </div>
 
-    <!-- COMPLETION VIEW -->
-    <div class="completion-screen" id="completionView" style="display:none;">
-        <div class="completion-icon">🌸</div>
-        <h2 class="completion-title">তুমি ভালো করেছো।</h2>
-        <p class="completion-message">
-            তুমি এইমাত্র নিজেকে সময় দিলে।<br>
-            এটা ছোট কাজ না — এটা <strong>brave</strong>।<br><br>
-            একটু ভালো লাগছে?
-        </p>
+    <script type="module">
+        // Firebase V11 Modular SDK Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        <button class="activity-btn-primary" onclick="restartBreathing()">আরো করি</button>
-        <button class="activity-btn-outline" onclick="backToDepression()">অন্য কিছু try করি</button>
-        <button class="activity-btn-outline" onclick="exitToHome()">কাজে ফিরে যাই</button>
-    </div>
-</div>
-    
-<div class="toast" id="toast">saved</div>
+        // =========================================================================
+        // Firebase Config (Updated with original keys)
+        // =========================================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKI_wT_xzxu6W2lRo8OpfC4MzlYz6jJfc",
+            authDomain: "shuru-apk.firebaseapp.com",
+            projectId: "shuru-apk",
+            storageBucket: "shuru-apk.firebasestorage.app",
+            messagingSenderId: "317579699500",
+            appId: "1:317579699500:web:66683ee0955d63ff477889"
+        };
 
-<div class="bottom-nav">
-    <div class="nav-btn active" onclick="showScreen('dashScreen')" id="navDash"><span class="n-icon">◻</span><span class="n-text">হোম</span></div>
-    <div class="nav-btn" onclick="showScreen('ideasScreen')" id="navIdeas"><span class="n-icon">💡</span><span class="n-text">আইডিয়া</span></div>
-    <div class="nav-btn" onclick="showScreen('focusScreen')" id="navFocus"><span class="n-icon">◷</span><span class="n-text">ফোকাস</span></div>
-    <div class="nav-btn" onclick="showScreen('rescueScreen')" id="navRescue"><span class="n-icon">↩</span><span class="n-text">রেসকিউ</span></div>
-    <div class="nav-btn" onclick="showScreen('reviewScreen')" id="navReview"><span class="n-icon">≡</span><span class="n-text">রিভিউ</span></div>
-</div>
+        // Initialize Firebase
+        // Note: In this preview environment, if you don't put real keys, Firebase won't initialize properly.
+        // It's wrapped in try-catch so the UI still works even without keys.
+        let app, auth, db;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+        } catch (error) {
+            console.warn("Firebase not initialized. Replace firebaseConfig with your keys.");
+        }
 
-</div>
+        let currentUser = null;
+        const appId = 'shuru_prod'; // Used for structuring database paths
+        let currentSelectedMood = 'Calm';
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    signOut, onAuthStateChanged, sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-    getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDKI_wT_xzxu6W2lRo8OpfC4MzlYz6jJfc",
-    authDomain: "shuru-apk.firebaseapp.com",
-    projectId: "shuru-apk",
-    storageBucket: "shuru-apk.firebasestorage.app",
-    messagingSenderId: "317579699500",
-    appId: "1:317579699500:web:66683ee0955d63ff477889"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-const ADMIN_EMAIL = "mdmahedulislammehedi@gmail.com";
-
-window.fbAuth = auth;
-window.fbDb = db;
-window.fbCreateUser = createUserWithEmailAndPassword;
-window.fbSignIn = signInWithEmailAndPassword;
-window.fbSignOut = signOut;
-window.fbOnAuth = onAuthStateChanged;
-window.fbResetPassword = sendPasswordResetEmail;
-window.fbDoc = doc;
-window.fbSetDoc = setDoc;
-window.fbGetDoc = getDoc;
-window.fbUpdateDoc = updateDoc;
-window.fbServerTime = serverTimestamp;
-window.ADMIN_EMAIL = ADMIN_EMAIL;
-
-window.dispatchEvent(new Event('firebaseReady'));
-</script>
-
-<script>
-// ============ USER TYPES & CATEGORIES ============
-const USER_TYPES = {
-    student: { icon: '🎓', name: 'Student', categories: [
-        {id:'study', icon:'📚', name:'Study/Note'},
-        {id:'assignment', icon:'📝', name:'Assignment'},
-        {id:'exam', icon:'🎯', name:'Exam Prep'},
-        {id:'project', icon:'📖', name:'Project'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    job: { icon: '💼', name: 'Job Holder', categories: [
-        {id:'task', icon:'✅', name:'Task'},
-        {id:'email', icon:'📧', name:'Email'},
-        {id:'report', icon:'📊', name:'Report'},
-        {id:'meeting', icon:'🤝', name:'Meeting'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    creator: { icon: '🎬', name: 'Content Creator', categories: [
-        {id:'video', icon:'🎬', name:'Video'},
-        {id:'reel', icon:'📱', name:'Reel/Short'},
-        {id:'post', icon:'📝', name:'Post'},
-        {id:'script', icon:'📖', name:'Script'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    freelancer: { icon: '💻', name: 'Freelancer', categories: [
-        {id:'client', icon:'💼', name:'Client Work'},
-        {id:'pitch', icon:'💌', name:'Pitch'},
-        {id:'portfolio', icon:'🎨', name:'Portfolio'},
-        {id:'learning', icon:'📚', name:'Learning'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    business: { icon: '🏢', name: 'Business Owner', categories: [
-        {id:'strategy', icon:'📈', name:'Strategy'},
-        {id:'marketing', icon:'📣', name:'Marketing'},
-        {id:'operations', icon:'⚙️', name:'Operations'},
-        {id:'finance', icon:'💰', name:'Finance'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    writer: { icon: '✍️', name: 'Writer', categories: [
-        {id:'article', icon:'📝', name:'Article'},
-        {id:'story', icon:'📖', name:'Story/Book'},
-        {id:'edit', icon:'✏️', name:'Edit'},
-        {id:'research', icon:'🔍', name:'Research'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    designer: { icon: '🎨', name: 'Designer', categories: [
-        {id:'design', icon:'🎨', name:'Design'},
-        {id:'brief', icon:'📋', name:'Brief'},
-        {id:'revision', icon:'🔄', name:'Revision'},
-        {id:'practice', icon:'🎯', name:'Practice'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    teacher: { icon: '👨‍🏫', name: 'Teacher', categories: [
-        {id:'lesson', icon:'📖', name:'Lesson Plan'},
-        {id:'check', icon:'✅', name:'Check Papers'},
-        {id:'prep', icon:'📚', name:'Class Prep'},
-        {id:'research', icon:'🔍', name:'Research'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    healthcare: { icon: '👩‍⚕️', name: 'Healthcare', categories: [
-        {id:'patient', icon:'🏥', name:'Patient Notes'},
-        {id:'study', icon:'📚', name:'Study/CME'},
-        {id:'admin', icon:'📋', name:'Admin'},
-        {id:'research', icon:'🔍', name:'Research'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    athlete: { icon: '🏃', name: 'Athlete/Fitness', categories: [
-        {id:'workout', icon:'💪', name:'Workout'},
-        {id:'training', icon:'🎯', name:'Training'},
-        {id:'diet', icon:'🥗', name:'Diet Plan'},
-        {id:'recovery', icon:'🧘', name:'Recovery'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    growth: { icon: '🙏', name: 'Personal Growth', categories: [
-        {id:'reading', icon:'📚', name:'Reading'},
-        {id:'meditation', icon:'🧘', name:'Meditation'},
-        {id:'journal', icon:'📔', name:'Journal'},
-        {id:'skill', icon:'🎯', name:'Skill Build'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    homemaker: { icon: '🏠', name: 'Homemaker', categories: [
-        {id:'home', icon:'🏠', name:'Home Task'},
-        {id:'family', icon:'👨‍👩‍👧', name:'Family'},
-        {id:'cooking', icon:'🍳', name:'Cooking'},
-        {id:'personal', icon:'🌸', name:'Personal'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]},
-    custom: { icon: '➕', name: 'Custom', categories: [
-        {id:'task', icon:'📌', name:'Task'},
-        {id:'idea', icon:'💡', name:'Idea'},
-        {id:'project', icon:'🎯', name:'Project'},
-        {id:'learning', icon:'📚', name:'Learning'},
-        {id:'other', icon:'💭', name:'Other'}
-    ]}
-};
-
-let currentUser = null;
-let data = {
-    task: '', step: '',
-    focusSessions: 0, totalMinutes: 0,
-    rescueCount: 0, triggers: {}, streak: 0,
-    ideas: [], todayIdeas: 0,
-    name: '', email: '',
-    userType: '', customType: ''
-};
-
-let authMode = 'login';
-let firebaseReady = false;
-let selectedType = '';
-
-window.addEventListener('firebaseReady', () => {
-    firebaseReady = true;
-    initAuth();
-});
-
-function initAuth() {
-    window.fbOnAuth(window.fbAuth, async (user) => {
-        if (user) {
-            currentUser = user;
-            await loadUserData();
-
-            // Check if user has selected type
-            if (!data.userType) {
-                showOnboarding();
+        // --- UI Helper Functions attached to Window (required for modules) ---
+        
+        window.showToast = (msg, type = 'success') => {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            
+            document.getElementById('toast-msg').textContent = msg;
+            
+            if (type === 'error') {
+                toast.className = "fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl z-[100] flex items-center gap-3 bg-red-500 text-white";
+                icon.className = "ph-fill ph-warning-circle text-xl";
             } else {
-                showApp();
+                toast.className = "fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl z-[100] flex items-center gap-3 bg-teal-500 text-white";
+                icon.className = "ph-fill ph-check-circle text-xl";
             }
-        } else {
-            showAuthScreen();
-        }
-    });
-}
+            
+            toast.style.opacity = '1';
+            toast.style.transform = 'translate(-50%, 0)';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, -20px)';
+            }, 3000);
+        };
 
-function showAuthScreen() {
-    document.getElementById('loader').classList.add('hidden');
-    document.getElementById('authScreen').style.display = 'flex';
-    document.getElementById('appMain').classList.remove('active');
-    document.getElementById('onboardingScreen').classList.remove('active');
-}
+        window.switchTab = (tabId) => {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + tabId).classList.add('active');
 
-function showOnboarding() {
-    document.getElementById('loader').classList.add('hidden');
-    document.getElementById('authScreen').style.display = 'none';
-    document.getElementById('appMain').classList.remove('active');
-    document.getElementById('onboardingScreen').classList.add('active');
-    renderTypeGrid('typeGrid', selectType);
-}
+            const bottomNav = document.getElementById('bottom-nav');
+            if (tabId === 'login') {
+                bottomNav.classList.add('hidden');
+            } else {
+                bottomNav.classList.remove('hidden');
+            }
 
-function renderTypeGrid(gridId, clickHandler) {
-    let grid = document.getElementById(gridId);
-    let html = '';
-    for (let key in USER_TYPES) {
-        let t = USER_TYPES[key];
-        html += `<div class="type-card" data-type="${key}" onclick="${clickHandler.name}('${key}', this)">
-            <div class="type-icon">${t.icon}</div>
-            <div class="type-name">${t.name}</div>
-        </div>`;
-    }
-    grid.innerHTML = html;
-}
-
-function selectType(type, el) {
-    selectedType = type;
-    document.querySelectorAll('#typeGrid .type-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-
-    let customWrap = document.getElementById('customWrap');
-    if (type === 'custom') {
-        customWrap.classList.add('show');
-        setTimeout(() => document.getElementById('customType').focus(), 100);
-    } else {
-        customWrap.classList.remove('show');
-    }
-
-    document.getElementById('onboardBtn').disabled = false;
-}
-
-async function completeOnboarding() {
-    if (!selectedType) { showToast('select করো'); return; }
-
-    let customName = '';
-    if (selectedType === 'custom') {
-        customName = document.getElementById('customType').value.trim();
-        if (!customName) { showToast('তোমার profession লেখো'); return; }
-    }
-
-    data.userType = selectedType;
-    data.customType = customName;
-    await saveData();
-
-    document.getElementById('onboardingScreen').classList.remove('active');
-    showApp();
-}
-
-function showApp() {
-    document.getElementById('loader').classList.add('hidden');
-    document.getElementById('authScreen').style.display = 'none';
-    document.getElementById('onboardingScreen').classList.remove('active');
-    document.getElementById('appMain').classList.add('active');
-
-    let initial = (data.name || currentUser.email).charAt(0).toUpperCase();
-    document.getElementById('userAvatar').textContent = initial;
-    document.getElementById('menuUserName').textContent = data.name || 'User';
-    document.getElementById('menuUserEmail').textContent = currentUser.email;
-
-    // User type badge
-    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
-    let displayName = data.userType === 'custom' && data.customType ? data.customType : typeData.name;
-    document.getElementById('userTypeBadge').textContent = typeData.icon + ' ' + displayName;
-
-    if (currentUser.email === window.ADMIN_EMAIL) {
-        document.getElementById('adminMenuBtn').style.display = 'block';
-    }
-
-    document.getElementById('streakCount').textContent = data.streak;
-    updateIdeaCount();
-    renderIdeaFilters();
-    renderCategoryDropdown();
-
-    if (data.task) {
-        document.getElementById('displayTask').textContent = data.task;
-        document.getElementById('displayStep').textContent = data.step;
-        document.getElementById('focusTaskName').textContent = data.task;
-        document.getElementById('focusCount').textContent = data.focusSessions;
-        document.getElementById('totalMins').textContent = data.totalMinutes;
-        showScreen('dashScreen');
-    } else {
-        showScreen('homeScreen');
-    }
-    setGreeting();
-    randomQuote();
-}
-
-function renderIdeaFilters() {
-    let filtersEl = document.getElementById('ideaFilters');
-    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
-
-    let html = `<div class="filter-chip active" onclick="filterIdeas('all', event)">সব</div>
-                <div class="filter-chip" onclick="filterIdeas('starred', event)">⭐ Starred</div>`;
-
-    typeData.categories.forEach(c => {
-        html += `<div class="filter-chip" onclick="filterIdeas('${c.id}', event)">${c.icon} ${c.name}</div>`;
-    });
-
-    html += `<div class="filter-chip" onclick="filterIdeas('done', event)">✅ Done</div>`;
-    filtersEl.innerHTML = html;
-}
-
-function renderCategoryDropdown() {
-    let select = document.getElementById('ideaCategory');
-    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
-    let html = '';
-    typeData.categories.forEach(c => {
-        html += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
-    });
-    select.innerHTML = html;
-}
-
-// ============ CHANGE TYPE ============
-function openChangeType() {
-    closeUserMenu();
-    document.getElementById('changeTypeModal').classList.add('active');
-    renderTypeGrid('changeTypeGrid', selectChangeType);
-
-    // Pre-select current
-    setTimeout(() => {
-        let current = document.querySelector(`#changeTypeGrid .type-card[data-type="${data.userType}"]`);
-        if (current) current.classList.add('selected');
-
-        if (data.userType === 'custom') {
-            document.getElementById('changeCustomWrap').classList.add('show');
-            document.getElementById('changeCustomType').value = data.customType || '';
-        }
-    }, 50);
-}
-
-function closeChangeType() {
-    document.getElementById('changeTypeModal').classList.remove('active');
-}
-
-let newSelectedType = '';
-function selectChangeType(type, el) {
-    newSelectedType = type;
-    document.querySelectorAll('#changeTypeGrid .type-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-
-    let wrap = document.getElementById('changeCustomWrap');
-    if (type === 'custom') {
-        wrap.classList.add('show');
-        setTimeout(() => document.getElementById('changeCustomType').focus(), 100);
-    } else {
-        wrap.classList.remove('show');
-    }
-}
-
-async function saveChangeType() {
-    if (!newSelectedType) newSelectedType = data.userType;
-
-    let customName = '';
-    if (newSelectedType === 'custom') {
-        customName = document.getElementById('changeCustomType').value.trim();
-        if (!customName) { showToast('profession লেখো'); return; }
-    }
-
-    data.userType = newSelectedType;
-    data.customType = customName;
-    await saveData();
-
-    let typeData = USER_TYPES[data.userType];
-    let displayName = data.userType === 'custom' && data.customType ? data.customType : typeData.name;
-    document.getElementById('userTypeBadge').textContent = typeData.icon + ' ' + displayName;
-
-    renderIdeaFilters();
-    renderCategoryDropdown();
-
-    closeChangeType();
-    showToast('updated ✓');
-}
-
-// PASSWORD TOGGLE
-function togglePassword(inputId, btn) {
-    let input = document.getElementById(inputId);
-    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
-    else { input.type = 'password'; btn.textContent = '👁'; }
-}
-
-// FORGOT
-function showForgotView() {
-    document.getElementById('loginSignupView').style.display = 'none';
-    document.getElementById('forgotView').style.display = 'block';
-    document.getElementById('forgotError').classList.remove('show');
-    document.getElementById('forgotSuccess').classList.remove('show');
-    let emailVal = document.getElementById('authEmail').value.trim();
-    if (emailVal) document.getElementById('forgotEmail').value = emailVal;
-}
-
-function showLoginView() {
-    document.getElementById('forgotView').style.display = 'none';
-    document.getElementById('loginSignupView').style.display = 'block';
-}
-
-async function handleForgotPassword() {
-    let email = document.getElementById('forgotEmail').value.trim();
-    let errEl = document.getElementById('forgotError');
-    let sucEl = document.getElementById('forgotSuccess');
-    let btnEl = document.getElementById('forgotBtn');
-    let loadEl = document.getElementById('forgotLoading');
-
-    errEl.classList.remove('show');
-    sucEl.classList.remove('show');
-
-    if (!email) { errEl.textContent = 'email দাও'; errEl.classList.add('show'); return; }
-
-    btnEl.disabled = true;
-    loadEl.classList.add('show');
-
-    try {
-        await window.fbResetPassword(window.fbAuth, email);
-        sucEl.innerHTML = '✓ Reset link পাঠানো হয়েছে!<br><span style="font-size:11px; color:#777;">email check করো</span>';
-        sucEl.classList.add('show');
-        document.getElementById('forgotEmail').value = '';
-        setTimeout(() => showLoginView(), 4000);
-    } catch (err) {
-        let msg = 'ভুল হয়েছে';
-        if (err.code === 'auth/invalid-email') msg = 'email ঠিকমতো লেখো';
-        if (err.code === 'auth/user-not-found') msg = 'এই email এ account নেই';
-        if (err.code === 'auth/too-many-requests') msg = 'একটু পর চেষ্টা করো';
-        errEl.textContent = msg;
-        errEl.classList.add('show');
-    }
-
-    btnEl.disabled = false;
-    loadEl.classList.remove('show');
-}
-
-// AUTH
-function switchAuth(mode) {
-    authMode = mode;
-    document.getElementById('tabLogin').classList.toggle('active', mode === 'login');
-    document.getElementById('tabSignup').classList.toggle('active', mode === 'signup');
-    document.getElementById('authName').style.display = mode === 'signup' ? 'block' : 'none';
-    document.getElementById('authBtn').textContent = mode === 'login' ? 'Login' : 'Sign Up';
-    document.getElementById('forgotLink').style.display = mode === 'login' ? 'block' : 'none';
-    document.getElementById('authError').classList.remove('show');
-}
-
-async function handleAuth() {
-    let email = document.getElementById('authEmail').value.trim();
-    let password = document.getElementById('authPassword').value;
-    let name = document.getElementById('authName').value.trim();
-    let errEl = document.getElementById('authError');
-    let btnEl = document.getElementById('authBtn');
-    let loadEl = document.getElementById('authLoading');
-
-    errEl.classList.remove('show');
-
-    if (!email || !password) { showAuthError('email আর password দাও'); return; }
-    if (password.length < 6) { showAuthError('password কমপক্ষে 6 অক্ষর'); return; }
-    if (authMode === 'signup' && !name) { showAuthError('নাম দাও'); return; }
-
-    btnEl.disabled = true;
-    loadEl.classList.add('show');
-
-    try {
-        if (authMode === 'signup') {
-            let cred = await window.fbCreateUser(window.fbAuth, email, password);
-            await window.fbSetDoc(window.fbDoc(window.fbDb, 'users', cred.user.uid), {
-                name: name, email: email,
-                createdAt: window.fbServerTime(),
-                focusSessions: 0, totalMinutes: 0,
-                rescueCount: 0, triggers: {}, streak: 0,
-                ideas: [], todayIdeas: 0,
-                task: '', step: '',
-                userType: '', customType: ''
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-teal-400');
+                btn.classList.add('text-slate-500');
+                const icon = btn.querySelector('i');
+                if(icon) { icon.classList.remove('ph-fill'); icon.classList.add('ph'); }
             });
-        } else {
-            await window.fbSignIn(window.fbAuth, email, password);
-        }
-    } catch (err) {
-        let msg = 'ভুল হয়েছে';
-        if (err.code === 'auth/email-already-in-use') msg = 'এই email এ আগে account আছে';
-        if (err.code === 'auth/invalid-credential') msg = 'email বা password ভুল';
-        if (err.code === 'auth/wrong-password') msg = 'password ভুল';
-        if (err.code === 'auth/user-not-found') msg = 'এই email এ account নেই';
-        if (err.code === 'auth/invalid-email') msg = 'email ঠিকমতো লেখো';
-        if (err.code === 'auth/weak-password') msg = 'password আরো strong দাও';
-        showAuthError(msg);
-        btnEl.disabled = false;
-        loadEl.classList.remove('show');
-    }
-}
 
-function showAuthError(msg) {
-    let el = document.getElementById('authError');
-    el.textContent = msg;
-    el.classList.add('show');
-}
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-slate-500');
+                activeBtn.classList.add('text-teal-400');
+                const icon = activeBtn.querySelector('i');
+                if(icon) { icon.classList.remove('ph'); icon.classList.add('ph-fill'); }
+            }
 
-async function loadUserData() {
-    try {
-        let docRef = window.fbDoc(window.fbDb, 'users', currentUser.uid);
-        let docSnap = await window.fbGetDoc(docRef);
-        if (docSnap.exists()) {
-            let loaded = docSnap.data();
-            data = Object.assign(data, loaded);
-            if (!data.ideas) data.ideas = [];
-            if (!data.userType) data.userType = '';
-            data.email = currentUser.email;
-        }
-    } catch (err) { console.error('Load:', err); }
-}
+            if(tabId === 'mood') {
+                document.getElementById('mood-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            }
+        };
 
-async function saveData() {
-    if (!currentUser) return;
-    try {
-        let docRef = window.fbDoc(window.fbDb, 'users', currentUser.uid);
-        await window.fbUpdateDoc(docRef, {
-            task: data.task, step: data.step,
-            focusSessions: data.focusSessions, totalMinutes: data.totalMinutes,
-            rescueCount: data.rescueCount, triggers: data.triggers,
-            streak: data.streak, ideas: data.ideas,
-            todayIdeas: data.todayIdeas,
-            userType: data.userType, customType: data.customType || '',
-            lastActive: window.fbServerTime()
-        });
-    } catch (err) { console.error('Save:', err); }
-}
+        // --- Auth Logic ---
 
-async function logout() {
-    if (!confirm('Logout করবে?')) return;
-    try { await window.fbSignOut(window.fbAuth); location.reload(); }
-    catch (err) { showToast('error'); }
-}
-
-function goToAdmin() { window.location.href = 'admin.html'; }
-
-function openUserMenu() { document.getElementById('userMenu').classList.add('active'); }
-function closeUserMenu() { document.getElementById('userMenu').classList.remove('active'); }
-
-document.getElementById('userMenu').addEventListener('click', function(e) { if (e.target === this) closeUserMenu(); });
-document.getElementById('changeTypeModal').addEventListener('click', function(e) { if (e.target === this) closeChangeType(); });
-
-function setGreeting() {
-    let h = new Date().getHours();
-    let t = h < 6 ? 'শুভ রাত' : h < 12 ? 'শুভ সকাল' : h < 17 ? 'শুভ দুপুর' : h < 20 ? 'শুভ সন্ধ্যা' : 'শুভ রাত';
-    document.getElementById('greetingText').textContent = t;
-}
-
-function showToast(msg) {
-    let t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2000);
-}
-
-function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(n => n.classList.remove('active'));
-
-    if (id === 'dashScreen') document.getElementById('navDash').classList.add('active');
-    if (id === 'ideasScreen') { document.getElementById('navIdeas').classList.add('active'); renderIdeas(); }
-    if (id === 'focusScreen') document.getElementById('navFocus').classList.add('active');
-    if (id === 'rescueScreen') document.getElementById('navRescue').classList.add('active');
-    if (id === 'reviewScreen') { document.getElementById('navReview').classList.add('active'); updateReview(); }
-
-    let fab = document.getElementById('ideaFab');
-    if (id === 'ideasScreen' || id === 'dashScreen') fab.classList.add('visible');
-    else fab.classList.remove('visible');
-    window.scrollTo(0, 0);
-}
-
-function setTask() {
-    let task = document.getElementById('mainTaskInput').value.trim();
-    let step = document.getElementById('firstStepInput').value.trim();
-    if (!task) { showToast('কাজ লেখো'); return; }
-    if (!step) step = 'শুরু করো';
-
-    data.task = task; data.step = step; saveData();
-    document.getElementById('displayTask').textContent = task;
-    document.getElementById('displayStep').textContent = step;
-    document.getElementById('focusTaskName').textContent = task;
-    showScreen('dashScreen');
-}
-
-function resetTask() {
-    if (!confirm('সব reset করবে?')) return;
-    data.task = ''; data.step = '';
-    data.focusSessions = 0; data.totalMinutes = 0;
-    data.rescueCount = 0; data.triggers = {};
-    data.todayIdeas = 0;
-    saveData();
-    document.getElementById('mainTaskInput').value = '';
-    document.getElementById('firstStepInput').value = '';
-    document.getElementById('focusCount').textContent = '0';
-    document.getElementById('totalMins').textContent = '0';
-    showScreen('homeScreen');
-}
-
-const quotes = [
-    "আগে কাজ, পরে scroll।",
-    "Motivation লাগে না। 5 মিনিট লাগে।",
-    "Overthinking কাজ না। শুরু করো।",
-    "Perfect হতে হবে না। done হতে হবে।",
-    "তুমি lazy না। তুমি stuck।",
-    "Facebook পরে। কাজ আগে।",
-    "3 মিনিট। শুধু 3 মিনিট।",
-    "শুরু করলেই অর্ধেক done.",
-    "Scroll করলে কিছু হবে না।",
-    "Action > planning",
-    "শুরু করো। বাকিটা আসবে।",
-    "তোমার future self ধন্যবাদ দিবে।",
-    "ছোট step। বড় change।",
-    "এখন না করলে কখন?",
-    "Done > perfect"
-];
-
-function randomQuote() {
-    document.getElementById('quoteText').textContent = '"' + quotes[Math.floor(Math.random() * quotes.length)] + '"';
-}
-setInterval(randomQuote, 12000);
-
-let timerInterval = null, timerSeconds = 0, totalSeconds = 0, isPaused = false;
-
-function startFocus(mins) {
-    totalSeconds = mins * 60;
-    timerSeconds = totalSeconds;
-    isPaused = false;
-    document.getElementById('pauseBtn').textContent = 'pause';
-    updateTimerDisplay();
-    showScreen('focusScreen');
-    if (timerInterval) clearInterval(timerInterval);
-
-    timerInterval = setInterval(() => {
-        if (!isPaused) {
-            timerSeconds--;
-            updateTimerDisplay();
-            document.getElementById('progressBar').style.width = ((totalSeconds - timerSeconds) / totalSeconds * 100) + '%';
-            if (timerSeconds <= 0) { clearInterval(timerInterval); endFocus(); }
-        }
-    }, 1000);
-}
-
-function updateTimerDisplay() {
-    let m = Math.floor(timerSeconds / 60), s = timerSeconds % 60;
-    document.getElementById('timerDisplay').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-}
-
-function pauseTimer() {
-    isPaused = !isPaused;
-    document.getElementById('pauseBtn').textContent = isPaused ? 'resume' : 'pause';
-}
-
-function endFocus() {
-    if (timerInterval) clearInterval(timerInterval);
-    let minsWorked = Math.max(1, Math.round((totalSeconds - timerSeconds) / 60));
-    data.focusSessions++; data.totalMinutes += minsWorked; saveData();
-    document.getElementById('focusCount').textContent = data.focusSessions;
-    document.getElementById('totalMins').textContent = data.totalMinutes;
-    document.getElementById('progressBar').style.width = '0%';
-    showToast('সেশন শেষ — ' + minsWorked + ' মিনিট');
-    showScreen('dashScreen');
-}
-
-const recoveryData = {
-    scroll: { title: 'Scrolling বন্ধ করো', sub: 'তুমি stimulation চাচ্ছো।', steps: ['ফোন উল্টে রাখো।', '10 সেকেন্ড চোখ বন্ধ।', 'কাজ open করো।', '1 step করো।', '3 মিনিট timer।'] },
-    gaming: { title: 'Game রেখে দাও', sub: 'এটা fake reward।', steps: ['Game close করো।', 'দাঁড়াও 60 সেকেন্ড।', 'পানি খাও।', 'Task মনে করো।', '5 মিনিট কাজে বসো।'] },
-    porn: { title: 'তুমি জানো এটা enemy', sub: '90 সেকেন্ড পার করো।', steps: ['Screen থেকে দূরে।', 'ফোন অন্য room এ।', 'হাঁটো 1 মিনিট।', 'ঠান্ডা পানি মুখে।', 'কাজে ফেরো।'] },
-    overthink: { title: 'ভাবনা বন্ধ করো', sub: 'করলে হবে।', steps: ['2 লাইনে লেখো।', 'Actionable?', 'না হলে ছাড়ো।', '1 tiny step বের করো।', 'সেটা এখনই করো।'] },
-    bore: { title: 'Boring? স্বাভাবিক।', sub: 'শক্ত হও।', steps: ['Full কাজ ভাবো না।', '1 ছোট piece।', 'Timer 3 মিনিট।', 'বাজে হলেও করো।', '3 মিনিট পর check।'] },
-   fear: { title: 'Overwhelmed?', sub: 'ভাঙো।', steps: ['Project ভুলো।', 'পরের 1 step।', '5 মিনিটে হবে?', 'না হলে ছোট করো।', 'শুধু সেটা করো।'] },
-    depressed: { title: 'আমি বুঝতে পারছি...', sub: 'তুমি একা না। আমি তোমার পাশে আছি।', steps: ['একটু থামো। কিছুক্ষণ পর depression mode আসছে।', 'এখন শুধু একটা গভীর শ্বাস নাও।', 'তুমি brave যে এই button চেপেছো।', 'আমরা একসাথে এগোবো।', 'খুব দ্রুত এই feature complete হবে।'] }
-};
-function showRecovery(type) {
-    if (type === 'depressed') {
-        if (!data.triggers[type]) data.triggers[type] = 0;
-        data.triggers[type]++; data.rescueCount++; saveData();
-        enterDepressionMode();
-        return;
-    }
-
-    let info = recoveryData[type];
-    if (!data.triggers[type]) data.triggers[type] = 0;
-    data.triggers[type]++; data.rescueCount++; saveData();
-    document.getElementById('recoveryTitle').textContent = info.title;
-    document.getElementById('recoverySub').textContent = info.sub;
-    let html = '';
-    info.steps.forEach((s, i) => { html += `<div class="recovery-item"><div class="r-num">${i+1}</div><div class="r-text">${s}</div></div>`; });
-    document.getElementById('recoverySteps').innerHTML = html;
-    showScreen('recoveryScreen');
-}
-
-function enterDepressionMode() {
-    document.getElementById('depressionScreen').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function exitDepressionMode() {
-    document.getElementById('depressionScreen').classList.remove('active');
-    document.body.style.overflow = '';
-    showScreen('dashScreen');
-}
-
-function selectMood(mood) {
-    // Heavy mood → Breathing activity
-    if (mood === 'heavy') {
-        startBreathingActivity();
-        return;
-    }
-        // Hopeless mood → Three Lights
-    if (mood === 'hopeless') {
-        startLightsActivity();
-        return;
-    }
-        // Crying mood → Raindrops activity
-    if (mood === 'crying') {
-        startRaindropsActivity();
-        return;
-    }
-
-    // Other moods → temporary message
-    const messages = {
-        crying: 'কান্নাটা ছেড়ে দাও। এটা শুদ্ধতা।',
-        empty: 'Numbness মানে দুর্বলতা না।',
-        numb: 'তুমি নিজেকে অনুভব করতে চাও।',
-        hopeless: 'আজ হতাশ হলেও, কাল নতুন দিন।',
-        tired: 'ক্লান্তি মানে শরীর কথা বলছে।',
-        hurt: 'যেই আঘাত করুক — তোমার ব্যথা real।',
-        overwhelmed: 'Brain overload। একটু থামো।'
-    };
-    alert('💙 ' + (messages[mood] || 'আমি পাশে আছি।') + '\n\nএই mood এর activity শীঘ্রই আসছে।');
-}
-
-// ============ BREATHING ACTIVITY ============
-// ============ SOUND SYSTEM ============
-let audioContext = null;
-let soundEnabled = localStorage.getItem('shuruSound') !== 'off';
-
-function initAudio() {
-    if (!audioContext) {
-        try {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch(e) {
-            console.log('Audio not supported');
-        }
-    }
-}
-
-function playTone(startFreq, endFreq, duration, type = 'sine', volume = 0.15) {
-    if (!soundEnabled || !audioContext) return;
-
-    try {
-        let oscillator = audioContext.createOscillator();
-        let gainNode = audioContext.createGain();
-
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-
-        oscillator.type = type;
-        oscillator.frequency.setValueAtTime(startFreq, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(endFreq, audioContext.currentTime + duration);
-
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.1);
-        gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + duration - 0.2);
-        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
-
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + duration);
-    } catch(e) {
-        console.log('Sound error:', e);
-    }
-}
-
-function playChord(frequencies, duration, volume = 0.1) {
-    if (!soundEnabled || !audioContext) return;
-
-    frequencies.forEach(freq => {
-        try {
-            let oscillator = audioContext.createOscillator();
-            let gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
-
-            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-            gainNode.gain.linearRampToValueAtTime(volume, audioContext.currentTime + 0.3);
-            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
-
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
-        } catch(e) {}
-    });
-}
-
-function playInhaleSound() {
-    playTone(240, 360, 4, 'sine', 0.12);
-}
-
-function playHoldSound() {
-    playTone(440, 440, 0.5, 'sine', 0.08);
-}
-
-function playExhaleSound() {
-    playTone(360, 200, 8, 'sine', 0.12);
-}
-
-function playCompletionSound() {
-    playChord([523, 659, 784], 2, 0.1);
-}
-
-function toggleSound() {
-    soundEnabled = !soundEnabled;
-    localStorage.setItem('shuruSound', soundEnabled ? 'on' : 'off');
-    updateSoundButton();
-}
-
-function updateSoundButton() {
-    let btn = document.getElementById('soundToggle');
-    if (btn) {
-        btn.textContent = soundEnabled ? '🔊' : '🔇';
-        btn.classList.toggle('muted', !soundEnabled);
-    }
-}
-let breathingInterval = null;
-let breathingCycle = 0;
-let breathingActive = false;
-
-function startBreathingActivity() {
-    document.getElementById('breathingScreen').classList.add('active');
-    document.getElementById('breathingView').style.display = 'block';
-    document.getElementById('completionView').style.display = 'none';
-    document.getElementById('breathText').textContent = 'শুরু করো';
-    document.getElementById('breathCount').textContent = '';
-    document.getElementById('cycleCount').textContent = '0';
-    document.getElementById('startBreathBtn').textContent = 'শুরু করি';
-    document.getElementById('startBreathBtn').style.display = 'block';
-    document.getElementById('breathCircle').className = 'breath-circle';
-    breathingCycle = 0;
-    breathingActive = false;
-}
-
-function startBreathing() {
-    if (breathingActive) return;
-    initAudio();
-    updateSoundButton();
-    breathingActive = true;
-    document.getElementById('startBreathBtn').style.display = 'none';
-    breathingCycle = 0;
-    runBreathCycle();
-}
-
-function runBreathCycle() {
-    if (!breathingActive) return;
-
-    let circle = document.getElementById('breathCircle');
-    let text = document.getElementById('breathText');
-    let count = document.getElementById('breathCount');
-
-    // INHALE — 4 seconds
-    circle.className = 'breath-circle inhale';
-    text.textContent = 'শ্বাস নাও';
-        playInhaleSound();
-    countdown(4, count, () => {
-        if (!breathingActive) return;
-
-        // HOLD — 7 seconds
-        circle.className = 'breath-circle hold';
-        text.textContent = 'ধরে রাখো';
-                playHoldSound();
-        countdown(7, count, () => {
-            if (!breathingActive) return;
-
-            // EXHALE — 8 seconds
-            circle.className = 'breath-circle exhale';
-            text.textContent = 'ছাড়ো';
-                        playExhaleSound();
-            countdown(8, count, () => {
-                if (!breathingActive) return;
-
-                breathingCycle++;
-                document.getElementById('cycleCount').textContent = breathingCycle;
-
-                if (breathingCycle >= 4) {
-                    completeBreathing();
+        // Listen to Auth State Changes
+        if(auth) {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    currentUser = user;
+                    // Update UI with user info
+                    document.getElementById('user-display-name').textContent = user.displayName || 'Explorer';
+                    document.getElementById('settings-name').textContent = user.displayName || 'Explorer';
+                    document.getElementById('settings-email').textContent = user.email || '';
+                    
+                    if(user.photoURL) {
+                        document.getElementById('user-display-photo').src = user.photoURL;
+                        document.getElementById('settings-photo').src = user.photoURL;
+                    }
+                    window.switchTab('home');
                 } else {
-                    setTimeout(() => runBreathCycle(), 500);
+                    currentUser = null;
+                    window.switchTab('login');
                 }
             });
-        });
-    });
-}
-
-function countdown(seconds, element, callback) {
-    let remaining = seconds;
-    element.textContent = remaining;
-
-    let interval = setInterval(() => {
-        if (!breathingActive) {
-            clearInterval(interval);
-            return;
-        }
-        remaining--;
-        if (remaining > 0) {
-            element.textContent = remaining;
         } else {
-            clearInterval(interval);
-            element.textContent = '';
-            callback();
+            // Fallback for preview without keys
+            window.switchTab('login');
         }
-    }, 1000);
 
-    breathingInterval = interval;
-}
+        window.loginWithGoogle = async () => {
+            if(!auth) {
+                // If keys are missing, just mock login for testing UI
+                window.showToast("Firebase keys missing. Mocking login.", "error");
+                setTimeout(() => window.switchTab('home'), 1000);
+                return;
+            }
 
-function completeBreathing() {
-        playCompletionSound();
-    breathingActive = false;
-    document.getElementById('breathingView').style.display = 'none';
-    document.getElementById('completionView').style.display = 'block';
-}
-
-function restartBreathing() {
-    startBreathingActivity();
-    setTimeout(() => startBreathing(), 300);
-}
-
-function backToDepression() {
-    breathingActive = false;
-    if (breathingInterval) clearInterval(breathingInterval);
-    document.getElementById('breathingScreen').classList.remove('active');
-}
-
-function exitToHome() {
-    breathingActive = false;
-    if (breathingInterval) clearInterval(breathingInterval);
-    document.getElementById('breathingScreen').classList.remove('active');
-    document.getElementById('depressionScreen').classList.remove('active');
-    document.body.style.overflow = '';
-    showScreen('dashScreen');
-}
-
-function exitActivity() {
-    breathingActive = false;
-    if (breathingInterval) clearInterval(breathingInterval);
-    document.getElementById('breathingScreen').classList.remove('active');
-}
-// ============ RAINDROPS ACTIVITY ============
-let raindropsInterval = null;
-let raindropsActive = false;
-let dropsReleasedCount = 0;
-let raindropsTimer = null;
-
-function startRaindropsActivity() {
-    document.getElementById('raindropsScreen').classList.add('active');
-    document.getElementById('raindropsView').style.display = 'block';
-    document.getElementById('raindropsCompletion').style.display = 'none';
-    document.getElementById('raindropsArea').innerHTML = '';
-    document.getElementById('dropsReleased').textContent = '0';
-    document.getElementById('startRaindropsBtn').style.display = 'block';
-    dropsReleasedCount = 0;
-    raindropsActive = false;
-    updateSoundButton();
-}
-
-function startRaindrops() {
-    if (raindropsActive) return;
-    initAudio();
-    raindropsActive = true;
-    document.getElementById('startRaindropsBtn').style.display = 'none';
-
-    raindropsInterval = setInterval(() => {
-        if (raindropsActive) createRaindrop();
-    }, 600);
-
-    raindropsTimer = setTimeout(() => {
-        if (raindropsActive) completeRaindrops();
-    }, 150000);
-}
-
-function createRaindrop() {
-    let area = document.getElementById('raindropsArea');
-    if (!area) return;
-
-    let drop = document.createElement('div');
-    drop.className = 'raindrop';
-    drop.textContent = '💧';
-
-    let areaWidth = area.offsetWidth;
-    let leftPos = Math.random() * (areaWidth - 30);
-    let duration = 4 + Math.random() * 3;
-
-    drop.style.left = leftPos + 'px';
-    drop.style.animationDuration = duration + 's';
-
-    drop.addEventListener('click', function(e) {
-        e.stopPropagation();
-        burstRaindrop(drop, e);
-    });
-
-    drop.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        let touch = e.touches[0];
-        burstRaindrop(drop, { clientX: touch.clientX, clientY: touch.clientY });
-    });
-
-    area.appendChild(drop);
-
-    setTimeout(() => {
-        if (drop.parentNode) drop.remove();
-    }, duration * 1000);
-}
-
-function burstRaindrop(drop, event) {
-    if (drop.classList.contains('bursting')) return;
-    drop.classList.add('bursting');
-
-    dropsReleasedCount++;
-    document.getElementById('dropsReleased').textContent = dropsReleasedCount;
-
-    let area = document.getElementById('raindropsArea');
-    let areaRect = area.getBoundingClientRect();
-    let dropRect = drop.getBoundingClientRect();
-
-    let ripple = document.createElement('div');
-    ripple.className = 'ripple';
-    ripple.style.left = (dropRect.left - areaRect.left + 12 - 40) + 'px';
-    ripple.style.top = (dropRect.top - areaRect.top + 16 - 40) + 'px';
-    area.appendChild(ripple);
-
-    playReleaseSound();
-
-    setTimeout(() => {
-        if (drop.parentNode) drop.remove();
-        if (ripple.parentNode) ripple.remove();
-    }, 600);
-}
-
-function playReleaseSound() {
-    if (!soundEnabled || !audioContext) return;
-    try {
-        let osc = audioContext.createOscillator();
-        let gain = audioContext.createGain();
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, audioContext.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.3);
-        gain.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
-        osc.start(audioContext.currentTime);
-        osc.stop(audioContext.currentTime + 0.3);
-    } catch(e) {}
-}
-
-function completeRaindrops() {
-    raindropsActive = false;
-    if (raindropsInterval) clearInterval(raindropsInterval);
-    if (raindropsTimer) clearTimeout(raindropsTimer);
-
-    playCompletionSound();
-    document.getElementById('releasedTotal').textContent = dropsReleasedCount;
-    document.getElementById('raindropsView').style.display = 'none';
-    document.getElementById('raindropsCompletion').style.display = 'block';
-}
-
-function restartRaindrops() {
-    startRaindropsActivity();
-    setTimeout(() => startRaindrops(), 300);
-}
-
-function backToDepressionFromRain() {
-    cleanupRaindrops();
-    document.getElementById('raindropsScreen').classList.remove('active');
-}
-
-function exitToHomeFromRain() {
-    cleanupRaindrops();
-    document.getElementById('raindropsScreen').classList.remove('active');
-    document.getElementById('depressionScreen').classList.remove('active');
-    document.body.style.overflow = '';
-    showScreen('dashScreen');
-}
-
-function exitRaindrops() {
-    cleanupRaindrops();
-    document.getElementById('raindropsScreen').classList.remove('active');
-}
-
-function cleanupRaindrops() {
-    raindropsActive = false;
-    if (raindropsInterval) clearInterval(raindropsInterval);
-    if (raindropsTimer) clearTimeout(raindropsTimer);
-}
-
-// ============ THREE LIGHTS ACTIVITY ============
-let currentLightStep = 1;
-let lightAnswers = ['', '', ''];
-
-const lightQuestions = [
-    {
-        icon: '🕯',
-        number: 'আলো ১ / ৩',
-        question: 'আজকে কী ছোট কিছু ঠিক হয়েছে?',
-        hint: 'যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি, এই app খুলেছি...',
-        placeholder: 'যা মনে আসছে লেখো...'
-    },
-    {
-        icon: '💛',
-        number: 'আলো ২ / ৩',
-        question: 'জীবনে কী একটা ভালো জিনিস আছে?',
-        hint: 'family, friend, একটা hobby, একটা skill — যা থাকতে নাও পারতো...',
-        placeholder: 'একটা ভালো জিনিস লেখো...'
-    },
-    {
-        icon: '🌅',
-        number: 'আলো ৩ / ৩',
-        question: 'কাল ছোট কী ভালো হতে পারে?',
-        hint: 'বড় কিছু না — শুধু একটা সম্ভাবনা। চা খাওয়া, sunlight, একটা গান...',
-        placeholder: 'একটা সম্ভাবনা লেখো...'
-    }
-];
-
-function startLightsActivity() {
-    document.getElementById('lightsScreen').classList.add('active');
-    document.getElementById('lightsView').style.display = 'block';
-    document.getElementById('lightsCompletion').style.display = 'none';
-    currentLightStep = 1;
-    lightAnswers = ['', '', ''];
-    updateSoundButton();
-    showLightStep(1);
-}
-
-function showLightStep(step) {
-    let q = lightQuestions[step - 1];
-
-    document.getElementById('lightIcon').textContent = q.icon;
-    document.getElementById('lightNumber').textContent = q.number;
-    document.getElementById('lightQuestion').textContent = q.question;
-    document.getElementById('lightHint').textContent = q.hint;
-    document.getElementById('lightInput').value = '';
-    document.getElementById('lightInput').placeholder = q.placeholder;
-
-    // Update button text
-    if (step === 3) {
-        document.getElementById('lightSaveBtn').textContent = 'সব আলো একসাথে দেখি ✨';
-    } else {
-        document.getElementById('lightSaveBtn').textContent = 'পরবর্তী আলো →';
-    }
-
-    // Update progress dots
-    for (let i = 1; i <= 3; i++) {
-        let dot = document.getElementById('dot' + i);
-        dot.classList.remove('active', 'completed');
-        if (i < step) dot.classList.add('completed');
-        else if (i === step) dot.classList.add('active');
-    }
-
-    // Animate card
-    let card = document.getElementById('lightCard');
-    card.style.animation = 'none';
-    setTimeout(() => {
-        card.style.animation = 'lightFadeIn 0.6s ease';
-    }, 10);
-
-    // Focus input
-    setTimeout(() => {
-        document.getElementById('lightInput').focus();
-    }, 400);
-}
-
-function saveLight() {
-    let input = document.getElementById('lightInput').value.trim();
-    if (!input) {
-        showToast('একটু লেখো');
-        return;
-    }
-
-    lightAnswers[currentLightStep - 1] = input;
-    playReleaseSound();
-
-    if (currentLightStep < 3) {
-        currentLightStep++;
-        showLightStep(currentLightStep);
-    } else {
-        completeLights();
-    }
-}
-
-function completeLights() {
-    playCompletionSound();
-    document.getElementById('result1').textContent = lightAnswers[0];
-    document.getElementById('result2').textContent = lightAnswers[1];
-    document.getElementById('result3').textContent = lightAnswers[2];
-    document.getElementById('lightsView').style.display = 'none';
-    document.getElementById('lightsCompletion').style.display = 'block';
-}
-
-function restartLights() {
-    startLightsActivity();
-}
-
-function backToDepressionFromLights() {
-    document.getElementById('lightsScreen').classList.remove('active');
-}
-
-function exitToHomeFromLights() {
-    document.getElementById('lightsScreen').classList.remove('active');
-    document.getElementById('depressionScreen').classList.remove('active');
-    document.body.style.overflow = '';
-    showScreen('dashScreen');
-}
-
-function exitLights() {
-    document.getElementById('lightsScreen').classList.remove('active');
-}    
-    
-function backToWork() { showScreen('dashScreen'); randomQuote(); }
-
-let currentFilter = 'all';
-let editingIdeaId = null;
-
-function openIdeaModal(ideaId) {
-    editingIdeaId = ideaId || null;
-    document.getElementById('modalTitle').textContent = ideaId ? 'edit' : 'নতুন আইডিয়া';
-    renderCategoryDropdown();
-
-    if (ideaId) {
-        let idea = data.ideas.find(i => i.id === ideaId);
-        if (idea) {
-            document.getElementById('ideaInput').value = idea.title;
-            document.getElementById('ideaDesc').value = idea.desc || '';
-            document.getElementById('ideaCategory').value = idea.category;
-        }
-    } else {
-        document.getElementById('ideaInput').value = '';
-        document.getElementById('ideaDesc').value = '';
-    }
-
-    document.getElementById('ideaModal').classList.add('active');
-    setTimeout(() => document.getElementById('ideaInput').focus(), 100);
-}
-
-function closeIdeaModal() {
-    document.getElementById('ideaModal').classList.remove('active');
-    editingIdeaId = null;
-}
-
-function saveIdea() {
-    let title = document.getElementById('ideaInput').value.trim();
-    let desc = document.getElementById('ideaDesc').value.trim();
-    let category = document.getElementById('ideaCategory').value;
-
-    if (!title) { showToast('আইডিয়া লেখো'); return; }
-
-    if (editingIdeaId) {
-        let idea = data.ideas.find(i => i.id === editingIdeaId);
-        if (idea) { idea.title = title; idea.desc = desc; idea.category = category; }
-        showToast('updated');
-    } else {
-        let newIdea = {
-            id: Date.now(), title: title, desc: desc, category: category,
-            starred: false, done: false, date: new Date().toISOString()
+            document.getElementById('google-login-loader').classList.remove('hidden');
+            const provider = new GoogleAuthProvider();
+            try {
+                await signInWithPopup(auth, provider);
+                window.showToast("Welcome back!", "success");
+            } catch (error) {
+                console.error(error);
+                window.showToast("Login failed: " + error.message, "error");
+            } finally {
+                document.getElementById('google-login-loader').classList.add('hidden');
+            }
         };
-        data.ideas.unshift(newIdea);
-        data.todayIdeas = (data.todayIdeas || 0) + 1;
-        showToast('saved ✓');
-    }
 
-    saveData();
-    closeIdeaModal();
-    updateIdeaCount();
-    renderIdeas();
-}
+        window.logoutUser = async () => {
+            if(!auth) { window.switchTab('login'); return; }
+            try {
+                await signOut(auth);
+                window.showToast("Logged out successfully");
+            } catch (error) {
+                window.showToast("Logout failed", "error");
+            }
+        };
 
-function deleteIdea(id) {
-    if (!confirm('Delete?')) return;
-    data.ideas = data.ideas.filter(i => i.id !== id);
-    saveData(); updateIdeaCount(); renderIdeas();
-    showToast('deleted');
-}
+        // --- Database Logic (Firestore) ---
 
-function toggleStar(id) {
-    let idea = data.ideas.find(i => i.id === id);
-    if (idea) { idea.starred = !idea.starred; saveData(); renderIdeas(); }
-}
+        window.saveBrainDump = async () => {
+            const textEl = document.getElementById('brain-dump-text');
+            const btn = document.getElementById('save-idea-btn');
+            const text = textEl.value.trim();
+            
+            if(!text) {
+                window.showToast("Please write something first.", "error");
+                return;
+            }
+            if(!currentUser || !db) {
+                window.showToast("Database not connected. Please check Firebase config.", "error");
+                return;
+            }
 
-function toggleDone(id) {
-    let idea = data.ideas.find(i => i.id === id);
-    if (idea) { idea.done = !idea.done; saveData(); renderIdeas(); showToast(idea.done ? 'done ✓' : 'reopened'); }
-}
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Saving...';
+            
+            try {
+                // Standard structure: artifacts/{appId}/users/{userId}/brain_dumps
+                await addDoc(collection(db, 'artifacts', appId, 'users', currentUser.uid, 'brain_dumps'), {
+                    content: text,
+                    timestamp: serverTimestamp()
+                });
+                window.showToast("Thought saved securely!");
+                textEl.value = '';
+                setTimeout(() => window.switchTab('home'), 1000);
+            } catch (error) {
+                console.error(error);
+                window.showToast("Failed to save. Check Firestore rules.", "error");
+            } finally {
+                btn.innerHTML = '<i class="ph-bold ph-paper-plane-right"></i> Save Thought';
+            }
+        };
 
-function filterIdeas(filter, ev) {
-    currentFilter = filter;
-    document.querySelectorAll('#ideaFilters .filter-chip').forEach(c => c.classList.remove('active'));
-    if (ev && ev.target) ev.target.classList.add('active');
-    renderIdeas();
-}
+        // Mood Selection UI
+        window.selectMood = (element, moodName) => {
+            currentSelectedMood = moodName;
+            
+            // Reset all emojis
+            document.querySelectorAll('.mood-emoji').forEach(el => {
+                el.className = "mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100";
+                el.innerHTML = el.innerHTML.replace('text-[10px] text-teal-400 font-medium', 'text-[10px] text-slate-400');
+            });
 
-function renderIdeas() {
-    let list = document.getElementById('ideasList');
-    let search = document.getElementById('ideaSearch').value.toLowerCase().trim();
-    let typeData = USER_TYPES[data.userType] || USER_TYPES.custom;
-    let catMap = {};
-    typeData.categories.forEach(c => { catMap[c.id] = c.icon + ' ' + c.name; });
+            // Highlight selected
+            element.className = "mood-emoji active flex flex-col items-center gap-2 cursor-pointer transition-transform bg-teal-500/10 rounded-xl p-1 border border-teal-500/30";
+            element.innerHTML = element.innerHTML.replace('text-[10px] text-slate-400', 'text-[10px] text-teal-400 font-medium');
+        };
 
-    let filtered = data.ideas.filter(idea => {
-        if (currentFilter === 'starred' && !idea.starred) return false;
-        if (currentFilter === 'done' && !idea.done) return false;
-        if (currentFilter !== 'all' && currentFilter !== 'starred' && currentFilter !== 'done') {
-            if (idea.category !== currentFilter) return false;
+        window.saveMood = async () => {
+            const btn = document.getElementById('save-mood-btn');
+            if(!currentUser || !db) {
+                window.showToast("Database not connected.", "error");
+                return;
+            }
+
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Saving...';
+
+            try {
+                await addDoc(collection(db, 'artifacts', appId, 'users', currentUser.uid, 'moods'), {
+                    mood: currentSelectedMood,
+                    timestamp: serverTimestamp()
+                });
+                window.showToast(`Logged mood: ${currentSelectedMood}`);
+                setTimeout(() => window.switchTab('home'), 1000);
+            } catch (error) {
+                console.error(error);
+                window.showToast("Failed to save mood.", "error");
+            } finally {
+                btn.innerHTML = 'Save & Continue <i class="ph-bold ph-arrow-right"></i>';
+            }
+        };
+
+        // --- Breathing Animation Logic ---
+        let breathingInterval;
+        let isBreathing = false;
+        let seconds = 0;
+        let phase = 0; // 0: Inhale, 1: Hold, 2: Exhale, 3: Hold
+
+        window.toggleBreathing = () => {
+            const btn = document.getElementById('breathe-btn');
+            const ring = document.getElementById('breathe-ring');
+            const bg = document.getElementById('breathe-bg');
+            const instruction = document.getElementById('breathe-instruction');
+            const countDisplay = document.getElementById('breathe-count');
+
+            if (isBreathing) {
+                clearInterval(breathingInterval);
+                isBreathing = false;
+                btn.innerHTML = '<i class="ph-fill ph-play text-teal-400"></i> Start Session';
+                ring.style.animationPlayState = 'paused';
+                bg.style.animationPlayState = 'paused';
+                instruction.textContent = "Paused";
+            } else {
+                isBreathing = true;
+                btn.innerHTML = '<i class="ph-fill ph-pause text-yellow-400"></i> Pause Session';
+                ring.style.animationPlayState = 'running';
+                bg.style.animationPlayState = 'running';
+                
+                seconds = 4;
+                phase = 0;
+                updateBreathingUI();
+
+                breathingInterval = setInterval(() => {
+                    seconds--;
+                    if (seconds <= 0) {
+                        phase = (phase + 1) % 4;
+                        seconds = 4;
+                    }
+                    updateBreathingUI();
+                }, 1000);
+            }
+        };
+
+        function updateBreathingUI() {
+            const instruction = document.getElementById('breathe-instruction');
+            const countDisplay = document.getElementById('breathe-count');
+            countDisplay.textContent = seconds;
+
+            if (phase === 0) { instruction.textContent = "Inhale"; } 
+            else if (phase === 1) { instruction.textContent = "Hold"; } 
+            else if (phase === 2) { instruction.textContent = "Exhale"; } 
+            else if (phase === 3) { instruction.textContent = "Hold"; }
         }
-        if (currentFilter !== 'done' && idea.done) return false;
-        if (search) return idea.title.toLowerCase().includes(search) || (idea.desc && idea.desc.toLowerCase().includes(search));
-        return true;
-    });
 
-    document.getElementById('ideaCount').textContent = filtered.length + 'টি';
-
-    if (filtered.length === 0) {
-        list.innerHTML = `<div class="empty-state"><div class="empty-icon">💭</div><div class="empty-text">কোনো আইডিয়া নেই</div><div class="empty-sub">+ button চাপো</div></div>`;
-        return;
-    }
-
-    let html = '';
-    filtered.forEach(idea => {
-        let dateStr = formatDate(new Date(idea.date));
-        let catLabel = catMap[idea.category] || idea.category;
-        html += `<div class="idea-card ${idea.done ? 'done' : ''}">
-            <div class="idea-header">
-                <div class="idea-title">${escapeHtml(idea.title)}</div>
-                <button class="idea-star ${idea.starred ? 'starred' : ''}" onclick="toggleStar(${idea.id})">★</button>
-            </div>
-            ${idea.desc ? `<div class="idea-desc">${escapeHtml(idea.desc)}</div>` : ''}
-            <div class="idea-footer">
-                <span class="idea-tag">${catLabel}</span>
-                <span class="idea-date">${dateStr}</span>
-            </div>
-            <div class="idea-actions">
-                <button class="idea-btn" onclick="openIdeaModal(${idea.id})">edit</button>
-                <button class="idea-btn success" onclick="toggleDone(${idea.id})">${idea.done ? 'reopen' : 'done'}</button>
-                <button class="idea-btn danger" onclick="deleteIdea(${idea.id})">delete</button>
-            </div>
-        </div>`;
-    });
-    list.innerHTML = html;
-}
-
-function formatDate(d) {
-    let diff = Math.floor((new Date() - d) / 1000);
-    if (diff < 60) return 'এইমাত্র';
-    if (diff < 3600) return Math.floor(diff/60) + 'm আগে';
-    if (diff < 86400) return Math.floor(diff/3600) + 'h আগে';
-    if (diff < 604800) return Math.floor(diff/86400) + 'd আগে';
-    return d.toLocaleDateString('bn-BD');
-}
-
-function escapeHtml(text) {
-    let div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-function updateIdeaCount() {
-    document.getElementById('ideaTotalCount').textContent = data.ideas.length;
-}
-
-function updateReview() {
-    document.getElementById('revSessions').textContent = data.focusSessions;
-    document.getElementById('revMinutes').textContent = data.totalMinutes;
-    document.getElementById('revIdeas').textContent = data.todayIdeas || 0;
-    document.getElementById('revRescues').textContent = data.rescueCount;
-
-    if (data.rescueCount > 0) {
-        document.getElementById('revRescueNote').textContent = data.rescueCount + ' বার slip — কিন্তু ফিরে এসেছো';
-    }
-
-    let msgs = ["তুমি ফিরে এসেছো।", "আজকেও count।", "কাল আরেকটু।", "তুমি try করেছো।"];
-    document.getElementById('reviewMsg').innerHTML = '<p>"' + msgs[Math.floor(Math.random() * msgs.length)] + '"</p>';
-}
-
-document.getElementById('ideaModal').addEventListener('click', function(e) { if (e.target === this) closeIdeaModal(); });
-document.getElementById('ideaInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') saveIdea(); });
-document.getElementById('authPassword').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleAuth(); });
-document.getElementById('forgotEmail').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleForgotPassword(); });
-
-// GLOBALS
-window.switchAuth = switchAuth;
-window.handleAuth = handleAuth;
-window.togglePassword = togglePassword;
-window.showForgotView = showForgotView;
-window.showLoginView = showLoginView;
-window.handleForgotPassword = handleForgotPassword;
-window.logout = logout;
-window.goToAdmin = goToAdmin;
-window.openUserMenu = openUserMenu;
-window.closeUserMenu = closeUserMenu;
-window.showScreen = showScreen;
-window.setTask = setTask;
-window.resetTask = resetTask;
-window.startFocus = startFocus;
-window.pauseTimer = pauseTimer;
-window.endFocus = endFocus;
-window.showRecovery = showRecovery;
-window.backToWork = backToWork;
-window.enterDepressionMode = enterDepressionMode;
-window.exitDepressionMode = exitDepressionMode;
-window.selectMood = selectMood;
-window.startBreathingActivity = startBreathingActivity;
-window.startBreathing = startBreathing;
-window.restartBreathing = restartBreathing;
-window.backToDepression = backToDepression;
-window.exitToHome = exitToHome;
-window.exitActivity = exitActivity;
-window.toggleSound = toggleSound;    
-window.startRaindropsActivity = startRaindropsActivity;
-window.startRaindrops = startRaindrops;
-window.restartRaindrops = restartRaindrops;
-window.backToDepressionFromRain = backToDepressionFromRain;
-window.exitToHomeFromRain = exitToHomeFromRain;
-window.exitRaindrops = exitRaindrops;
-window.completeRaindrops = completeRaindrops;   
-window.startLightsActivity = startLightsActivity;
-window.saveLight = saveLight;
-window.restartLights = restartLights;
-window.backToDepressionFromLights = backToDepressionFromLights;
-window.exitToHomeFromLights = exitToHomeFromLights;
-window.exitLights = exitLights;    
-window.openIdeaModal = openIdeaModal;
-window.closeIdeaModal = closeIdeaModal;
-window.saveIdea = saveIdea;
-window.deleteIdea = deleteIdea;
-window.toggleStar = toggleStar;
-window.toggleDone = toggleDone;
-window.filterIdeas = filterIdeas;
-window.renderIdeas = renderIdeas;
-window.selectType = selectType;
-window.completeOnboarding = completeOnboarding;
-window.openChangeType = openChangeType;
-window.closeChangeType = closeChangeType;
-window.selectChangeType = selectChangeType;
-window.saveChangeType = saveChangeType;
-</script>
-
+    </script>
 </body>
 </html>
