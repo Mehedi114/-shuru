@@ -1892,19 +1892,19 @@ body {
     </div>
 
 <div id="lightsView" style="max-width: 420px; margin: 0 auto; padding: 0 16px;">        <div class="lights-container">
-            <div class="light-progress">
-                <div class="light-dot active" id="dot1"></div>
-                <div class="light-dot" id="dot2"></div>
-                <div class="light-dot" id="dot3"></div>
+            <div class="light-progress" style="display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;">
+                <div class="light-dot active" id="dot1" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,220,150,0.9); box-shadow: 0 0 12px rgba(255,220,150,0.6);"></div>
+<div class="light-dot" id="dot2" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2);"></div>
+<div class="light-dot" id="dot3" style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2);"></div>
             </div>
 
-            <div class="light-card" id="lightCard">
-                <div class="light-icon" id="lightIcon">🕯</div>
-                <div class="light-number" id="lightNumber">আলো ১ / ৩</div>
-                <h2 class="light-question" id="lightQuestion">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
-                <p class="light-hint" id="lightHint">যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি, এই app খুলেছি...</p>
-                <textarea class="light-input" id="lightInput" placeholder="যা মনে আসছে লেখো..." maxlength="200"></textarea>
-                <button class="light-btn" id="lightSaveBtn" onclick="saveLight()">পরবর্তী আলো →</button>
+            <div class="light-card" id="lightCard" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 32px 24px; text-align: center; margin-top: 20px;">
+                <div class="light-icon" id="lightIcon" style="font-size: 48px; margin-bottom: 16px;">🕯</div>
+                <div class="light-number" id="lightNumber" style="font-size: 11px; color: rgba(255,220,150,0.9); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px;">আলো ১ / ৩</div>
+                <h2 class="light-question" id="lightQuestion" style="font-size: 20px; font-weight: 500; color: #fff; margin-bottom: 10px; line-height: 1.5;">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
+                <p class="light-hint" id="lightHint" style="font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 22px; line-height: 1.6; font-style: italic;">যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি, এই app খুলেছি...</p>
+                <textarea class="light-input" id="lightInput" placeholder="যা মনে আসছে লেখো..." maxlength="200" style="width: 100%; background: rgba(0,0,0,0.2); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 16px; color: #fff; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; resize: none; min-height: 80px; line-height: 1.6; box-sizing: border-box;"></textarea>
+                <button class="light-btn" id="lightSaveBtn" onclick="saveLight()" style="width: 100%; padding: 14px; background: rgba(255,220,150,0.9); color: #4a3818; border: none; border-radius: 14px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; margin-top: 14px;">পরবর্তী আলো →</button>
             </div>
         </div>
     </div>
