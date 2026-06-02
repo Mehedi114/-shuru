@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shuru - Premium Wellness</title>
+    <title>Serene - Premium Wellness</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,27 +17,33 @@
                     },
                     colors: {
                         app: {
-                            bg: '#0A1128', // Deep premium navy
-                            card: '#151E32', // Slightly lighter navy for cards
-                            border: '#1F2942',
-                            teal: '#14B8A6',
-                            emerald: '#059669'
+                            bg: '#050B14', // Very deep navy/black for outer background
+                            phone: '#0B132B', // Phone background
+                            card: '#15203B', // Card background
+                            border: '#1E2D4A',
+                            primary: '#14B8A6', // Teal 500
+                            primaryDark: '#0F766E' // Teal 700
                         }
                     },
                     animation: {
                         'breathe-circle': 'breathe 16s infinite ease-in-out',
                         'fade-in': 'fadeIn 0.3s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
                         breathe: {
-                            '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
+                            '0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
                             '25%': { transform: 'scale(1.5)', opacity: '1' }, // Inhale
                             '50%': { transform: 'scale(1.5)', opacity: '1' }, // Hold
-                            '75%': { transform: 'scale(1)', opacity: '0.8' }, // Exhale
+                            '75%': { transform: 'scale(1)', opacity: '0.5' }, // Exhale
                         },
                         fadeIn: {
                             from: { opacity: '0', transform: 'translateY(10px)' },
                             to: { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
@@ -47,7 +53,7 @@
     
     <style>
         body {
-            background-color: #050814; 
+            background-color: #050B14; /* Deep dark background */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -60,13 +66,6 @@
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
         .premium-gradient {
             background: linear-gradient(135deg, #14B8A6 0%, #059669 100%);
         }
@@ -81,18 +80,18 @@
             width: 100%;
             height: 100dvh;
             max-width: 414px; 
-            background-color: #0A1128;
+            background-color: #0B132B;
             position: relative;
             overflow: hidden;
             display: flex;
-            flex-col;
+            flex-direction: column;
         }
 
         @media (min-width: 640px) {
             #app-container {
                 height: 850px;
                 border-radius: 40px;
-                box-shadow: 0 25px 50px -12px rgba(20, 184, 166, 0.15), 0 0 0 8px #1E293B;
+                box-shadow: 0 25px 50px -12px rgba(20, 184, 166, 0.15), 0 0 0 10px #15203B;
             }
         }
 
@@ -109,29 +108,6 @@
             animation: fadeIn 0.4s ease-out forwards;
         }
 
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 100%;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            background: #14B8A6;
-            cursor: pointer;
-            margin-top: -8px;
-            box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #1F2942;
-            border-radius: 2px;
-        }
-
         /* Custom Toast Notification */
         #toast {
             transition: opacity 0.3s ease, transform 0.3s ease;
@@ -140,8 +116,7 @@
 </head>
 <body>
 
-    <!-- Toast Notification Container -->
-    <div id="toast" class="fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl opacity-0 pointer-events-none z-[100] flex items-center gap-3">
+    <div id="toast" class="fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl opacity-0 pointer-events-none z-[100] flex items-center gap-3">
         <i id="toast-icon" class="ph-fill text-xl"></i>
         <span id="toast-msg" class="text-sm font-medium"></span>
     </div>
@@ -151,8 +126,8 @@
         <!-- ========================================== -->
         <!-- 1. LOGIN SCREEN                            -->
         <!-- ========================================== -->
-        <div id="view-login" class="view active premium-gradient absolute inset-0 z-50 p-8 flex flex-col justify-center pb-0" style="padding-bottom: 0;">
-            <div class="flex flex-col items-center mb-12">
+        <div id="view-login" class="view active premium-gradient absolute inset-0 z-50 p-8 flex flex-col justify-center pb-8">
+            <div class="flex flex-col items-center mb-12 animate-float">
                 <div class="w-20 h-20 bg-white/20 rounded-3xl backdrop-blur-md flex items-center justify-center mb-6 shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-white/20">
                     <i class="ph ph-wave-sine text-4xl text-white"></i>
                 </div>
@@ -176,7 +151,7 @@
                     </div>
                 </div>
 
-                <button onclick="window.loginWithGoogle()" class="w-full bg-white text-teal-700 font-semibold rounded-xl py-4 hover:bg-teal-50 transition-colors shadow-lg flex items-center justify-center gap-2 mb-4">
+                <button onclick="window.showToast('Please use Google Login below', 'error')" class="w-full bg-white text-teal-700 font-semibold rounded-xl py-4 hover:bg-teal-50 transition-colors shadow-lg flex items-center justify-center gap-2 mb-4">
                     Continue <i class="ph-bold ph-arrow-right"></i>
                 </button>
             </div>
@@ -188,7 +163,7 @@
             </div>
 
             <div class="flex gap-4 w-full">
-                <button class="flex-1 bg-black/20 hover:bg-black/30 backdrop-blur-md border border-white/10 rounded-xl py-4 flex items-center justify-center gap-2 transition-all">
+                <button onclick="window.showToast('Apple login coming soon!', 'error')" class="flex-1 bg-black/20 hover:bg-black/30 backdrop-blur-md border border-white/10 rounded-xl py-4 flex items-center justify-center gap-2 transition-all">
                     <i class="ph-fill ph-apple-logo text-xl"></i> <span class="text-sm font-medium">Apple</span>
                 </button>
                 <button onclick="window.loginWithGoogle()" class="flex-1 bg-black/20 hover:bg-black/30 backdrop-blur-md border border-white/10 rounded-xl py-4 flex items-center justify-center gap-2 transition-all relative overflow-hidden group">
@@ -199,7 +174,7 @@
                 </button>
             </div>
             
-            <p class="text-center text-xs text-teal-100 mt-auto mb-8">Don't have an account? <a href="#" class="font-bold text-white">Join Free</a></p>
+            <p class="text-center text-xs text-teal-100 mt-auto">Don't have an account? <a href="#" onclick="window.loginWithGoogle()" class="font-bold text-white hover:underline">Join Free</a></p>
         </div>
 
         <!-- ========================================== -->
@@ -210,55 +185,55 @@
             <div class="flex justify-between items-center mb-8">
                 <div>
                     <p class="text-sm text-slate-400">Good morning <span class="text-yellow-400">✨</span></p>
-                    <h2 id="user-display-name" class="text-2xl font-semibold mt-1">Explorer</h2>
+                    <h2 id="user-display-name" class="text-2xl font-semibold mt-1 text-white">Explorer</h2>
                 </div>
-                <div class="w-12 h-12 rounded-full bg-app-card border-2 border-app-border overflow-hidden cursor-pointer" onclick="window.switchTab('settings')">
+                <div class="w-12 h-12 rounded-full bg-app-card border-2 border-app-primary overflow-hidden cursor-pointer" onclick="window.switchTab('settings')">
                     <img id="user-display-photo" src="https://placehold.co/100x100/14B8A6/ffffff?text=U" alt="Profile" class="w-full h-full object-cover">
                 </div>
             </div>
 
             <!-- Streak Card -->
-            <div class="premium-gradient rounded-3xl p-6 mb-8 relative overflow-hidden shadow-[0_10px_30px_rgba(20,184,166,0.2)]">
+            <div class="premium-gradient rounded-[24px] p-6 mb-8 relative overflow-hidden shadow-[0_10px_30px_rgba(20,184,166,0.2)]">
                 <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 <div class="relative z-10 flex justify-between items-center">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
                             <i class="ph-fill ph-fire text-orange-300 text-xl"></i>
-                            <h3 class="font-semibold text-lg">14 Day Streak!</h3>
+                            <h3 class="font-semibold text-lg text-white">14 Day Streak!</h3>
                         </div>
                         <p class="text-sm text-teal-50">Keep up the amazing work</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-xs text-teal-100 mb-1">Next milestone</p>
-                        <p class="font-semibold flex items-center gap-1 justify-end"><span class="text-xl">21</span> days <i class="ph-fill ph-trophy text-yellow-300"></i></p>
+                        <p class="text-[10px] uppercase tracking-wider text-teal-100 mb-1">Next milestone</p>
+                        <p class="font-semibold flex items-center justify-end gap-1 text-white"><span class="text-xl">21</span> days <i class="ph-fill ph-trophy text-yellow-300"></i></p>
                     </div>
                 </div>
             </div>
 
             <!-- Quick Actions -->
             <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Quick Actions</h4>
-            <div class="grid grid-cols-4 gap-4 mb-8">
+            <div class="grid grid-cols-4 gap-3 mb-8">
                 <button onclick="window.switchTab('mood')" class="flex flex-col items-center gap-2 group">
-                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#2563EB]/10 border-[#2563EB]/20 group-hover:bg-[#2563EB]/20 transition-all">
-                        <i class="ph-fill ph-smiley text-[#60A5FA] text-2xl"></i>
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center bg-blue-500/10 border border-blue-500/20 group-hover:bg-blue-500/20 transition-all">
+                        <i class="ph-fill ph-smiley text-blue-400 text-2xl"></i>
                     </div>
-                    <span class="text-[10px] font-medium text-slate-300">Check-in</span>
+                    <span class="text-[10px] font-medium text-slate-300">Mood</span>
                 </button>
-                <button onclick="window.switchTab('focus')" class="flex flex-col items-center gap-2 group">
-                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#14B8A6]/10 border-[#14B8A6]/20 group-hover:bg-[#14B8A6]/20 transition-all">
-                        <i class="ph-fill ph-timer text-[#2DD4BF] text-2xl"></i>
+                <button onclick="window.switchTab('breathe')" class="flex flex-col items-center gap-2 group">
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center bg-teal-500/10 border border-teal-500/20 group-hover:bg-teal-500/20 transition-all">
+                        <i class="ph-fill ph-wind text-teal-400 text-2xl"></i>
                     </div>
-                    <span class="text-[10px] font-medium text-slate-300">Focus</span>
+                    <span class="text-[10px] font-medium text-slate-300">Breathe</span>
                 </button>
                 <button onclick="window.switchTab('ideas')" class="flex flex-col items-center gap-2 group">
-                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#F59E0B]/10 border-[#F59E0B]/20 group-hover:bg-[#F59E0B]/20 transition-all">
-                        <i class="ph-fill ph-lightbulb text-[#FBBF24] text-2xl"></i>
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center bg-amber-500/10 border border-amber-500/20 group-hover:bg-amber-500/20 transition-all">
+                        <i class="ph-fill ph-notebook text-amber-400 text-2xl"></i>
                     </div>
-                    <span class="text-[10px] font-medium text-slate-300">Ideas</span>
+                    <span class="text-[10px] font-medium text-slate-300">Journal</span>
                 </button>
                 <button onclick="window.switchTab('rescue')" class="flex flex-col items-center gap-2 group">
-                    <div class="w-14 h-14 rounded-2xl glass-card flex items-center justify-center bg-[#EF4444]/10 border-[#EF4444]/20 group-hover:bg-[#EF4444]/20 transition-all">
-                        <i class="ph-fill ph-lifebuoy text-[#F87171] text-2xl"></i>
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center bg-rose-500/10 border border-rose-500/20 group-hover:bg-rose-500/20 transition-all">
+                        <i class="ph-fill ph-lifebuoy text-rose-400 text-2xl"></i>
                     </div>
                     <span class="text-[10px] font-medium text-slate-300">Rescue</span>
                 </button>
@@ -266,47 +241,110 @@
 
             <!-- Today's Progress -->
             <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Today's Progress</h4>
-            <div class="app-card rounded-3xl p-5 border border-app-border mb-8 bg-app-card">
-                <div class="flex justify-between items-end mb-3">
-                    <p class="text-sm font-medium">Daily Wellness Score</p>
-                    <p class="text-xl font-bold text-gradient">72%</p>
+            <div class="bg-app-card rounded-[24px] p-5 border border-app-border mb-8">
+                <div class="flex justify-between items-end mb-4">
+                    <p class="text-sm font-medium text-slate-200">Daily Wellness Score</p>
+                    <p class="text-xl font-bold text-teal-400">72%</p>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-2 mb-6">
+                <div class="w-full bg-slate-800/50 rounded-full h-2 mb-6">
                     <div class="premium-gradient h-2 rounded-full" style="width: 72%"></div>
                 </div>
+                
+                <div class="flex justify-between text-center px-2">
+                    <div>
+                        <p class="text-lg font-semibold text-white">3</p>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wide">Sessions</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold text-white">24</p>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wide">Minutes</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold text-white">😌</p>
+                        <p class="text-[10px] text-slate-400 uppercase tracking-wide">Feeling</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tasks -->
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Wellness Tasks</h4>
+                <button class="text-teal-400 text-xs font-medium">+ Add</button>
+            </div>
+            <div class="bg-app-card border border-app-border rounded-2xl p-4 flex items-center gap-4 mb-4 opacity-70">
+                <div class="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-white">
+                    <i class="ph-bold ph-check text-sm"></i>
+                </div>
+                <div class="flex-1">
+                    <h5 class="text-sm font-medium text-slate-300 line-through">Morning meditation</h5>
+                    <p class="text-xs text-slate-500">10 min • Completed</p>
+                </div>
+                <div class="text-xl">🧘‍♀️</div>
             </div>
         </div>
 
         <!-- ========================================== -->
         <!-- 3. MOOD CHECK-IN                           -->
         <!-- ========================================== -->
-        <div id="view-mood" class="view px-6 pt-12 relative">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-blue-500/10 blur-[80px] rounded-full pointer-events-none"></div>
+        <div id="view-mood" class="view px-6 pt-12 relative bg-app-phone">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none"></div>
             
             <div class="text-center mb-10 relative z-10">
-                <h3 class="text-sm text-slate-400 tracking-widest uppercase mb-2">How are you feeling?</h3>
-                <h2 class="text-3xl font-semibold">Check In</h2>
+                <h3 class="text-xs text-slate-400 tracking-widest uppercase mb-2">How are you feeling?</h3>
+                <h2 class="text-3xl font-semibold text-white">Check In</h2>
                 <p class="text-sm text-slate-500 mt-2" id="mood-date">Today</p>
             </div>
 
-            <div class="bg-app-card border border-app-border rounded-3xl p-6 mb-8 shadow-xl relative z-10">
-                <div class="grid grid-cols-4 gap-y-6 gap-x-2" id="emoji-grid">
-                    <!-- Emojis will be handled by JS to toggle active state -->
-                    <div onclick="window.selectMood(this, 'Happy')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100">
+            <div class="bg-app-card border border-app-border rounded-[32px] p-8 mb-8 shadow-2xl relative z-10">
+                <div class="grid grid-cols-4 gap-y-8 gap-x-2" id="emoji-grid">
+                    <!-- Row 1 -->
+                    <div onclick="window.selectMood(this, 'Happy')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
                         <div class="w-12 h-12 flex items-center justify-center text-3xl">😊</div>
                         <span class="text-[10px] text-slate-400">Happy</span>
                     </div>
-                    <div onclick="window.selectMood(this, 'Sad')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100">
+                    <div onclick="window.selectMood(this, 'Sad')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
                         <div class="w-12 h-12 flex items-center justify-center text-3xl">😢</div>
                         <span class="text-[10px] text-slate-400">Sad</span>
                     </div>
-                    <div onclick="window.selectMood(this, 'Calm')" class="mood-emoji active flex flex-col items-center gap-2 cursor-pointer transition-transform bg-teal-500/10 rounded-xl p-1 border border-teal-500/30">
-                        <div class="w-10 h-10 flex items-center justify-center text-3xl">😌</div>
-                        <span class="text-[10px] text-teal-400 font-medium">Calm</span>
-                    </div>
-                    <div onclick="window.selectMood(this, 'Anxious')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100">
+                    <div onclick="window.selectMood(this, 'Anxious')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
                         <div class="w-12 h-12 flex items-center justify-center text-3xl">😰</div>
                         <span class="text-[10px] text-slate-400">Anxious</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Calm')" class="mood-emoji active flex flex-col items-center gap-2 cursor-pointer transition-transform bg-teal-500/10 rounded-2xl p-2 border border-teal-500/30">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">😌</div>
+                        <span class="text-[10px] text-teal-400 font-medium">Calm</span>
+                    </div>
+                    <!-- Row 2 -->
+                    <div onclick="window.selectMood(this, 'Excited')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">🤩</div>
+                        <span class="text-[10px] text-slate-400">Excited</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Angry')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">😠</div>
+                        <span class="text-[10px] text-slate-400">Angry</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Grateful')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">🙏</div>
+                        <span class="text-[10px] text-slate-400">Grateful</span>
+                    </div>
+                    <div onclick="window.selectMood(this, 'Tired')" class="mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110">
+                        <div class="w-12 h-12 flex items-center justify-center text-3xl">😴</div>
+                        <span class="text-[10px] text-slate-400">Tired</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 border-t border-app-border pt-6">
+                    <label class="text-xs text-slate-400 mb-4 block">Energy Level</label>
+                    <div class="flex gap-2 h-2">
+                        <div class="flex-1 bg-slate-800 rounded-full"></div>
+                        <div class="flex-1 bg-slate-800 rounded-full"></div>
+                        <div class="flex-1 bg-teal-500 rounded-full shadow-[0_0_10px_rgba(20,184,166,0.5)]"></div>
+                        <div class="flex-1 bg-slate-800 rounded-full"></div>
+                        <div class="flex-1 bg-slate-800 rounded-full"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-500 mt-2">
+                        <span>Low</span>
+                        <span>High</span>
                     </div>
                 </div>
             </div>
@@ -319,25 +357,34 @@
         <!-- ========================================== -->
         <!-- 4. BREATHE / RELAX                         -->
         <!-- ========================================== -->
-        <div id="view-breathe" class="view relative overflow-hidden bg-[#070b1a]">
-            <div class="absolute inset-0 z-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        <div id="view-breathe" class="view relative overflow-hidden bg-app-phone">
+            <!-- Stars/Dots Background Effect -->
+            <div class="absolute inset-0 z-0 opacity-30" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
             
             <div class="relative z-10 flex flex-col h-full items-center pt-16 pb-10 px-6">
                 <h3 class="text-xs text-slate-400 tracking-widest uppercase mb-1">Box Breathing</h3>
-                <h2 class="text-xl font-medium mb-12">4-4-4-4 Pattern</h2>
+                <h2 class="text-xl font-medium mb-12 text-white">4-4-4-4 Pattern</h2>
 
                 <div class="bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-slate-300 mb-auto backdrop-blur-sm">
                     Session: <span id="breathe-timer">0:00</span>
                 </div>
 
                 <div class="relative w-64 h-64 flex items-center justify-center my-auto">
-                    <div id="breathe-ring" class="absolute w-48 h-48 rounded-full border border-teal-500/50 shadow-[0_0_50px_rgba(20,184,166,0.3)] animate-breathe-circle" style="animation-play-state: paused;"></div>
+                    <div id="breathe-ring" class="absolute w-56 h-56 rounded-full border border-teal-500/30 shadow-[0_0_60px_rgba(20,184,166,0.2)] animate-breathe-circle" style="animation-play-state: paused;"></div>
                     <div id="breathe-bg" class="absolute w-48 h-48 rounded-full bg-gradient-to-tr from-[#14B8A6]/20 to-[#3B82F6]/20 backdrop-blur-md animate-breathe-circle" style="animation-delay: 0.1s; animation-play-state: paused;"></div>
                     
                     <div class="absolute flex flex-col items-center justify-center z-20">
                         <span id="breathe-instruction" class="text-sm tracking-widest uppercase text-teal-200 mb-1">Ready</span>
-                        <span id="breathe-count" class="text-5xl font-light">-</span>
+                        <span id="breathe-count" class="text-6xl font-light text-white">-</span>
                     </div>
+                </div>
+
+                <!-- Pattern Indicators -->
+                <div class="flex gap-4 text-[10px] uppercase tracking-widest text-slate-500 font-medium mb-10">
+                    <span class="text-teal-400">Inhale</span>
+                    <span>Hold</span>
+                    <span>Exhale</span>
+                    <span>Hold</span>
                 </div>
 
                 <button onclick="window.toggleBreathing()" id="breathe-btn" class="w-full bg-app-card border border-app-border text-white font-medium rounded-2xl py-4 hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 mt-auto">
@@ -347,35 +394,16 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 5. FOCUS TIMER                             -->
-        <!-- ========================================== -->
-        <div id="view-focus" class="view px-6 pt-12 text-center relative">
-            <h2 class="text-2xl font-semibold mb-2 mt-4">Deep Focus</h2>
-            <p class="text-slate-400 text-sm mb-12">Block distractions and get work done.</p>
-
-            <div class="relative w-64 h-64 mx-auto flex items-center justify-center mb-12">
-                <svg class="w-full h-full transform -rotate-90 drop-shadow-2xl absolute inset-0">
-                    <circle cx="128" cy="128" r="120" stroke="#1F2942" stroke-width="8" fill="none" />
-                    <circle cx="128" cy="128" r="120" stroke="#14B8A6" stroke-width="8" fill="none" stroke-dasharray="753" stroke-dashoffset="150" stroke-linecap="round" />
-                </svg>
-                <div class="flex flex-col items-center relative z-10">
-                    <span class="text-6xl font-light tracking-tighter">25:00</span>
-                    <span class="text-sm text-teal-400 mt-2 tracking-widest uppercase">Focusing</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
         <!-- 6. BRAIN DUMP / IDEAS                      -->
         <!-- ========================================== -->
         <div id="view-ideas" class="view px-6 pt-12 relative">
-            <h2 class="text-2xl font-semibold mb-2 mt-4 ml-2">Brain Dump</h2>
+            <h2 class="text-2xl font-semibold mb-2 mt-4 ml-2 text-white">Journal</h2>
             <p class="text-slate-400 text-sm mb-8 ml-2">Clear your mind. Write it down securely.</p>
 
-            <textarea id="brain-dump-text" class="w-full h-48 bg-app-card border border-app-border rounded-3xl p-6 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-teal-500 transition-all resize-none mb-6 shadow-inner" placeholder="What's causing you stress right now? Type it out and let it go..."></textarea>
+            <textarea id="brain-dump-text" class="w-full h-56 bg-app-card border border-app-border rounded-3xl p-6 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-all resize-none mb-6 shadow-inner" placeholder="What's on your mind right now? Let it out..."></textarea>
             
             <button onclick="window.saveBrainDump()" id="save-idea-btn" class="w-full premium-gradient text-white font-semibold rounded-2xl py-4 shadow-lg hover:scale-[1.02] transition-transform flex justify-center items-center gap-2">
-                <i class="ph-bold ph-paper-plane-right"></i> Save Thought
+                <i class="ph-bold ph-paper-plane-right"></i> Save Entry
             </button>
         </div>
 
@@ -384,20 +412,23 @@
         <!-- ========================================== -->
         <div id="view-rescue" class="view px-6 pt-12 relative">
             <div class="text-center mb-10 mt-4">
-                <h2 class="text-3xl font-bold text-red-400 mb-2">Rescue Center</h2>
+                <div class="w-16 h-16 bg-rose-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-rose-500/20">
+                    <i class="ph-fill ph-lifebuoy text-3xl text-rose-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-2">Rescue</h2>
                 <p class="text-slate-400 text-sm">Emergency actions for overwhelming moments.</p>
             </div>
 
             <div class="space-y-4">
-                <button onclick="window.switchTab('breathe')" class="w-full bg-app-card border border-red-500/20 p-5 rounded-3xl flex items-center gap-4 hover:bg-red-500/10 transition-all group">
-                    <div class="w-14 h-14 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                <button onclick="window.switchTab('breathe')" class="w-full bg-app-card border border-rose-500/20 p-5 rounded-3xl flex items-center gap-4 hover:bg-rose-500/10 transition-all group">
+                    <div class="w-14 h-14 rounded-2xl bg-rose-500/20 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
                         <i class="ph-fill ph-warning-circle text-2xl"></i>
                     </div>
                     <div class="text-left flex-1">
-                        <h3 class="font-semibold text-slate-200">Panic Attack</h3>
+                        <h3 class="font-semibold text-white">Panic Attack</h3>
                         <p class="text-xs text-slate-400 mt-1">Start immediate breathing</p>
                     </div>
-                    <i class="ph ph-caret-right text-slate-600"></i>
+                    <i class="ph-bold ph-caret-right text-slate-600"></i>
                 </button>
             </div>
         </div>
@@ -405,36 +436,71 @@
         <!-- ========================================== -->
         <!-- 8. SETTINGS                                -->
         <!-- ========================================== -->
-        <div id="view-settings" class="view px-0 pt-0">
-            <div class="premium-gradient pt-16 pb-12 px-6 rounded-b-[40px] shadow-lg relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-                
-                <div class="flex justify-between items-center mb-8 relative z-10">
-                    <h2 class="text-lg font-semibold text-white ml-auto mr-auto">Settings</h2>
-                </div>
-
-                <div class="bg-black/20 backdrop-blur-md border border-white/20 rounded-3xl p-5 flex items-center gap-4 relative z-10">
-                    <div class="w-16 h-16 rounded-full bg-white/20 overflow-hidden border-2 border-white/50">
-                        <img id="settings-photo" src="https://placehold.co/100x100/1E293B/ffffff?text=U" alt="Profile" class="w-full h-full object-cover">
-                    </div>
-                    <div class="flex-1">
-                        <h3 id="settings-name" class="font-semibold text-lg text-white">Explorer</h3>
-                        <p id="settings-email" class="text-xs text-teal-100 mb-1">Not logged in</p>
-                    </div>
-                </div>
+        <div id="view-settings" class="view px-6 pt-12">
+            
+            <div class="flex justify-between items-center mb-8">
+                <button onclick="window.switchTab('home')" class="w-10 h-10 rounded-full bg-app-card flex items-center justify-center text-slate-400 border border-app-border">
+                    <i class="ph-bold ph-arrow-left"></i>
+                </button>
+                <h2 class="text-lg font-semibold text-white">Settings</h2>
+                <div class="w-10"></div> <!-- spacer -->
             </div>
 
-            <div class="px-6 mt-8">
-                <button onclick="window.logoutUser()" class="w-full bg-red-500/10 text-red-400 border border-red-500/20 font-medium rounded-xl py-3 hover:bg-red-500/20 transition-colors">
-                    Sign Out
+            <div class="premium-gradient rounded-[24px] p-6 mb-8 flex items-center gap-4 relative overflow-hidden shadow-lg">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2"></div>
+                
+                <div class="w-16 h-16 rounded-full bg-white/20 overflow-hidden border-2 border-white/50 relative z-10">
+                    <img id="settings-photo" src="https://placehold.co/100x100/1E293B/ffffff?text=U" alt="Profile" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 relative z-10">
+                    <h3 id="settings-name" class="font-semibold text-lg text-white">Explorer</h3>
+                    <p id="settings-email" class="text-xs text-teal-100 mb-1">Not logged in</p>
+                    <span class="inline-flex items-center gap-1 text-[10px] font-medium bg-white/20 px-2 py-1 rounded-full text-white mt-1">
+                        <i class="ph-fill ph-star text-yellow-300"></i> Premium Member
+                    </span>
+                </div>
+                <button class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white relative z-10 hover:bg-white/30">
+                    <i class="ph-fill ph-pencil-simple"></i>
                 </button>
             </div>
+
+            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Preferences</h4>
+            <div class="bg-app-card rounded-[24px] border border-app-border overflow-hidden mb-8">
+                <div class="p-4 flex items-center justify-between border-b border-app-border">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400"><i class="ph-fill ph-bell"></i></div>
+                        <div>
+                            <p class="text-sm font-medium text-white">Reminders</p>
+                            <p class="text-[10px] text-slate-500">Daily check-ins enabled</p>
+                        </div>
+                    </div>
+                    <div class="w-10 h-6 bg-teal-500 rounded-full relative cursor-pointer">
+                        <div class="w-4 h-4 bg-white rounded-full absolute right-1 top-1 shadow-sm"></div>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400"><i class="ph-fill ph-moon"></i></div>
+                        <div>
+                            <p class="text-sm font-medium text-white">Dark Mode</p>
+                            <p class="text-[10px] text-slate-500">Always on</p>
+                        </div>
+                    </div>
+                    <div class="w-10 h-6 bg-teal-500 rounded-full relative cursor-pointer">
+                        <div class="w-4 h-4 bg-white rounded-full absolute right-1 top-1 shadow-sm"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="window.logoutUser()" class="w-full bg-app-card text-rose-400 border border-rose-500/20 font-medium rounded-2xl py-4 hover:bg-rose-500/10 transition-colors flex justify-center items-center gap-2">
+                <i class="ph-bold ph-sign-out"></i> Sign Out
+            </button>
         </div>
 
         <!-- ========================================== -->
         <!-- BOTTOM NAVIGATION                          -->
         <!-- ========================================== -->
-        <nav id="bottom-nav" class="absolute bottom-0 w-full h-24 bg-[#0A1128]/90 backdrop-blur-xl border-t border-white/5 flex justify-around items-center px-4 pb-4 z-40 hidden">
+        <nav id="bottom-nav" class="absolute bottom-0 w-full h-24 bg-[#050B14]/80 backdrop-blur-xl border-t border-white/5 flex justify-around items-center px-4 pb-4 z-40 hidden">
             <button onclick="window.switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 p-2 text-teal-400">
                 <i class="ph-fill ph-house text-2xl mb-1"></i>
                 <span class="text-[10px] font-medium">Home</span>
@@ -445,7 +511,7 @@
             </button>
             
             <div class="relative -top-5">
-                <button onclick="window.switchTab('breathe')" id="nav-breathe" class="w-14 h-14 rounded-full premium-gradient shadow-[0_8px_20px_rgba(20,184,166,0.4)] flex items-center justify-center text-white hover:scale-105 transition-transform border-4 border-[#0A1128]">
+                <button onclick="window.switchTab('breathe')" id="nav-breathe" class="w-14 h-14 rounded-full bg-app-card shadow-[0_8px_20px_rgba(0,0,0,0.5)] flex items-center justify-center text-teal-400 hover:scale-105 transition-transform border-4 border-[#050B14] hover:bg-teal-500 hover:text-white">
                     <i class="ph-fill ph-wind text-2xl"></i>
                 </button>
             </div>
@@ -469,7 +535,7 @@
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // =========================================================================
-        // Firebase Config (Updated with original keys)
+        // Your Exact Firebase Config
         // =========================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyDKI_wT_xzxu6W2lRo8OpfC4MzlYz6jJfc",
@@ -481,22 +547,15 @@
         };
 
         // Initialize Firebase
-        // Note: In this preview environment, if you don't put real keys, Firebase won't initialize properly.
-        // It's wrapped in try-catch so the UI still works even without keys.
-        let app, auth, db;
-        try {
-            app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-        } catch (error) {
-            console.warn("Firebase not initialized. Replace firebaseConfig with your keys.");
-        }
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
         let currentUser = null;
-        const appId = 'shuru_prod'; // Used for structuring database paths
+        const appId = 'shuru_prod'; 
         let currentSelectedMood = 'Calm';
 
-        // --- UI Helper Functions attached to Window (required for modules) ---
+        // --- UI Helper Functions ---
         
         window.showToast = (msg, type = 'success') => {
             const toast = document.getElementById('toast');
@@ -505,10 +564,10 @@
             document.getElementById('toast-msg').textContent = msg;
             
             if (type === 'error') {
-                toast.className = "fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl z-[100] flex items-center gap-3 bg-red-500 text-white";
+                toast.className = "fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-[100] flex items-center gap-3 bg-rose-500 text-white";
                 icon.className = "ph-fill ph-warning-circle text-xl";
             } else {
-                toast.className = "fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-2xl shadow-2xl z-[100] flex items-center gap-3 bg-teal-500 text-white";
+                toast.className = "fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-[100] flex items-center gap-3 bg-teal-500 text-white";
                 icon.className = "ph-fill ph-check-circle text-xl";
             }
             
@@ -522,89 +581,102 @@
         };
 
         window.switchTab = (tabId) => {
-            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + tabId).classList.add('active');
+            try {
+                // Force all views to hide and remove active class
+                document.querySelectorAll('.view').forEach(el => {
+                    el.classList.remove('active');
+                    el.style.display = 'none';
+                });
+                
+                // Show the requested view
+                const activeView = document.getElementById('view-' + tabId);
+                if(activeView) {
+                    activeView.classList.add('active');
+                    activeView.style.display = 'block';
+                }
 
-            const bottomNav = document.getElementById('bottom-nav');
-            if (tabId === 'login') {
-                bottomNav.classList.add('hidden');
-            } else {
-                bottomNav.classList.remove('hidden');
-            }
+                // Handle bottom navigation visibility
+                const bottomNav = document.getElementById('bottom-nav');
+                if (tabId === 'login') {
+                    bottomNav.classList.add('hidden');
+                } else {
+                    bottomNav.classList.remove('hidden');
+                }
 
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-teal-400');
-                btn.classList.add('text-slate-500');
-                const icon = btn.querySelector('i');
-                if(icon) { icon.classList.remove('ph-fill'); icon.classList.add('ph'); }
-            });
+                // Update navigation button styles
+                document.querySelectorAll('.nav-btn').forEach(btn => {
+                    btn.classList.remove('text-teal-400');
+                    btn.classList.add('text-slate-500');
+                    const icon = btn.querySelector('i');
+                    if(icon) { icon.classList.remove('ph-fill'); icon.classList.add('ph'); }
+                });
 
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-slate-500');
-                activeBtn.classList.add('text-teal-400');
-                const icon = activeBtn.querySelector('i');
-                if(icon) { icon.classList.remove('ph'); icon.classList.add('ph-fill'); }
-            }
+                const activeBtn = document.getElementById('nav-' + tabId);
+                if(activeBtn) {
+                    activeBtn.classList.remove('text-slate-500');
+                    activeBtn.classList.add('text-teal-400');
+                    const icon = activeBtn.querySelector('i');
+                    if(icon) { icon.classList.remove('ph'); icon.classList.add('ph-fill'); }
+                }
 
-            if(tabId === 'mood') {
-                document.getElementById('mood-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                if(tabId === 'mood') {
+                    document.getElementById('mood-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                }
+            } catch (e) {
+                console.error("Tab switch error:", e);
             }
         };
 
         // --- Auth Logic ---
 
         // Listen to Auth State Changes
-        if(auth) {
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    currentUser = user;
-                    // Update UI with user info
-                    document.getElementById('user-display-name').textContent = user.displayName || 'Explorer';
-                    document.getElementById('settings-name').textContent = user.displayName || 'Explorer';
-                    document.getElementById('settings-email').textContent = user.email || '';
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                try {
+                    // Update UI safely
+                    if(document.getElementById('user-display-name')) document.getElementById('user-display-name').textContent = user.displayName || 'Explorer';
+                    if(document.getElementById('settings-name')) document.getElementById('settings-name').textContent = user.displayName || 'Explorer';
+                    if(document.getElementById('settings-email')) document.getElementById('settings-email').textContent = user.email || '';
                     
                     if(user.photoURL) {
-                        document.getElementById('user-display-photo').src = user.photoURL;
-                        document.getElementById('settings-photo').src = user.photoURL;
+                        if(document.getElementById('user-display-photo')) document.getElementById('user-display-photo').src = user.photoURL;
+                        if(document.getElementById('settings-photo')) document.getElementById('settings-photo').src = user.photoURL;
                     }
+                    // Force switch to home immediately
                     window.switchTab('home');
-                } else {
-                    currentUser = null;
-                    window.switchTab('login');
-                }
-            });
-        } else {
-            // Fallback for preview without keys
-            window.switchTab('login');
-        }
+                } catch(e) { console.error("Error updating user info:", e); }
+            } else {
+                currentUser = null;
+                window.switchTab('login');
+            }
+        });
 
         window.loginWithGoogle = async () => {
-            if(!auth) {
-                // If keys are missing, just mock login for testing UI
-                window.showToast("Firebase keys missing. Mocking login.", "error");
-                setTimeout(() => window.switchTab('home'), 1000);
-                return;
-            }
-
-            document.getElementById('google-login-loader').classList.remove('hidden');
+            const loader = document.getElementById('google-login-loader');
+            if(loader) loader.classList.remove('hidden');
+            
             const provider = new GoogleAuthProvider();
             try {
-                await signInWithPopup(auth, provider);
+                const result = await signInWithPopup(auth, provider);
+                currentUser = result.user;
                 window.showToast("Welcome back!", "success");
+                // The onAuthStateChanged listener above will handle switching to 'home', 
+                // but we call it here too just to be absolutely sure.
+                window.switchTab('home');
             } catch (error) {
                 console.error(error);
                 window.showToast("Login failed: " + error.message, "error");
             } finally {
-                document.getElementById('google-login-loader').classList.add('hidden');
+                if(loader) loader.classList.add('hidden');
             }
         };
 
         window.logoutUser = async () => {
-            if(!auth) { window.switchTab('login'); return; }
             try {
                 await signOut(auth);
                 window.showToast("Logged out successfully");
+                window.switchTab('login');
             } catch (error) {
                 window.showToast("Logout failed", "error");
             }
@@ -621,27 +693,26 @@
                 window.showToast("Please write something first.", "error");
                 return;
             }
-            if(!currentUser || !db) {
-                window.showToast("Database not connected. Please check Firebase config.", "error");
+            if(!currentUser) {
+                window.showToast("Please login first.", "error");
                 return;
             }
 
             btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Saving...';
             
             try {
-                // Standard structure: artifacts/{appId}/users/{userId}/brain_dumps
                 await addDoc(collection(db, 'artifacts', appId, 'users', currentUser.uid, 'brain_dumps'), {
                     content: text,
                     timestamp: serverTimestamp()
                 });
-                window.showToast("Thought saved securely!");
+                window.showToast("Entry saved securely!");
                 textEl.value = '';
                 setTimeout(() => window.switchTab('home'), 1000);
             } catch (error) {
                 console.error(error);
                 window.showToast("Failed to save. Check Firestore rules.", "error");
             } finally {
-                btn.innerHTML = '<i class="ph-bold ph-paper-plane-right"></i> Save Thought';
+                btn.innerHTML = '<i class="ph-bold ph-paper-plane-right"></i> Save Entry';
             }
         };
 
@@ -649,21 +720,19 @@
         window.selectMood = (element, moodName) => {
             currentSelectedMood = moodName;
             
-            // Reset all emojis
             document.querySelectorAll('.mood-emoji').forEach(el => {
-                el.className = "mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100";
+                el.className = "mood-emoji flex flex-col items-center gap-2 cursor-pointer transition-transform opacity-50 hover:opacity-100 hover:scale-110";
                 el.innerHTML = el.innerHTML.replace('text-[10px] text-teal-400 font-medium', 'text-[10px] text-slate-400');
             });
 
-            // Highlight selected
-            element.className = "mood-emoji active flex flex-col items-center gap-2 cursor-pointer transition-transform bg-teal-500/10 rounded-xl p-1 border border-teal-500/30";
+            element.className = "mood-emoji active flex flex-col items-center gap-2 cursor-pointer transition-transform bg-teal-500/10 rounded-2xl p-2 border border-teal-500/30";
             element.innerHTML = element.innerHTML.replace('text-[10px] text-slate-400', 'text-[10px] text-teal-400 font-medium');
         };
 
         window.saveMood = async () => {
             const btn = document.getElementById('save-mood-btn');
-            if(!currentUser || !db) {
-                window.showToast("Database not connected.", "error");
+            if(!currentUser) {
+                window.showToast("Please login first.", "error");
                 return;
             }
 
@@ -695,7 +764,6 @@
             const ring = document.getElementById('breathe-ring');
             const bg = document.getElementById('breathe-bg');
             const instruction = document.getElementById('breathe-instruction');
-            const countDisplay = document.getElementById('breathe-count');
 
             if (isBreathing) {
                 clearInterval(breathingInterval);
@@ -730,10 +798,10 @@
             const countDisplay = document.getElementById('breathe-count');
             countDisplay.textContent = seconds;
 
-            if (phase === 0) { instruction.textContent = "Inhale"; } 
-            else if (phase === 1) { instruction.textContent = "Hold"; } 
-            else if (phase === 2) { instruction.textContent = "Exhale"; } 
-            else if (phase === 3) { instruction.textContent = "Hold"; }
+            if (phase === 0) { instruction.textContent = "Inhale"; instruction.className = "text-sm tracking-widest uppercase text-teal-200 mb-1"; } 
+            else if (phase === 1) { instruction.textContent = "Hold"; instruction.className = "text-sm tracking-widest uppercase text-purple-200 mb-1"; } 
+            else if (phase === 2) { instruction.textContent = "Exhale"; instruction.className = "text-sm tracking-widest uppercase text-blue-200 mb-1"; } 
+            else if (phase === 3) { instruction.textContent = "Hold"; instruction.className = "text-sm tracking-widest uppercase text-purple-200 mb-1"; }
         }
 
     </script>
