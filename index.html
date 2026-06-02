@@ -1,942 +1,947 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>শুরু - Premium Wellness</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>শুরু</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; word-wrap: break-word; overflow-wrap: break-word; }
+html, body { overflow-x: hidden; max-width: 100%; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f5f7;
+    color: #1a1a1a;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #1a1a1a; color: #fff; }
+
+.idea-title, .idea-desc, .task-card-title {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+    /* ============ DEPRESSION MODE ============ */
+.depression-screen {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #4a5878 0%, #6b7c93 50%, #8b9bb4 100%);
+    padding: 30px 24px 120px;
+    color: #ffffff;
+    animation: gentleFade 0.8s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 150;
+}
+
+.depression-screen.active { display: block; }
+
+@keyframes gentleFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.dep-back {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 32px;
+    transition: all 0.3s;
+}
+
+.dep-back:hover { background: rgba(255,255,255,0.25); }
+
+.dep-welcome {
+    max-width: 420px;
+    margin: 20px auto 40px;
+    text-align: center;
+}
+
+.dep-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.9;
+    animation: gentlePulse 3s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+.dep-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+}
+
+.dep-message {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.dep-subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.mood-grid {
+    max-width: 420px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.mood-card {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 20px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+}
+
+.mood-card:hover {
+    background: rgba(255,255,255,0.22);
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.mood-card:active {
+    transform: translateY(0);
+}
+
+.mood-emoji {
+    font-size: 32px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.mood-text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: rgba(255,255,255,0.95);
+}
+
+.dep-footer {
+    max-width: 420px;
+    margin: 32px auto 0;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.dep-footer-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+}
+
+ /* ============ BREATHING ACTIVITY ============ */
+.activity-screen {
+    display: none;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #4a5878 0%, #6b7c93 50%, #8b9bb4 100%);
+    padding: 30px 24px;
+    color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 160;
+    animation: gentleFade 0.6s ease;
+}
+
+.activity-screen.active { display: block; }
+
+.activity-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 420px;
+    margin: 0 auto 20px;
+}
+
+.activity-title {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+}
+
+ 
+.sound-toggle {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-toggle:hover { background: rgba(255,255,255,0.25); }
+.sound-toggle.muted { opacity: 0.5; }   
+.sound-toggle {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-toggle:hover { background: rgba(255,255,255,0.25); }
+.sound-toggle.muted { opacity: 0.5; }
+
+.activity-top {
+    gap: 10px;
+}
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    colors: {
-                        app: {
-                            bg: '#050B14', phone: '#0B132B', card: '#15203B', border: '#1E2D4A', primary: '#14B8A6', primaryDark: '#0F766E'
-                        }
-                    },
-                    animation: {
-                        'breathe-circle': 'breathe 16s infinite ease-in-out',
-                        'fade-in': 'fadeIn 0.3s ease-out forwards',
-                        'slide-up': 'slideUp 0.4s ease-out forwards',
-                        'float': 'float 6s ease-in-out infinite',
-                        'fall': 'fall linear forwards',
-                        'burst': 'burst 0.5s ease forwards',
-                    },
-                    keyframes: {
-                        breathe: {
-                            '0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
-                            '25%': { transform: 'scale(1.5)', opacity: '1' },
-                            '50%': { transform: 'scale(1.5)', opacity: '1' },
-                            '75%': { transform: 'scale(1)', opacity: '0.5' },
-                        },
-                        fadeIn: { from: { opacity: '0' }, to: { opacity: '1' } },
-                        slideUp: { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-                        fall: { from: { transform: 'translateY(-50px)' }, to: { transform: 'translateY(450px)' } },
-                        burst: { '0%': { transform: 'scale(1.3)', opacity: '1' }, '100%': { transform: 'scale(2.5)', opacity: '0' } }
-                    }
-                }
-            }
-        }
-    </script>
+.breathing-wrap {
+    max-width: 420px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.breath-instruction {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.breath-circle-container {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breath-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 70%);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+    position: absolute;
+    box-shadow: 0 0 40px rgba(255,255,255,0.2);
+}
+
+.breath-circle.inhale {
+    transform: scale(1.6);
+    background: radial-gradient(circle, rgba(173,216,230,0.5) 0%, rgba(173,216,230,0.2) 70%);
+    border-color: rgba(173,216,230,0.6);
+    box-shadow: 0 0 60px rgba(173,216,230,0.4);
+}
+
+.breath-circle.hold {
+    transform: scale(1.6);
+    background: radial-gradient(circle, rgba(221,160,221,0.5) 0%, rgba(221,160,221,0.2) 70%);
+    border-color: rgba(221,160,221,0.6);
+    box-shadow: 0 0 60px rgba(221,160,221,0.4);
+}
+
+.breath-circle.exhale {
+    transform: scale(0.8);
+    background: radial-gradient(circle, rgba(144,238,144,0.4) 0%, rgba(144,238,144,0.1) 70%);
+    border-color: rgba(144,238,144,0.5);
+    box-shadow: 0 0 30px rgba(144,238,144,0.3);
+}
+
+.breath-text {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.breath-count {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+.breath-cycle-info {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+.breath-cycle-info span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.activity-actions {
+    max-width: 420px;
+    margin: 30px auto 0;
+}
+
+.activity-btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255,255,255,0.95);
+    color: #4a5878;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.activity-btn-primary:hover { background: #fff; }
+
+.activity-btn-outline {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: rgba(255,255,255,0.9);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 14px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.activity-btn-outline:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.1);
+}
+
+.completion-screen {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.completion-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+    animation: gentlePulse 2s ease-in-out infinite;
+}
+
+.completion-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 14px;
+    line-height: 1.4;
+}
+
+.completion-message {
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 30px;
+
+/* ============ RAINDROPS ACTIVITY ============ */
+.raindrops-area {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 400px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.raindrop {
+    position: absolute;
+    width: 24px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    animation: fall linear forwards;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.raindrop:hover {
+    transform: scale(1.3);
+}
+
+.raindrop.bursting {
+    animation: burst 0.5s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    from { transform: translateY(-50px); }
+    to { transform: translateY(450px); }
+}
+
+@keyframes burst {
+    0% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+.ripple {
+    position: absolute;
+    border: 2px solid rgba(173,216,230,0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: ripple-effect 1s ease-out forwards;
+}
+
+@keyframes ripple-effect {
+    0% { width: 0; height: 0; opacity: 1; }
+    100% { width: 80px; height: 80px; opacity: 0; }
+}
+
+.raindrops-counter {
+    text-align: center;
+    margin: 20px 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+}
+
+.raindrops-counter .count-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.raindrops-instruction {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.raindrops-instruction strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ============ THREE LIGHTS ACTIVITY ============ */
+.lights-container {
+    max-width: 420px;
+    margin: 30px auto;
+    padding: 0 16px;
+}
+
+.light-progress {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.light-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: all 0.4s;
+}
+
+.light-dot.active {
+    background: rgba(255,220,150,0.9);
+    box-shadow: 0 0 12px rgba(255,220,150,0.6);
+}
+
+.light-dot.completed {
+    background: rgba(255,220,150,1);
+    box-shadow: 0 0 16px rgba(255,220,150,0.8);
+}
+
+.light-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    animation: lightFadeIn 0.6s ease;
+}
+
+@keyframes lightFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.light-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: candleFlicker 2s ease-in-out infinite;
+}
+
+@keyframes candleFlicker {
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+.light-number {
+    font-size: 11px;
+    color: rgba(255,220,150,0.9);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.light-question {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+}
+
+.light-hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 22px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.light-input {
+    width: 100%;
+    background: rgba(0,0,0,0.15);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    resize: none;
+    min-height: 80px;
+    line-height: 1.6;
+    transition: all 0.3s;
+}
+
+.light-input:focus {
+    border-color: rgba(255,220,150,0.6);
+    background: rgba(0,0,0,0.25);
+}
+
+.light-input::placeholder {
+    color: rgba(255,255,255,0.3);
+}
+
+.light-btn {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255,220,150,0.9);
+    color: #4a3818;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+    transition: all 0.2s;
+    letter-spacing: 0.2px;
+}
+
+.light-btn:hover { background: rgba(255,220,150,1); }
+.light-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.lights-summary {
+    text-align: center;
+    max-width: 420px;
+    margin: 20px auto;
+    padding: 0 16px;
+}
+
+.summary-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    letter-spacing: -0.3px;
+}
+
+.summary-subtitle {
+    font-size: 13px;
+    color: rgba(255,220,150,0.9);
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.light-result {
+    background: linear-gradient(135deg, rgba(255,220,150,0.12) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,220,150,0.25);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.result-label {
+    font-size: 10px;
+    color: rgba(255,220,150,0.8);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.result-text {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 1.6;
+    font-weight: 400;
+    word-break: break-word;
+}
+
+.lights-final {
+    background: linear-gradient(135deg, rgba(255,220,150,0.15) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,220,150,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.lights-final p {
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
+}    
+
     
-    <style>
-        body { background-color: #050B14; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; color: #F8FAFC; }
-        ::-webkit-scrollbar { display: none; }
-        * { -ms-overflow-style: none; scrollbar-width: none; -webkit-tap-highlight-color: transparent; }
-        
-        .premium-gradient { background: linear-gradient(135deg, #14B8A6 0%, #059669 100%); }
-        .dark-gradient { background: linear-gradient(180deg, #0B132B 0%, #050B14 100%); }
-
-        #app-container { width: 100%; height: 100dvh; max-width: 480px; background-color: #0B132B; position: relative; overflow: hidden; display: flex; flex-direction: column; margin: 0 auto; }
-        @media (min-width: 640px) {
-            #app-container { height: 850px; border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(20, 184, 166, 0.15), 0 0 0 10px #15203B; }
-        }
-
-        .view { display: none; height: 100%; width: 100%; overflow-y: auto; padding-bottom: 110px; }
-        .view.active { display: block; animation: fadeIn 0.3s ease-out forwards; }
-        .overlay { display: none; position: absolute; inset: 0; background: #0B132B; z-index: 60; overflow-y: auto; padding-bottom: 100px; animation: slideUp 0.3s ease-out forwards;}
-        .overlay.active { display: block; }
-
-        /* Timer Circle */
-        .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
-
-        /* Raindrops */
-        .raindrops-area { position: relative; width: 100%; height: 350px; overflow: hidden; border-radius: 24px; background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%); border: 1px solid rgba(255,255,255,0.05); }
-        .raindrop { position: absolute; width: 30px; height: 40px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 10;}
-        
-        /* Input Focus Fix for Mobile */
-        input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.5); }
-    </style>
-</head>
-<body>
-
-    <!-- Global Toast Notification -->
-    <div id="toast" class="fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl opacity-0 pointer-events-none z-[100] flex items-center gap-3 transition-all duration-300">
-        <i id="toast-icon" class="ph-fill text-xl"></i>
-        <span id="toast-msg" class="text-sm font-medium"></span>
-    </div>
-
-    <div id="app-container">
-        
-        <!-- 1. LOGIN SCREEN -->
-        <div id="view-login" class="view active premium-gradient absolute inset-0 z-50 p-8 flex flex-col justify-center pb-8">
-            <div class="flex flex-col items-center mb-8 animate-float">
-                <div class="w-16 h-16 bg-white/20 rounded-2xl backdrop-blur-md flex items-center justify-center mb-4 shadow-lg border border-white/20">
-                    <i class="ph ph-wave-sine text-3xl text-white"></i>
-                </div>
-                <h1 class="text-4xl font-bold text-white tracking-tight mb-1">শুরু</h1>
-                <p class="text-teal-50 text-sm font-medium">আগে কাজ, পরে scroll</p>
-            </div>
-
-            <div class="bg-white/10 backdrop-blur-xl rounded-[32px] p-6 border border-white/20 shadow-xl w-full">
-                
-                <!-- Auth Toggle -->
-                <div class="flex gap-2 mb-6 bg-black/20 p-1 rounded-xl w-full mx-auto">
-                    <button id="tab-login" onclick="window.toggleAuthMode('login')" class="flex-1 py-2.5 rounded-lg bg-white/20 text-white text-sm font-medium transition-all shadow-sm">Login</button>
-                    <button id="tab-signup" onclick="window.toggleAuthMode('signup')" class="flex-1 py-2.5 rounded-lg text-teal-100 text-sm font-medium transition-all hover:text-white">Sign Up</button>
-                </div>
-
-                <!-- Email/Password Form -->
-                <div class="space-y-3 mb-6 relative">
-                    <input type="text" id="auth-name" placeholder="তোমার নাম (Name)" class="hidden w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white text-sm focus:bg-black/30 transition-colors">
-                    <input type="email" id="auth-email" placeholder="Email Address" class="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white text-sm focus:bg-black/30 transition-colors">
-                    <input type="password" id="auth-password" placeholder="Password" class="w-full bg-black/20 border border-white/10 rounded-xl p-4 text-white text-sm focus:bg-black/30 transition-colors">
-                    
-                    <button id="auth-btn-email" onclick="window.handleEmailAuth()" class="w-full bg-teal-500 text-white font-semibold rounded-xl py-4 hover:bg-teal-400 transition-colors shadow-lg flex justify-center items-center h-[56px] mt-2">
-                        Login
-                    </button>
-                </div>
-
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="flex-1 h-px bg-white/20"></div>
-                    <span class="text-[10px] text-teal-100 uppercase tracking-widest font-semibold">অথবা</span>
-                    <div class="flex-1 h-px bg-white/20"></div>
-                </div>
-
-                <!-- Google Auth -->
-                <button onclick="window.loginWithGoogle()" id="auth-btn-google" class="w-full bg-white text-teal-700 font-semibold rounded-xl py-4 hover:bg-teal-50 transition-colors shadow-lg flex items-center justify-center gap-3 relative overflow-hidden h-[56px]">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="G"> 
-                    <span>Google দিয়ে চালিয়ে যান</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- 2. DASHBOARD / HOME -->
-        <div id="view-home" class="view px-6 pt-10">
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    <p class="text-sm text-slate-400 font-medium" id="greeting-text">Good morning ✨</p>
-                    <h2 id="user-display-name" class="text-2xl font-bold mt-1 text-white">Explorer</h2>
-                </div>
-                <div class="relative group cursor-pointer" onclick="window.handleLogoutConfirm()">
-                    <div class="w-12 h-12 rounded-full bg-app-card border-2 border-app-primary overflow-hidden flex items-center justify-center bg-teal-900 text-teal-300 font-bold text-xl">
-                        <span id="user-initial">U</span>
-                    </div>
-                    <div class="absolute -bottom-8 right-0 bg-rose-500 text-white text-[10px] px-2 py-1 rounded hidden group-hover:block whitespace-nowrap">Logout</div>
-                </div>
-            </div>
-
-            <!-- Streak Card -->
-            <div class="premium-gradient rounded-[24px] p-6 mb-8 relative overflow-hidden shadow-[0_10px_30px_rgba(20,184,166,0.2)]">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                <div class="relative z-10 flex justify-between items-center">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <i class="ph-fill ph-fire text-orange-300 text-xl"></i>
-                            <h3 class="font-bold text-lg text-white"><span id="streak-count">0</span> Day Streak!</h3>
-                        </div>
-                        <p class="text-sm text-teal-50">Keep up the momentum</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Today's Task Setting -->
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Today's Focus</h4>
-            <div id="task-setup-section" class="bg-app-card rounded-[24px] p-5 border border-app-border mb-8 shadow-lg">
-                <input type="text" id="main-task-input" placeholder="আজকের মূল লক্ষ্য কী?" class="w-full bg-transparent border-b border-app-border text-white placeholder-slate-500 py-3 mb-4 focus:outline-none focus:border-teal-400 transition-colors text-sm">
-                <button onclick="window.setMainTask()" class="w-full bg-teal-500/20 text-teal-400 font-semibold rounded-xl py-3.5 hover:bg-teal-500 hover:text-white transition-colors text-sm border border-teal-500/30">
-                    লক্ষ্য সেট করি
-                </button>
-            </div>
-
-            <div id="active-task-section" class="bg-app-card rounded-[24px] p-6 border border-app-primary/30 mb-8 hidden shadow-[0_0_20px_rgba(20,184,166,0.15)] relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/10 blur-xl rounded-full"></div>
-                <h5 class="text-[10px] text-teal-400 uppercase tracking-widest font-bold mb-2">Active Task</h5>
-                <p id="display-task" class="text-lg font-medium text-white mb-5 line-clamp-2">...</p>
-                <div class="flex gap-3">
-                    <button onclick="window.completeMainTask()" class="flex-1 bg-teal-500 text-white font-semibold rounded-xl py-3 text-sm shadow-lg hover:bg-teal-400 transition-colors"><i class="ph-bold ph-check"></i> সম্পন্ন করেছি</button>
-                    <button onclick="window.clearTask()" class="w-12 flex items-center justify-center bg-slate-800 text-slate-400 font-medium rounded-xl py-3 text-sm hover:text-white transition-colors"><i class="ph-bold ph-trash"></i></button>
-                </div>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="bg-app-card rounded-2xl p-4 border border-app-border text-center shadow-md">
-                    <p class="text-2xl font-bold text-white mb-1" id="stat-sessions">0</p>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Focus Sessions</p>
-                </div>
-                <div class="bg-app-card rounded-2xl p-4 border border-app-border text-center shadow-md">
-                    <p class="text-2xl font-bold text-white mb-1" id="stat-ideas">0</p>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Ideas Saved</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. FOCUS TIMER -->
-        <div id="view-focus" class="view px-6 pt-12 relative bg-app-phone">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-teal-500/5 blur-[100px] rounded-full pointer-events-none"></div>
-            
-            <div class="text-center mb-8 relative z-10">
-                <h3 class="text-xs text-slate-400 tracking-widest uppercase font-bold mb-2">Deep Work</h3>
-                <h2 class="text-3xl font-bold text-white">Focus Timer</h2>
-            </div>
-
-            <div class="flex justify-center gap-3 mb-10 relative z-10">
-                <button onclick="window.setTimer(5)" class="timer-btn w-16 h-16 rounded-2xl bg-app-card border border-app-border text-white flex flex-col items-center justify-center transition-all hover:bg-slate-800 shadow-md">
-                    <span class="text-lg font-bold">5</span><span class="text-[9px] text-slate-400 uppercase font-semibold">Min</span>
-                </button>
-                <button onclick="window.setTimer(15)" class="timer-btn active w-16 h-16 rounded-2xl bg-app-card border border-teal-500/50 text-white flex flex-col items-center justify-center transition-all hover:bg-slate-800 shadow-md">
-                    <span class="text-lg font-bold">15</span><span class="text-[9px] text-slate-400 uppercase font-semibold">Min</span>
-                </button>
-                <button onclick="window.setTimer(25)" class="timer-btn w-16 h-16 rounded-2xl bg-app-card border border-app-border text-white flex flex-col items-center justify-center transition-all hover:bg-slate-800 shadow-md">
-                    <span class="text-lg font-bold">25</span><span class="text-[9px] text-slate-400 uppercase font-semibold">Min</span>
-                </button>
-            </div>
-
-            <div class="relative w-64 h-64 mx-auto mb-10 flex items-center justify-center z-10">
-                <svg class="absolute inset-0 w-full h-full drop-shadow-[0_0_15px_rgba(20,184,166,0.2)]">
-                    <circle cx="128" cy="128" r="120" stroke="#1E2D4A" stroke-width="6" fill="transparent" />
-                    <circle id="timer-progress" class="progress-ring__circle" cx="128" cy="128" r="120" stroke="#14B8A6" stroke-width="6" fill="transparent" stroke-dasharray="754" stroke-dashoffset="0" stroke-linecap="round" />
-                </svg>
-                <div class="text-center">
-                    <span id="timer-display" class="text-6xl font-light text-white tracking-tight">15:00</span>
-                    <p id="timer-status" class="text-xs text-teal-400 uppercase tracking-widest font-semibold mt-2">Ready</p>
-                </div>
-            </div>
-
-            <div class="flex gap-4 relative z-10 max-w-[280px] mx-auto">
-                <button onclick="window.toggleTimer()" id="timer-action-btn" class="flex-1 bg-white text-teal-700 font-bold rounded-2xl py-4 shadow-[0_10px_20px_rgba(20,184,166,0.2)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                    <i class="ph-fill ph-play text-xl"></i> Start
-                </button>
-                <button onclick="window.resetTimer()" class="w-14 h-14 bg-app-card border border-app-border rounded-2xl flex items-center justify-center text-slate-400 hover:text-white transition-colors shadow-md">
-                    <i class="ph-bold ph-arrow-counter-clockwise text-xl"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- 4. JOURNAL / IDEAS -->
-        <div id="view-ideas" class="view px-6 pt-10 relative">
-            <h2 class="text-2xl font-bold mb-2 ml-1 text-white">Brain Dump</h2>
-            <p class="text-slate-400 text-sm mb-6 ml-1">মাথায় যা ঘুরছে লিখে ফেলো।</p>
-
-            <div class="bg-app-card border border-app-border rounded-3xl p-5 mb-8 shadow-lg relative z-10 focus-within:border-teal-500/50 transition-colors">
-                <textarea id="idea-input" class="w-full h-24 bg-transparent text-white placeholder-slate-500 focus:outline-none resize-none text-sm" placeholder="নতুন আইডিয়া বা নোট..."></textarea>
-                <div class="flex justify-between items-center mt-3 border-t border-app-border pt-4">
-                    <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Securely Saved</span>
-                    <button onclick="window.saveIdea()" class="bg-teal-500/20 text-teal-400 px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-teal-500 hover:text-white transition-colors">Save Note</button>
-                </div>
-            </div>
-
-            <div class="flex justify-between items-center mb-4 px-1">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Saved Notes</h4>
-                <span id="idea-count-badge" class="text-[10px] font-bold bg-slate-800 text-slate-300 px-2 py-1 rounded-full">0</span>
-            </div>
-            
-            <div id="ideas-list" class="space-y-3 pb-20">
-                <!-- Dynamically populated -->
-                <div class="text-center text-slate-500 text-sm py-10 opacity-50 font-medium">
-                    <i class="ph-fill ph-notebook text-4xl mb-2"></i><br>No ideas yet.
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. RESCUE CENTER -->
-        <div id="view-rescue" class="view px-6 pt-10 relative">
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-rose-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-rose-500/20 shadow-lg">
-                    <i class="ph-fill ph-lifebuoy text-3xl text-rose-400"></i>
-                </div>
-                <h2 class="text-3xl font-bold text-white mb-2">Rescue</h2>
-                <p class="text-slate-400 text-sm">কিসে টানছে? সৎ হও।</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <button onclick="window.showRecovery('scroll')" class="bg-app-card border border-app-border p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 hover:bg-slate-800 transition-all text-center shadow-md">
-                    <i class="ph-fill ph-device-mobile text-3xl text-blue-400"></i>
-                    <div>
-                        <h3 class="font-semibold text-white text-sm">Scrolling</h3>
-                        <p class="text-[10px] text-slate-500 mt-1">Social media</p>
-                    </div>
-                </button>
-                <button onclick="window.showRecovery('gaming')" class="bg-app-card border border-app-border p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 hover:bg-slate-800 transition-all text-center shadow-md">
-                    <i class="ph-fill ph-game-controller text-3xl text-purple-400"></i>
-                    <div>
-                        <h3 class="font-semibold text-white text-sm">Gaming</h3>
-                        <p class="text-[10px] text-slate-500 mt-1">Fake reward</p>
-                    </div>
-                </button>
-                <button onclick="window.showRecovery('overthink')" class="bg-app-card border border-app-border p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 hover:bg-slate-800 transition-all text-center shadow-md">
-                    <i class="ph-fill ph-brain text-3xl text-amber-400"></i>
-                    <div>
-                        <h3 class="font-semibold text-white text-sm">Overthink</h3>
-                        <p class="text-[10px] text-slate-500 mt-1">Stuck in loop</p>
-                    </div>
-                </button>
-                <button onclick="window.showRecovery('porn')" class="bg-app-card border border-app-border p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 hover:bg-slate-800 transition-all text-center shadow-md">
-                    <i class="ph-fill ph-eye-slash text-3xl text-red-400"></i>
-                    <div>
-                        <h3 class="font-semibold text-white text-sm">Urges</h3>
-                        <p class="text-[10px] text-slate-500 mt-1">The enemy</p>
-                    </div>
-                </button>
-            </div>
-
-            <!-- Depression Mode Trigger -->
-            <button onclick="window.openDepressionMode()" class="w-full bg-gradient-to-r from-[#1E293B] to-[#0F172A] border border-blue-500/30 p-5 rounded-3xl flex items-center justify-between hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all group mt-2">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-cloud-rain text-2xl"></i>
-                    </div>
-                    <div class="text-left">
-                        <h3 class="font-bold text-white text-base">মন খারাপ / Depressed</h3>
-                        <p class="text-xs text-blue-200/50 mt-0.5 font-medium">আমি তোমার পাশে আছি</p>
-                    </div>
-                </div>
-                <i class="ph-bold ph-caret-right text-slate-500"></i>
-            </button>
-        </div>
-
-        <!-- OVERLAY: RECOVERY STEPS -->
-        <div id="overlay-recovery" class="overlay px-6 pt-16">
-            <button onclick="window.closeOverlay('overlay-recovery')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white backdrop-blur-md">
-                <i class="ph-bold ph-x"></i>
-            </button>
-            
-            <div class="text-center mt-8 mb-10">
-                <h2 id="rec-title" class="text-3xl font-bold text-white mb-2">ফিরে আসো</h2>
-                <p id="rec-sub" class="text-slate-400 text-sm font-medium">তুমি stuck.</p>
-            </div>
-
-            <div class="bg-white/5 border border-white/10 rounded-3xl p-2 mb-8 backdrop-blur-md shadow-xl" id="rec-steps">
-                <!-- Injected via JS -->
-            </div>
-
-            <button onclick="window.closeOverlay('overlay-recovery'); window.switchTab('focus')" class="w-full bg-white text-black font-bold rounded-2xl py-4 shadow-lg hover:bg-slate-200 transition-colors">
-                কাজে ফিরে যাচ্ছি
-            </button>
-        </div>
-
-        <!-- OVERLAY: DEPRESSION MENU -->
-        <div id="overlay-depression" class="overlay px-6 pt-16 dark-gradient">
-            <button onclick="window.closeOverlay('overlay-depression')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white backdrop-blur-md z-50">
-                <i class="ph-bold ph-x"></i>
-            </button>
-            
-            <div class="text-center mt-4 mb-10 relative z-10">
-                <i class="ph-fill ph-cloud-rain text-5xl text-blue-300/50 mb-4 animate-float block"></i>
-                <h2 class="text-2xl font-bold text-white mb-3">আমি জানি, এখন কঠিন।</h2>
-                <p class="text-blue-100/70 text-sm mb-1 font-medium">তুমি একা না। এই অনুভূতি valid.</p>
-                <p class="text-blue-100/70 text-sm font-medium">এখন কেমন লাগছে?</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 relative z-10">
-                <button onclick="window.openRaindrops()" class="bg-white/5 border border-white/10 p-5 rounded-3xl flex flex-col items-center gap-3 hover:bg-white/10 transition-all text-center shadow-lg">
-                    <span class="text-4xl">😢</span>
-                    <div>
-                        <h3 class="font-semibold text-white text-sm">কান্না পাচ্ছে</h3>
-                        <p class="text-[10px] text-blue-200/50 mt-1">কষ্ট ছাড়ো</p>
-                    </div>
-                </button>
-                <button onclick="window.openLights()" class="bg-white/5 border border-white/10 p-5 rounded-3xl flex flex-col items-center gap-3 hover:bg-white/10 transition-all text-center shadow-lg">
-                    <span class="text-4xl">😞</span>
-                    <div>
-                        <h3 class="font-semibold text-white text-sm">হতাশ লাগছে</h3>
-                        <p class="text-[10px] text-blue-200/50 mt-1">আলো খুঁজি</p>
-                    </div>
-                </button>
-            </div>
-            <p class="text-center text-xs text-slate-500 mt-10 font-medium">সময় নাও। তাড়া নেই।</p>
-        </div>
-
-        <!-- OVERLAY: RAINDROPS -->
-        <div id="overlay-raindrops" class="overlay px-6 pt-16 bg-[#0F172A]">
-            <button onclick="window.closeOverlay('overlay-raindrops')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white backdrop-blur-md z-50">
-                <i class="ph-bold ph-arrow-left"></i>
-            </button>
-
-            <div class="text-center mt-4 mb-6">
-                <h3 class="text-lg font-bold text-white">কষ্ট ছাড়ো</h3>
-                <p class="text-xs text-slate-400 mt-1 font-medium">প্রতিটা ফোঁটায় tap করো।</p>
-            </div>
-            
-            <div class="text-center mb-4">
-                <span id="drops-released" class="text-4xl font-bold text-blue-400">0</span>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Released</p>
-            </div>
-
-            <div id="raindrops-area" class="raindrops-area mb-8 shadow-inner relative z-10"></div>
-
-            <button onclick="window.startRaindrops()" id="btn-start-rain" class="w-full bg-blue-500/20 text-blue-400 font-bold rounded-2xl py-4 border border-blue-500/30 hover:bg-blue-500/30 transition-all">
-                শুরু করি
-            </button>
-        </div>
-
-        <!-- OVERLAY: THREE LIGHTS -->
-        <div id="overlay-lights" class="overlay px-6 pt-16 bg-[#0F172A]">
-            <button onclick="window.closeOverlay('overlay-lights')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white backdrop-blur-md z-50">
-                <i class="ph-bold ph-arrow-left"></i>
-            </button>
-
-            <div class="text-center mt-4 mb-8">
-                <div class="flex justify-center gap-3 mb-6">
-                    <div id="dot1" class="w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"></div>
-                    <div id="dot2" class="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                    <div id="dot3" class="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                </div>
-            </div>
-
-            <div class="bg-white/5 border border-white/10 rounded-3xl p-6 text-center shadow-2xl backdrop-blur-md animate-slide-up" id="light-card">
-                <div id="light-icon" class="text-5xl mb-4">🕯</div>
-                <div id="light-number" class="text-[10px] text-yellow-400 uppercase tracking-widest font-bold mb-3">আলো ১ / ৩</div>
-                <h2 id="light-question" class="text-xl font-bold text-white mb-2">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
-                <p id="light-hint" class="text-xs text-slate-400 mb-6 italic">যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি...</p>
-                
-                <textarea id="light-input" class="w-full bg-black/20 border border-white/10 rounded-2xl p-4 text-white text-sm focus:outline-none focus:border-yellow-400/50 transition-colors resize-none h-24 mb-4" placeholder="যা মনে আসছে লেখো..."></textarea>
-                
-                <button onclick="window.nextLight()" id="light-btn" class="w-full bg-yellow-400/90 text-yellow-900 font-bold rounded-xl py-3.5 hover:bg-yellow-400 transition-colors">
-                    পরবর্তী আলো →
-                </button>
-            </div>
-            
-            <div id="lights-summary" class="hidden mt-4">
-                <h3 class="text-xl font-bold text-white text-center mb-6">তোমার তিনটা আলো ✨</h3>
-                <div class="space-y-3 mb-8">
-                    <div class="bg-white/5 border border-yellow-400/20 p-4 rounded-2xl">
-                        <span class="text-[9px] text-yellow-400 uppercase tracking-widest block mb-1 font-bold">আজকের আলো</span>
-                        <p id="res-light1" class="text-white text-sm font-medium">...</p>
-                    </div>
-                    <div class="bg-white/5 border border-yellow-400/20 p-4 rounded-2xl">
-                        <span class="text-[9px] text-yellow-400 uppercase tracking-widest block mb-1 font-bold">জীবনের আলো</span>
-                        <p id="res-light2" class="text-white text-sm font-medium">...</p>
-                    </div>
-                    <div class="bg-white/5 border border-yellow-400/20 p-4 rounded-2xl">
-                        <span class="text-[9px] text-yellow-400 uppercase tracking-widest block mb-1 font-bold">কালকের আলো</span>
-                        <p id="res-light3" class="text-white text-sm font-medium">...</p>
-                    </div>
-                </div>
-                <p class="text-center text-sm text-slate-300 mb-6 font-medium">এগুলো রোজ মনে রেখো।<br>Brain তোমাকে আবার ভালো লাগাবে।</p>
-                <button onclick="window.closeOverlay('overlay-lights')" class="w-full bg-white/10 text-white font-bold rounded-xl py-4 hover:bg-white/20 transition-colors">
-                    ফিরে যাই
-                </button>
-            </div>
-        </div>
-
-        <!-- BOTTOM NAVIGATION -->
-        <nav id="bottom-nav" class="absolute bottom-0 w-full h-24 bg-[#050B14]/80 backdrop-blur-xl border-t border-white/5 flex justify-around items-center px-4 pb-4 z-40 hidden">
-            <button onclick="window.switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 p-2 text-teal-400 transition-colors">
-                <i class="ph-fill ph-house text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Home</span>
-            </button>
-            <button onclick="window.switchTab('focus')" id="nav-focus" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 hover:text-slate-300 transition-colors">
-                <i class="ph ph-timer text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Focus</span>
-            </button>
-            
-            <button onclick="window.switchTab('ideas')" id="nav-ideas" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 hover:text-slate-300 transition-colors">
-                <i class="ph ph-notebook text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Journal</span>
-            </button>
-            <button onclick="window.switchTab('rescue')" id="nav-rescue" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 hover:text-slate-300 transition-colors">
-                <i class="ph ph-lifebuoy text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Rescue</span>
-            </button>
-        </nav>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // FIREBASE CONFIGURATION (User provided)
-        const firebaseConfig = {
-            apiKey: "AIzaSyDKI_wT_xzxu6W2lRo8OpfC4MzlYz6jJfc",
-            authDomain: "shuru-apk.firebaseapp.com",
-            projectId: "shuru-apk",
-            storageBucket: "shuru-apk.firebasestorage.app",
-            messagingSenderId: "317579699500",
-            appId: "1:317579699500:web:66683ee0955d63ff477889"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        let currentUser = null;
-        let currentAuthMode = 'login';
-        
-        // Data structure matching the old text file to prevent permission issues
-        let userData = { 
-            task: '', 
-            step: '',
-            focusSessions: 0, 
-            totalMinutes: 0,
-            rescueCount: 0, 
-            triggers: {}, 
-            streak: 0, 
-            ideas: [], 
-            name: '', 
-            email: '' 
-        };
-
-        window.showToast = (msg, type = 'success') => {
-            const toast = document.getElementById('toast');
-            const icon = document.getElementById('toast-icon');
-            document.getElementById('toast-msg').textContent = msg;
-            toast.className = `fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-[100] flex items-center gap-3 text-white transition-all duration-300 ${type === 'error' ? 'bg-rose-500' : 'bg-teal-500'}`;
-            icon.className = type === 'error' ? "ph-fill ph-warning-circle text-xl" : "ph-fill ph-check-circle text-xl";
-            toast.style.opacity = '1'; toast.style.transform = 'translate(-50%, 0)';
-            setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translate(-50%, -20px)'; }, 3000);
-        };
-
-        window.switchTab = (tabId) => {
-            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.overlay').forEach(el => el.classList.remove('active'));
-            const activeView = document.getElementById('view-' + tabId);
-            if(activeView) activeView.classList.add('active');
-
-            const bottomNav = document.getElementById('bottom-nav');
-            if (tabId === 'login') bottomNav.classList.add('hidden');
-            else bottomNav.classList.remove('hidden');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-teal-400'); btn.classList.add('text-slate-500');
-                const icon = btn.querySelector('i');
-                if(icon) { icon.classList.remove('ph-fill'); icon.classList.add('ph'); }
-            });
-
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if(activeBtn) {
-                activeBtn.classList.remove('text-slate-500'); activeBtn.classList.add('text-teal-400');
-                const icon = activeBtn.querySelector('i');
-                if(icon) { icon.classList.remove('ph'); icon.classList.add('ph-fill'); }
-            }
-        };
-
-        window.openOverlay = (id) => document.getElementById(id).classList.add('active');
-        window.closeOverlay = (id) => document.getElementById(id).classList.remove('active');
-
-        window.toggleAuthMode = (mode) => {
-            currentAuthMode = mode;
-            const tabLogin = document.getElementById('tab-login');
-            const tabSignup = document.getElementById('tab-signup');
-            const authName = document.getElementById('auth-name');
-            const authBtn = document.getElementById('auth-btn-email');
-
-            if(mode === 'login') {
-                tabLogin.className = "flex-1 py-2.5 rounded-lg bg-white/20 text-white text-sm font-medium transition-all shadow-sm";
-                tabSignup.className = "flex-1 py-2.5 rounded-lg text-teal-100/50 hover:text-teal-100 text-sm font-medium transition-all";
-                authName.classList.add('hidden');
-                authBtn.textContent = 'Login';
-            } else {
-                tabSignup.className = "flex-1 py-2.5 rounded-lg bg-white/20 text-white text-sm font-medium transition-all shadow-sm";
-                tabLogin.className = "flex-1 py-2.5 rounded-lg text-teal-100/50 hover:text-teal-100 text-sm font-medium transition-all";
-                authName.classList.remove('hidden');
-                authBtn.textContent = 'Create Account';
-            }
-        }
-
-        window.handleEmailAuth = async () => {
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
-            const name = document.getElementById('auth-name').value.trim();
-
-            if(!email || !password) return window.showToast('Email and password required', 'error');
-            if(currentAuthMode === 'signup' && !name) return window.showToast('Name is required', 'error');
-
-            const btn = document.getElementById('auth-btn-email');
-            const originalText = btn.textContent;
-            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i>';
-            btn.disabled = true;
-
-            try {
-                if(currentAuthMode === 'signup') {
-                    const userCred = await createUserWithEmailAndPassword(auth, email, password);
-                    // Safe Document Creation in 'users'
-                    await setDoc(doc(db, 'users', userCred.user.uid), {
-                        name: name, email: email, streak: 0, focusSessions: 0, totalMinutes: 0, rescueCount: 0, triggers: {}, ideas: [], task: ''
-                    });
-                } else {
-                    await signInWithEmailAndPassword(auth, email, password);
-                }
-            } catch(error) {
-                window.showToast(error.message.replace('Firebase:', ''), 'error');
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        };
-
-        window.loginWithGoogle = async () => {
-            const btn = document.getElementById('auth-btn-google');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-teal-700 text-xl"></i>';
-            btn.disabled = true;
-            try {
-                await signInWithPopup(auth, new GoogleAuthProvider());
-            } catch (error) {
-                window.showToast(error.message, "error");
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            }
-        };
-
-        window.handleLogoutConfirm = async () => {
-            if(confirm("Are you sure you want to logout?")) {
-                await signOut(auth);
-            }
-        };
-
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                await loadUserData();
-                
-                // Force UI state switch successfully
-                window.switchTab('home');
-                setGreeting();
-                renderIdeasUI();
-                
-                // Reset Login Button State
-                const btn = document.getElementById('auth-btn-email');
-                btn.textContent = currentAuthMode === 'signup' ? 'Create Account' : 'Login';
-                btn.disabled = false;
-                const btnG = document.getElementById('auth-btn-google');
-                btnG.innerHTML = '<img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="G"><span>Google দিয়ে চালিয়ে যান</span>';
-                btnG.disabled = false;
-                
-            } else {
-                currentUser = null;
-                window.switchTab('login');
-            }
-        });
-
-        async function loadUserData() {
-            try {
-                // IMPORTANT: Pointing back to 'users' collection so your DB rules work!
-                const docRef = doc(db, 'users', currentUser.uid);
-                const docSnap = await getDoc(docRef);
-                
-                if (docSnap.exists()) {
-                    userData = { ...userData, ...docSnap.data() };
-                    if(!userData.ideas) userData.ideas = [];
-                } else {
-                    // Create default if missing (Google Auth first time)
-                    userData.name = currentUser.displayName || 'Explorer';
-                    userData.email = currentUser.email;
-                    await setDoc(docRef, userData);
-                }
-                
-                // Profile UI
-                document.getElementById('user-display-name').textContent = userData.name || 'Explorer';
-                const firstLetter = (userData.name || currentUser.email || 'U').charAt(0).toUpperCase();
-                document.getElementById('user-initial').textContent = firstLetter;
-                
-                updateHomeUI();
-            } catch (e) { 
-                console.error("Error loading data:", e); 
-                window.showToast("Data load error, but logged in.", "error");
-            }
-        }
-
-        async function saveUserData(updates) {
-            userData = { ...userData, ...updates };
-            updateHomeUI();
-            if(!currentUser) return;
-            try {
-                await updateDoc(doc(db, 'users', currentUser.uid), updates);
-            } catch (e) { console.error("Error saving data:", e); }
-        }
-
-        function updateHomeUI() {
-            document.getElementById('streak-count').textContent = userData.streak || 0;
-            document.getElementById('stat-sessions').textContent = userData.focusSessions || 0;
-            document.getElementById('stat-ideas').textContent = (userData.ideas || []).length;
-
-            if (userData.task) {
-                document.getElementById('task-setup-section').classList.add('hidden');
-                document.getElementById('active-task-section').classList.remove('hidden');
-                document.getElementById('display-task').textContent = userData.task;
-            } else {
-                document.getElementById('task-setup-section').classList.remove('hidden');
-                document.getElementById('active-task-section').classList.add('hidden');
-            }
-        }
-
-        function setGreeting() {
-            const h = new Date().getHours();
-            const t = h < 6 ? 'Good night 🌙' : h < 12 ? 'Good morning 🌅' : h < 17 ? 'Good afternoon ☀️' : 'Good evening ✨';
-            document.getElementById('greeting-text').innerHTML = t;
-        }
-
-        window.setMainTask = () => {
-            const val = document.getElementById('main-task-input').value.trim();
-            if(!val) return window.showToast('Please enter a task', 'error');
-            saveUserData({ task: val });
-        };
-
-        window.completeMainTask = () => {
-            window.showToast('Task Completed! +1 Streak 🔥');
-            saveUserData({ task: '', streak: (userData.streak || 0) + 1 });
-            document.getElementById('main-task-input').value = '';
-        };
-
-        window.clearTask = () => saveUserData({ task: '' });
-
-        let timerInterval;
-        let totalTime = 900; 
-        let timeLeft = 900;
-        let isTimerRunning = false;
-
-        window.setTimer = (mins) => {
-            document.querySelectorAll('.timer-btn').forEach(btn => btn.classList.remove('active', 'border-teal-500/50'));
-            event.currentTarget.classList.add('active', 'border-teal-500/50');
-            
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            totalTime = mins * 60;
-            timeLeft = totalTime;
-            document.getElementById('timer-action-btn').innerHTML = '<i class="ph-fill ph-play text-xl"></i> Start';
-            document.getElementById('timer-status').textContent = 'Ready';
-            updateTimerUI();
-        };
-
-        window.toggleTimer = () => {
-            const btn = document.getElementById('timer-action-btn');
-            if (isTimerRunning) {
-                clearInterval(timerInterval);
-                isTimerRunning = false;
-                btn.innerHTML = '<i class="ph-fill ph-play text-xl"></i> Resume';
-                document.getElementById('timer-status').textContent = 'Paused';
-            } else {
-                isTimerRunning = true;
-                btn.innerHTML = '<i class="ph-bold ph-pause text-xl"></i> Pause';
-                document.getElementById('timer-status').textContent = 'Focusing...';
-                
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    updateTimerUI();
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        isTimerRunning = false;
-                        btn.innerHTML = '<i class="ph-fill ph-check text-xl"></i> Done';
-                        document.getElementById('timer-status').textContent = 'Completed!';
-                        
-                        let minsWorked = Math.round(totalTime / 60);
-                        saveUserData({ 
-                            focusSessions: (userData.focusSessions || 0) + 1,
-                            totalMinutes: (userData.totalMinutes || 0) + minsWorked
-                        });
-                        window.showToast('Session Complete!');
-                    }
-                }, 1000);
-            }
-        };
-
-        window.resetTimer = () => {
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            timeLeft = totalTime;
-            document.getElementById('timer-action-btn').innerHTML = '<i class="ph-fill ph-play text-xl"></i> Start';
-            document.getElementById('timer-status').textContent = 'Ready';
-            updateTimerUI();
-        };
-
-        function updateTimerUI() {
-            const m = Math.floor(timeLeft / 60);
-            const s = timeLeft % 60;
-            document.getElementById('timer-display').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-            
-            const circle = document.getElementById('timer-progress');
-            const radius = circle.r.baseVal.value;
-            const circumference = radius * 2 * Math.PI;
-            const offset = circumference - (timeLeft / totalTime) * circumference;
-            circle.style.strokeDashoffset = offset;
-        }
-
-        function renderIdeasUI() {
-            const list = document.getElementById('ideas-list');
-            const ideas = userData.ideas || [];
-            document.getElementById('idea-count-badge').textContent = ideas.length;
-
-            if(ideas.length === 0) {
-                list.innerHTML = `<div class="text-center text-slate-500 text-sm py-10 opacity-50 font-medium"><i class="ph-fill ph-notebook text-4xl mb-2"></i><br>No ideas yet.</div>`;
-                return;
-            }
-
-            let html = '';
-            ideas.forEach(idea => {
-                const dateStr = new Date(idea.id).toLocaleDateString();
-                html += `
-                <div class="bg-white/5 border border-white/5 rounded-2xl p-4 flex gap-3">
-                    <div class="w-2 h-2 rounded-full bg-teal-500 mt-1.5 flex-shrink-0 shadow-[0_0_8px_rgba(20,184,166,0.8)]"></div>
-                    <div>
-                        <p class="text-sm text-slate-200 font-medium">${idea.text}</p>
-                        <p class="text-[9px] text-slate-500 mt-2 font-bold tracking-wider">${dateStr}</p>
-                    </div>
-                </div>`;
-            });
-            list.innerHTML = html;
-        }
-
-        window.saveIdea = async () => {
-            const input = document.getElementById('idea-input');
-            const text = input.value.trim();
-            if(!text) return;
-            
-            input.value = '';
-            let newIdea = { id: Date.now(), text: text };
-            let updatedIdeas = [newIdea, ...(userData.ideas || [])];
-            
-            await saveUserData({ ideas: updatedIdeas });
-            renderIdeasUI();
-            window.showToast('Note safely secured');
-        };
-
-        const recoveryData = {
-            scroll: { title: 'Scrolling বন্ধ করো', sub: 'তুমি stimulation চাচ্ছো।', steps: ['ফোন উল্টে রাখো।', '10 সেকেন্ড চোখ বন্ধ।', 'কাজ open করো।', '3 মিনিট timer।'] },
-            gaming: { title: 'Game রেখে দাও', sub: 'এটা fake reward।', steps: ['Game close করো।', 'দাঁড়াও 60 সেকেন্ড।', 'পানি খাও।', '5 মিনিট কাজে বসো।'] },
-            porn: { title: 'নিজেকে বাঁচাও', sub: '90 সেকেন্ড পার করো।', steps: ['Screen থেকে দূরে।', 'ফোন অন্য room এ।', 'ঠান্ডা পানি মুখে।', 'কাজে ফেরো।'] },
-            overthink: { title: 'ভাবনা বন্ধ করো', sub: 'করলে হবে।', steps: ['2 লাইনে লেখো।', '1 tiny step বের করো।', 'সেটা এখনই করো।'] }
-        };
-
-        window.showRecovery = (type) => {
-            const data = recoveryData[type];
-            document.getElementById('rec-title').textContent = data.title;
-            document.getElementById('rec-sub').textContent = data.sub;
-            
-            let triggers = userData.triggers || {};
-            triggers[type] = (triggers[type] || 0) + 1;
-            saveUserData({ rescueCount: (userData.rescueCount || 0) + 1, triggers: triggers });
-
-            let html = '';
-            data.steps.forEach((step, i) => {
-                html += `<div class="flex items-center gap-4 p-4 border-b border-white/5 last:border-0">
-                    <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-slate-400">${i+1}</div>
-                    <p class="text-sm text-slate-200 font-medium">${step}</p>
-                </div>`;
-            });
-            document.getElementById('rec-steps').innerHTML = html;
-            window.openOverlay('overlay-recovery');
-        };
-
-        window.openDepressionMode = () => {
-            saveUserData({ rescueCount: (userData.rescueCount || 0) + 1 });
-            window.openOverlay('overlay-depression');
-        };
-
-        // Raindrops
-        let rainInterval;
-        let rainCount = 0;
-        let rainActive = false;
-
-        window.openRaindrops = () => {
-            window.closeOverlay('overlay-depression');
-            window.openOverlay('overlay-raindrops');
-            document.getElementById('btn-start-rain').style.display = 'block';
-            document.getElementById('raindrops-area').innerHTML = '';
-            document.getElementById('drops-released').textContent = '0';
-            rainCount = 0;
-            rainActive = false;
-        };
-
-        window.startRaindrops = () => {
-            if(rainActive) return;
-            rainActive = true;
-            document.getElementById('btn-start-rain').style.display = 'none';
-            rainInterval = setInterval(() => { if(rainActive) createRaindrop(); }, 600);
-        };
-
-        function createRaindrop() {
-            const area = document.getElementById('raindrops-area');
-            if (!area) return;
-            const drop = document.createElement('div');
-            drop.className = 'raindrop animate-fall';
-            drop.textContent = '💧';
-            drop.style.left = Math.random() * (area.offsetWidth - 30) + 'px';
-            const duration = 3 + Math.random() * 2;
-            drop.style.animationDuration = duration + 's';
-
-            drop.onmousedown = () => burstDrop(drop);
-            drop.ontouchstart = (e) => { e.preventDefault(); burstDrop(drop); };
-            area.appendChild(drop);
-            setTimeout(() => { if(drop.parentNode) drop.remove(); }, duration * 1000);
-        }
-
-        function burstDrop(drop) {
-            if (drop.classList.contains('animate-burst')) return;
-            drop.classList.replace('animate-fall', 'animate-burst');
-            rainCount++;
-            document.getElementById('drops-released').textContent = rainCount;
-            setTimeout(() => { if(drop.parentNode) drop.remove(); }, 500);
-        }
-
-        // Three Lights
-        let lightStep = 1;
-        let lightAnswers = [];
-        const lightQ = [
-            {icon:'🕯', num:'১ / ৩', q:'আজকে কী ছোট কিছু ঠিক হয়েছে?', h:'যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি...'},
-            {icon:'💛', num:'২ / ৩', q:'জীবনে কী একটা ভালো জিনিস আছে?', h:'family, friend, একটা hobby...'},
-            {icon:'🌅', num:'৩ / ৩', q:'কাল ছোট কী ভালো হতে পারে?', h:'চা খাওয়া, sunlight, একটা গান...'}
-        ];
-
-        window.openLights = () => {
-            window.closeOverlay('overlay-depression');
-            window.openOverlay('overlay-lights');
-            document.getElementById('light-card').classList.remove('hidden');
-            document.getElementById('lights-summary').classList.add('hidden');
-            lightStep = 1;
-            lightAnswers = [];
-            updateLightUI();
-        };
-
-        function updateLightUI() {
-            const q = lightQ[lightStep-1];
-            document.getElementById('light-icon').textContent = q.icon;
-            document.getElementById('light-number').textContent = `আলো ${q.num}`;
-            document.getElementById('light-question').textContent = q.q;
-            document.getElementById('light-hint').textContent = q.h;
-            document.getElementById('light-input').value = '';
-            document.getElementById('light-btn').textContent = lightStep === 3 ? 'সব আলো দেখি ✨' : 'পরবর্তী আলো →';
-            
-            [1,2,3].forEach(i => {
-                const dot = document.getElementById('dot'+i);
-                dot.className = i === lightStep ? 'w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]' : 
-                               i < lightStep ? 'w-2.5 h-2.5 rounded-full bg-yellow-400' : 'w-2.5 h-2.5 rounded-full bg-white/20';
-            });
-        }
-
-        window.nextLight = () => {
-            const val = document.getElementById('light-input').value.trim();
-            if(!val) return window.showToast('একটু কিছু লেখো', 'error');
-            
-            lightAnswers.push(val);
-            if(lightStep < 3) {
-                lightStep++;
-                updateLightUI();
-            } else {
-                document.getElementById('light-card').classList.add('hidden');
-                document.getElementById('lights-summary').classList.remove('hidden');
-                document.getElementById('res-light1').textContent = lightAnswers[0];
-                document.getElementById('res-light2').textContent = lightAnswers[1];
-                document.getElementById('res-light3').textContent = lightAnswers[2];
-            }
-        };
-
-    </script>
-</body>
-</html>
+/* ============ EMOTION RELEASE (RAINDROPS) ============ */
+.raindrops-area {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 400px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.raindrop {
+    position: absolute;
+    width: 24px;
+    height: 32px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    animation: fall linear forwards;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.raindrop:hover {
+    transform: scale(1.3);
+}
+
+.raindrop.bursting {
+    animation: burst 0.5s ease forwards;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    from { transform: translateY(-50px); }
+    to { transform: translateY(450px); }
+}
+
+@keyframes burst {
+    0% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+.ripple {
+    position: absolute;
+    border: 2px solid rgba(173,216,230,0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: ripple-effect 1s ease-out forwards;
+}
+
+@keyframes ripple-effect {
+    0% { width: 0; height: 0; opacity: 1; }
+    100% { width: 80px; height: 80px; opacity: 0; }
+}
+
+.raindrops-counter {
+    text-align: center;
+    margin: 20px 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+}
+
+.raindrops-counter .count-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.raindrops-instruction {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    margin-bottom: 16px;
+    line-height: 1.6;
+}
+
+.raindrops-instruction strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+}   
+/* AUTH */
+.auth-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: #f5f5f7;
+}
+
+.auth-box {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 28px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.auth-logo {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.auth-tagline {
+    font-size: 13px;
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-tab {
+    display: flex;
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 24px;
+}
+
+.auth-tab button {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #999;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.auth-tab button.active {
+    background: #ffffff;
+    color: #1a1a1a;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.auth-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #f5f5f7;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.auth-input:focus { border-color: #1a1a1a; background: #ffffff; }
+.auth-input::placeholder { color: #bbb; }
+
+.password-wrapper { position: relative; margin-bottom: 12px; }
+.password-wrapper input { margin-bottom: 0; padding-right: 48px; }
+
+.eye-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #999;
+    padding: 4px 8px;
+    line-height: 1;
+}
+
+.eye-toggle:hover { color: #1a1a1a; }
+
+.forgot-link { text-align: right; margin-bottom: 14px; margin-top: -4px; }
+.forgot-link a {
+    font-size: 12px;
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+.forgot-link a:hover { color: #1a1a1a; }
+
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.auth-btn:hover { background: #2d2d2d; }
+.auth-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.auth-error {
+    background: #fef0f0;
+    color: #c44;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.auth-error.show { display: block; }
+
+.auth-success {
+    background: #e8f7ed;
+    color: #2a9d4a;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.auth-success.show { display: block; }
+
+.auth-loading {
+    text-align: center;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 12px;
+    display: none;
+}
+
+.auth-loading.show { display: block; }
+
+.back-link { text-align: center; margin-top: 16px; }
+.back-link a { font-size: 12px; color: #999; text-decoration: none; cursor: pointer; font-weight: 500; }
+.back-link a:hover { color: #1a1a1a; }
+
+.forgot-heading { text-align: center; margin-bottom: 20px; }
+.forgot-heading h3 { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.forgot-heading p { font-size: 12px; color: #999; line-height: 1.5; }
+
+/* ONBOARDING */
+.onboarding-screen 
