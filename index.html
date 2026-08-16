@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>শুরু - Premium Wellness</title>
-    
+    <title>শুরু - তোমার ফোকাস ফিরিয়ে আনা</title>
+
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <!-- Fonts: Baloo Da 2 (brand display) + Hind Siliguri (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
+                    fontFamily: {
+                        sans: ['"Hind Siliguri"', 'Inter', 'sans-serif'],
+                        display: ['"Baloo Da 2"', '"Hind Siliguri"', 'sans-serif'],
+                    },
                     colors: {
-                        app: { bg: '#050B14', surface: '#0F172A', card: '#1E293B', primary: '#14B8A6' }
+                        app: { paper: '#FAF8F5', ink: '#1C1917', muted: '#78716C', teal: '#0F766E', tealsoft: '#E6F4F1', gold: '#D97706' }
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'fall': 'fall linear forwards',
-                        'burst': 'burst 0.4s ease forwards',
+                        'float-slow': 'float 9s ease-in-out infinite',
+                        'pop-in': 'popIn .45s cubic-bezier(.34,1.56,.64,1) forwards',
+                        'wiggle': 'wiggle 2.5s ease-in-out infinite',
                         'fade-in': 'fadeIn 0.3s ease-out forwards',
+                        'bounce-soft': 'bounceSoft 2s ease-in-out infinite',
+                        'rise-up': 'riseUp 6s linear forwards',
+                        'float-up': 'floatUp .7s ease-out forwards',
                     },
                     keyframes: {
                         float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-                        fall: { from: { transform: 'translateY(-50px)' }, to: { transform: 'translateY(450px)' } },
-                        burst: { '0%': { transform: 'scale(1)', opacity: '1' }, '100%': { transform: 'scale(3)', opacity: '0' } },
-                        fadeIn: { from: { opacity: '0', transform: 'translateY(10px)' }, to: { opacity: '1', transform: 'translateY(0)' } }
+                        popIn: { '0%': { opacity: '0', transform: 'scale(.6)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+                        wiggle: { '0%, 100%': { transform: 'rotate(-4deg)' }, '50%': { transform: 'rotate(4deg)' } },
+                        fadeIn: { from: { opacity: '0', transform: 'translateY(8px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+                        bounceSoft: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
+                        riseUp: { from: { transform: 'translateY(0)' }, to: { transform: 'translateY(-110vh)' } },
+                        floatUp: { from: { transform: 'translateY(0)', opacity: '1' }, to: { transform: 'translateY(-46px)', opacity: '0' } }
                     }
                 }
             }
@@ -38,612 +48,839 @@
     </script>
 
     <style>
-        body { background-color: #050B14; margin: 0; color: #F8FAFC; overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 100vh; min-height: 100dvh; }
         * { -webkit-tap-highlight-color: transparent; scrollbar-width: none; }
         ::-webkit-scrollbar { display: none; }
-        
-        #app-container { width: 100%; max-width: 440px; height: 100vh; height: 100dvh; background: #0F172A; position: relative; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(20, 184, 166, 0.15); }
-        @media (min-width: 640px) { #app-container { height: 850px; border-radius: 40px; border: 8px solid #1E293B; } }
 
-        .app-screen, .overlay { display: none; position: absolute; inset: 0; overflow-y: auto; padding-bottom: 100px; }
-        .active-screen { display: block; animation: fadeIn 0.3s ease-out forwards; }
-        
+        body {
+            margin: 0;
+            color: #1C1917;
+            font-family: 'Hind Siliguri', 'Inter', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            background:
+                radial-gradient(1000px 460px at 85% -10%, rgba(13, 148, 136, 0.10), transparent 60%),
+                radial-gradient(800px 460px at -10% 110%, rgba(217, 119, 6, 0.08), transparent 55%),
+                #F1EEEA;
+        }
+
+        #app-container {
+            width: 100%;
+            max-width: 440px;
+            height: 100vh;
+            height: 100dvh;
+            background: #FAF8F5;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 70px -20px rgba(28, 25, 23, 0.35);
+        }
+        @media (min-width: 640px) {
+            #app-container { height: 860px; border-radius: 44px; border: 10px solid #FFF; outline: 1px solid rgba(28,25,23,.08); }
+        }
+
+        .app-screen, .overlay { display: none; position: absolute; inset: 0; overflow-y: auto; padding-bottom: 104px; }
+        .active-screen { display: flex; flex-direction: column; animation: fadeIn 0.3s ease-out forwards; }
+
         .progress-ring__circle { transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: 50% 50%; }
-        
-        /* Raindrops area */
-        .raindrops-area { position: relative; width: 100%; height: 350px; overflow: hidden; border-radius: 24px; background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.05) 100%); border: 1px solid rgba(255,255,255,0.05); }
-        .raindrop { position: absolute; font-size: 24px; cursor: pointer; user-select: none; z-index: 10; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; }
+
+        /* ===== BUTTONS (refined press) ===== */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            border-radius: 16px; font-weight: 700; border: none; cursor: pointer;
+            font-family: inherit;
+            transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+            will-change: transform;
+        }
+        .btn:hover { filter: brightness(1.04); }
+        .btn:active { transform: translateY(2px) scale(.99); }
+        .btn:disabled { opacity: .65; pointer-events: none; }
+
+        .btn-primary { background: linear-gradient(135deg, #0F766E, #0D9488); color: #fff; box-shadow: 0 12px 22px -12px rgba(13, 148, 136, .6), inset 0 1px 0 rgba(255,255,255,.22); }
+        .btn-primary:active { box-shadow: 0 5px 12px -8px rgba(13, 148, 136, .55); }
+        .btn-gold    { background: linear-gradient(135deg, #F59E0B, #D97706); color: #fff; box-shadow: 0 12px 22px -12px rgba(217, 119, 6, .55), inset 0 1px 0 rgba(255,255,255,.25); }
+        .btn-gold:active    { box-shadow: 0 5px 12px -8px rgba(217, 119, 6, .5); }
+        .btn-rose    { background: linear-gradient(135deg, #F43F5E, #E11D48); color: #fff; box-shadow: 0 12px 22px -12px rgba(225, 29, 72, .5), inset 0 1px 0 rgba(255,255,255,.22); }
+        .btn-violet  { background: linear-gradient(135deg, #8B5CF6, #7C3AED); color: #fff; box-shadow: 0 12px 22px -12px rgba(124, 58, 237, .5), inset 0 1px 0 rgba(255,255,255,.22); }
+        .btn-ghost   { background: #fff; color: #44403C; border: 1.5px solid #E7E5E4; box-shadow: 0 8px 16px -12px rgba(28, 25, 23, .25); }
+        .btn-ghost:active { box-shadow: 0 2px 6px -4px rgba(28, 25, 23, .2); }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: #fff;
+            border: 1px solid rgba(28, 25, 23, 0.06);
+            border-radius: 24px;
+            box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 14px 34px -20px rgba(28, 25, 23, 0.18);
+        }
+        .input-pop {
+            width: 100%;
+            background: #F8F6F3;
+            border: 1.5px solid transparent;
+            border-radius: 16px;
+            padding: 14px 16px;
+            color: #1C1917;
+            font-weight: 500;
+            font-size: 15px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+        }
+        .input-pop::placeholder { color: #B8B2AA; }
+        .input-pop:focus { background: #fff; border-color: #0D9488; box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.12); }
+
+        .icon-chip {
+            width: 46px; height: 46px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ===== NAV ===== */
+        #bottomNav {
+            position: absolute; bottom: 0; left: 0; right: 0; z-index: 40;
+            height: 84px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(28, 25, 23, 0.06);
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 0 14px 16px;
+        }
+        .nav-btn {
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            background: none; border: none; cursor: pointer;
+            font-size: 10px; font-weight: 700;
+            transition: transform .15s;
+            padding: 2px 12px; color: #A8A29E;
+        }
+        .nav-btn:active { transform: scale(.92); }
+        .nav-ico {
+            width: 52px; height: 30px; border-radius: 999px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 19px; transition: all .22s;
+        }
+        .nav-btn.text-teal-400 { color: #0F766E !important; }
+        .nav-btn.text-teal-400 .nav-ico {
+            background: #E6F4F1;
+            color: #0F766E;
+            box-shadow: 0 4px 12px -6px rgba(15, 118, 110, .5);
+            transform: translateY(-2px);
+        }
+
+        /* ===== TIMER ===== */
+        .timer-btn {
+            width: 68px; height: 68px; border-radius: 22px;
+            background: #fff; border: 1.5px solid #E7E5E4;
+            color: #78716C; font-weight: 700;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+            transition: all .2s; cursor: pointer;
+            box-shadow: 0 6px 14px -10px rgba(28, 25, 23, .25);
+        }
+        .timer-btn:active { transform: translateY(2px); }
+        .timer-btn.active {
+            border-color: #0D9488; color: #0F766E; background: #F0FDFA;
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.12), 0 8px 18px -10px rgba(13, 148, 136, .4);
+        }
+        .timer-btn.active span:last-child { color: #0D9488 !important; }
+
+        /* ===== RESCUE CARDS ===== */
+        .rescue-card {
+            background: #fff; border: 1px solid rgba(28, 25, 23, 0.06); border-radius: 22px;
+            padding: 18px 16px;
+            display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+            cursor: pointer; text-align: left;
+            box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 12px 28px -18px rgba(28, 25, 23, 0.2);
+            transition: transform .16s ease, box-shadow .2s ease;
+        }
+        .rescue-card:hover { transform: translateY(-2px); box-shadow: 0 18px 34px -20px rgba(28, 25, 23, 0.28); }
+        .rescue-card:active { transform: translateY(1px) scale(.985); }
+        .rescue-arrow {
+            margin-left: auto; margin-top: -30px;
+            width: 28px; height: 28px; border-radius: 999px;
+            background: #F5F5F4; display: flex; align-items: center; justify-content: center;
+            color: #A8A29E; font-size: 13px;
+        }
+
+        /* ===== GAME ===== */
+        #rescueGameScreen { z-index: 70; background: linear-gradient(180deg, #EFF8F6, #FAF8F5 40%, #FFF); }
+        .game-arena {
+            position: relative; width: 100%; height: 420px;
+            overflow: hidden; border-radius: 28px;
+            background:
+                radial-gradient(600px 300px at 50% 100%, rgba(13, 148, 136, 0.10), transparent 60%),
+                linear-gradient(180deg, #FDFDFC, #F3F1ED);
+            border: 1px solid rgba(13, 148, 136, 0.12);
+            touch-action: manipulation;
+        }
+        .game-bubble {
+            position: absolute;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            background: radial-gradient(circle at 32% 30%, #fff, #EFF3F2);
+            border: 1.5px solid #E2E8F0;
+            box-shadow: 0 6px 14px -6px rgba(15, 23, 42, 0.3), inset 0 -4px 8px rgba(15, 23, 42, 0.06);
+            cursor: pointer; user-select: none; -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+        .game-bubble.golden {
+            background: radial-gradient(circle at 32% 30%, #FEF9C3, #FDE047);
+            border-color: #FACC15;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.65), inset 0 -4px 8px rgba(180, 83, 9, 0.15);
+        }
+        .game-bubble.popped { transform: scale(2.4); opacity: 0; transition: transform .22s ease, opacity .22s ease; }
+        .game-points {
+            position: absolute; font-weight: 800; color: #0F766E; font-size: 17px;
+            pointer-events: none; animation: floatUp .7s ease-out forwards;
+            text-shadow: 0 1px 0 #fff;
+        }
+        .timer-bar {
+            height: 8px; border-radius: 999px; background: #E7E5E4; overflow: hidden;
+        }
+        .timer-bar-fill {
+            height: 100%; border-radius: 999px;
+            background: linear-gradient(90deg, #0D9488, #14B8A6);
+            transition: width 1s linear;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-46px); opacity: 0; }
+        }
+
+        /* ===== OVERLAYS ===== */
+        .overlay { z-index: 60; padding-bottom: 56px; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 26px;
+            box-shadow: 0 20px 48px -20px rgba(28, 25, 23, 0.35);
+            backdrop-filter: blur(12px);
+        }
+        .close-chip {
+            width: 40px; height: 40px; border-radius: 999px;
+            background: #fff; border: 1px solid #E7E5E4;
+            display: flex; align-items: center; justify-content: center;
+            color: #57534E; box-shadow: 0 4px 12px -8px rgba(28, 25, 23, .3);
+            cursor: pointer;
+        }
+        .close-chip:active { transform: translateY(2px); }
+
+        /* ===== RAINDROPS ===== */
+        .raindrops-area {
+            position: relative; width: 100%; height: 340px;
+            overflow: hidden; border-radius: 26px;
+            background: linear-gradient(180deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.12));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+        }
+        .raindrop {
+            position: absolute; font-size: 24px; cursor: pointer; user-select: none; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px;
+        }
+
+        /* ===== TOAST ===== */
+        #toast { font-family: 'Hind Siliguri', 'Inter', sans-serif; font-size: 13px; }
+
+        /* ===== MISC ===== */
+        .logo-bubble {
+            width: 66px; height: 66px; border-radius: 22px;
+            background: linear-gradient(135deg, #0F766E, #0D9488);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 30px;
+            box-shadow: 0 14px 28px -12px rgba(13, 148, 136, .55), inset 0 1px 0 rgba(255,255,255,.25);
+        }
+        .local-chip {
+            display: inline-flex; align-items: center; gap: 5px;
+            background: #fff; border: 1px solid #E7E5E4; border-radius: 999px; padding: 7px 13px;
+            font-size: 11px; font-weight: 700; color: #78716C;
+            box-shadow: 0 4px 10px -8px rgba(28, 25, 23, .2);
+        }
+        .quote-card {
+            background: linear-gradient(120deg, #F6F1E7, #F3EDE3);
+            border: 1px solid rgba(217, 119, 6, 0.10);
+            border-radius: 22px;
+        }
+        .float-orb { position: absolute; border-radius: 999px; filter: blur(40px); pointer-events: none; }
+        .hero-gradient {
+            background:
+                radial-gradient(300px 180px at 85% 0%, rgba(45, 212, 191, 0.25), transparent 60%),
+                linear-gradient(135deg, #134E4A, #0F766E 55%, #0D9488);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Global Toast Message -->
-    <div id="toast" class="fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl opacity-0 pointer-events-none z-[999] flex items-center gap-3 transition-all duration-300">
-        <i id="toast-icon" class="ph-fill text-xl"></i>
-        <span id="toast-msg" class="text-sm font-medium"></span>
+    <!-- Global Toast -->
+    <div id="toast" class="fixed top-9 left-1/2 px-5 py-3 rounded-full opacity-0 pointer-events-none z-[999] flex items-center gap-2.5 text-white shadow-xl transition-all duration-300">
+        <i id="toast-icon" class="ph-fill text-lg"></i>
+        <span id="toast-msg" class="text-sm font-bold"></span>
     </div>
 
     <div id="app-container">
 
+        <!-- Decorative orbs -->
+        <div class="float-orb w-40 h-40 bg-teal-500/10 -top-16 -right-16 animate-float-slow"></div>
+        <div class="float-orb w-36 h-36 bg-amber-500/10 -bottom-10 -left-16 animate-float"></div>
+
         <!-- Master Loader -->
-        <div id="masterLoader" class="absolute inset-0 bg-[#0F172A] z-[100] flex flex-col items-center justify-center transition-opacity duration-300">
-            <i class="ph-bold ph-spinner-gap animate-spin text-teal-400 text-5xl mb-4"></i>
-            <p class="text-slate-400 font-medium">শুরু হচ্ছে...</p>
-        </div>
-
-        <!-- 1. AUTH SCREEN (Matching your exact UI) -->
-        <div id="authScreen" class="app-screen active-screen bg-gradient-to-b from-[#14B8A6] to-[#0F766E] z-50 p-6 flex-col justify-center pb-12">
-            <div class="flex flex-col items-center mb-8 animate-float pt-10">
-                <div class="w-16 h-16 bg-white/20 rounded-2xl backdrop-blur-md flex items-center justify-center mb-4 shadow-lg border border-white/30">
-                    <i class="ph ph-wave-sine text-3xl text-white"></i>
-                </div>
-                <h1 class="text-4xl font-bold text-white tracking-tight mb-2">শুরু</h1>
-                <p class="text-teal-50 text-sm font-medium">আগে কাজ, পরে scroll</p>
-            </div>
-
-            <div class="bg-white/10 backdrop-blur-xl rounded-[32px] p-6 border border-white/20 shadow-2xl w-full relative">
-                
-                <!-- Toggle -->
-                <div class="flex gap-2 mb-6 bg-black/20 p-1 rounded-xl w-full mx-auto">
-                    <button id="tabLogin" onclick="window.setAuthMode('login')" class="flex-1 py-2.5 rounded-lg bg-white/20 text-white text-sm font-bold transition-all shadow-sm">Login</button>
-                    <button id="tabSignup" onclick="window.setAuthMode('signup')" class="flex-1 py-2.5 rounded-lg text-teal-100 text-sm font-medium transition-all hover:text-white">Sign Up</button>
-                </div>
-
-                <!-- Inputs -->
-                <div class="space-y-3 mb-6 relative">
-                    <input type="text" id="authName" placeholder="তোমার নাম (Name)" class="hidden w-full bg-white/95 text-slate-800 placeholder-slate-400 border-none rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-teal-300 shadow-inner text-sm font-medium">
-                    <input type="email" id="authEmail" placeholder="Email Address" class="w-full bg-white/95 text-slate-800 placeholder-slate-400 border-none rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-teal-300 shadow-inner text-sm font-medium">
-                    <input type="password" id="authPassword" placeholder="Password" class="w-full bg-white/95 text-slate-800 placeholder-slate-400 border-none rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-teal-300 shadow-inner text-sm font-medium">
-                    
-                    <button id="authBtn" onclick="window.handleAuth()" class="w-full bg-teal-400 text-white font-bold rounded-xl py-3.5 hover:bg-teal-300 transition-colors shadow-lg flex justify-center items-center h-[52px] mt-2">
-                        Login
-                    </button>
-                </div>
-
-                <!-- Divider -->
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="flex-1 h-px bg-white/20"></div>
-                    <span class="text-[10px] text-teal-100 uppercase tracking-widest font-bold">অথবা</span>
-                    <div class="flex-1 h-px bg-white/20"></div>
-                </div>
-
-                <!-- Google Auth -->
-                <button onclick="window.handleGoogleAuth()" id="googleBtn" class="w-full bg-white text-slate-700 font-bold rounded-xl py-3.5 hover:bg-slate-50 transition-colors shadow-lg flex items-center justify-center gap-3 h-[52px]">
-                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="G"> 
-                    <span>Google দিয়ে চালিয়ে যান</span>
-                </button>
+        <div id="masterLoader" class="absolute inset-0 bg-app-paper z-[100] flex flex-col items-center justify-center transition-opacity duration-300">
+            <div class="logo-bubble mb-5 animate-bounce-soft"><i class="ph-bold ph-wave-sine"></i></div>
+            <p class="text-stone-500 font-bold text-sm">শুরু হচ্ছে...</p>
+            <div class="flex gap-1.5 mt-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-600 animate-bounce" style="animation-delay:0ms"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce" style="animation-delay:150ms"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-bounce" style="animation-delay:300ms"></span>
             </div>
         </div>
 
-        <!-- 2. HOME / DASHBOARD -->
-        <div id="homeScreen" class="app-screen bg-app-surface px-6 pt-10">
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    <p class="text-sm text-slate-400 font-medium" id="greetingText">শুভ সকাল ✨</p>
-                    <h2 id="userNameDisplay" class="text-2xl font-bold mt-1 text-white">User</h2>
+        <!-- ============ HOME ============ -->
+        <div id="homeScreen" class="app-screen px-6 pt-10">
+            <div class="flex justify-between items-center mb-7">
+                <div class="animate-fade-in">
+                    <p class="text-[13px] text-stone-500 font-semibold" id="greetingText">শুভ দিন ✨</p>
+                    <h2 id="userNameDisplay" class="font-display text-[26px] font-bold leading-tight text-stone-800">ফোকাস ওয়ারিয়র</h2>
                 </div>
-                <button onclick="window.logoutUser()" class="w-12 h-12 rounded-full bg-teal-900 border-2 border-teal-500 flex items-center justify-center text-teal-300 font-bold text-xl shadow-[0_0_15px_rgba(20,184,166,0.3)]">
-                    <i class="ph-bold ph-sign-out"></i>
-                </button>
+                <div class="local-chip" title="ডেটা এই ডিভাইসেই সেভ হচ্ছে"><i class="ph-fill ph-device-mobile text-teal-700 text-sm"></i>লোকাল</div>
             </div>
 
             <!-- Streak -->
-            <div class="bg-gradient-to-br from-teal-500 to-teal-700 rounded-[24px] p-6 mb-8 relative overflow-hidden shadow-lg">
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                <div class="flex items-center gap-3 relative z-10">
-                    <i class="ph-fill ph-fire text-orange-300 text-3xl"></i>
+            <div class="hero-gradient relative overflow-hidden rounded-[26px] p-6 mb-6 shadow-[0_20px_40px_-20px_rgba(15,118,110,.55)]">
+                <div class="absolute -right-10 -top-12 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="absolute right-6 top-5 text-2xl animate-wiggle">🔥</div>
+                <div class="relative z-10">
+                    <p class="text-[11px] text-teal-100 font-bold uppercase tracking-[0.18em] mb-1.5">ধারাবাহিকতা</p>
+                    <h3 class="font-display text-[34px] font-extrabold text-white leading-none">
+                        <span id="streakCount">0</span> <span class="text-base font-bold text-teal-100">Day Streak</span>
+                    </h3>
+                    <p class="text-[12.5px] text-teal-100/90 font-medium mt-2">প্রতিদিন একটু করে — ফোকাসই সুপারপাওয়ার ⚡</p>
+                </div>
+            </div>
+
+            <!-- Mission -->
+            <h4 class="text-[12px] font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i class="ph-fill ph-target text-gold"></i> আজকের মিশন
+            </h4>
+
+            <div id="taskSetupView" class="card p-5 mb-5">
+                <input type="text" id="taskInput" placeholder="আজকের মূল লক্ষ্য কী? যেমন — ২ ঘণ্টা পড়া 📚" class="input-pop mb-4">
+                <button onclick="window.setMainTask()" class="btn btn-gold w-full py-3.5 text-sm">
+                    <i class="ph-bold ph-rocket-launch text-lg"></i> লক্ষ্য সেট করি
+                </button>
+            </div>
+
+            <div id="activeTaskView" class="hidden relative overflow-hidden card p-5 mb-5 border-teal-600/20">
+                <div class="absolute -top-10 -right-10 w-28 h-28 bg-teal-500/10 rounded-full blur-2xl"></div>
+                <h5 class="text-[10px] text-teal-700 uppercase tracking-widest font-bold mb-2 flex items-center gap-1.5">
+                    <i class="ph-fill ph-check-circle"></i> চলমান মিশন
+                </h5>
+                <p id="displayTaskName" class="font-display text-lg font-bold text-stone-800 mb-5 line-clamp-2">...</p>
+                <div class="flex gap-3 relative z-10">
+                    <button onclick="window.completeMainTask()" class="btn btn-primary flex-1 py-3.5 text-sm">
+                        <i class="ph-bold ph-check text-lg"></i> সম্পন্ন করেছি
+                    </button>
+                    <button onclick="window.clearTask()" class="btn btn-ghost w-12 rounded-2xl text-stone-400">
+                        <i class="ph-bold ph-trash text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <h4 class="text-[12px] font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                <i class="ph-fill ph-chart-line-up text-teal-700"></i> তোমার পরিসংখ্যান
+            </h4>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="card p-4 flex items-center gap-3">
+                    <div class="icon-chip bg-teal-50 text-teal-700"><i class="ph-fill ph-timer text-xl"></i></div>
                     <div>
-                        <h3 class="font-bold text-xl text-white"><span id="streakCount">0</span> Day Streak!</h3>
-                        <p class="text-xs text-teal-100 font-medium mt-0.5">Keep up the amazing work</p>
+                        <p class="font-display text-2xl font-extrabold text-stone-800 leading-none" id="statSessions">0</p>
+                        <p class="text-[10px] text-stone-500 uppercase tracking-wider font-bold mt-1">ফোকাস সেশন</p>
+                    </div>
+                </div>
+                <div class="card p-4 flex items-center gap-3">
+                    <div class="icon-chip bg-amber-50 text-gold"><i class="ph-fill ph-clock text-xl"></i></div>
+                    <div>
+                        <p class="font-display text-2xl font-extrabold text-stone-800 leading-none" id="statMinutes">0</p>
+                        <p class="text-[10px] text-stone-500 uppercase tracking-wider font-bold mt-1">মোট মিনিট</p>
+                    </div>
+                </div>
+                <div class="card p-4 flex items-center gap-3">
+                    <div class="icon-chip bg-stone-100 text-stone-600"><i class="ph-fill ph-notebook text-xl"></i></div>
+                    <div>
+                        <p class="font-display text-2xl font-extrabold text-stone-800 leading-none" id="statIdeas">0</p>
+                        <p class="text-[10px] text-stone-500 uppercase tracking-wider font-bold mt-1">আইডিয়া</p>
+                    </div>
+                </div>
+                <div class="card p-4 flex items-center gap-3">
+                    <div class="icon-chip bg-rose-50 text-rose-500"><i class="ph-fill ph-lifebuoy text-xl"></i></div>
+                    <div>
+                        <p class="font-display text-2xl font-extrabold text-stone-800 leading-none" id="statRescues">0</p>
+                        <p class="text-[10px] text-stone-500 uppercase tracking-wider font-bold mt-1">নেশা ভাঙা</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Task Section -->
-            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Today's Progress</h4>
-            
-            <div id="taskSetupView" class="bg-app-card rounded-[24px] p-5 mb-8 shadow-md border border-slate-700/50">
-                <input type="text" id="taskInput" placeholder="আজকের মূল লক্ষ্য কী?" class="w-full bg-transparent border-b border-slate-600 text-white placeholder-slate-500 py-3 mb-4 focus:outline-none focus:border-teal-400 transition-colors text-sm font-medium">
-                <button onclick="window.setMainTask()" class="w-full bg-teal-500/20 text-teal-400 font-bold rounded-xl py-3 hover:bg-teal-500 hover:text-white transition-colors text-sm border border-teal-500/30">
-                    লক্ষ্য সেট করি
-                </button>
-            </div>
-
-            <div id="activeTaskView" class="bg-app-card rounded-[24px] p-5 mb-8 hidden shadow-[0_0_20px_rgba(20,184,166,0.1)] border border-teal-500/30 relative">
-                <div class="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 blur-xl rounded-full"></div>
-                <h5 class="text-[10px] text-teal-400 uppercase tracking-widest font-bold mb-2">Active Task</h5>
-                <p id="displayTaskName" class="text-lg font-medium text-white mb-5 line-clamp-2">...</p>
-                <div class="flex gap-3">
-                    <button onclick="window.completeMainTask()" class="flex-1 bg-teal-500 text-white font-bold rounded-xl py-3 text-sm shadow-lg hover:bg-teal-400"><i class="ph-bold ph-check mr-1"></i> সম্পন্ন করেছি</button>
-                    <button onclick="window.clearTask()" class="w-12 bg-slate-800 text-slate-400 rounded-xl py-3 flex items-center justify-center hover:text-white"><i class="ph-bold ph-trash"></i></button>
-                </div>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="bg-app-card rounded-2xl p-4 border border-slate-700/50 text-center">
-                    <p class="text-2xl font-bold text-white mb-1" id="statSessions">0</p>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Focus Sessions</p>
-                </div>
-                <div class="bg-app-card rounded-2xl p-4 border border-slate-700/50 text-center">
-                    <p class="text-2xl font-bold text-white mb-1" id="statIdeas">0</p>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Ideas Saved</p>
+            <!-- Quote -->
+            <div class="quote-card p-5 flex items-center gap-4 mb-4">
+                <div class="text-3xl animate-bounce-soft">🧘</div>
+                <div>
+                    <p class="font-display text-[15px] font-bold text-stone-700 leading-snug">"ফোকাস = সুপারপাওয়ার"</p>
+                    <p class="text-[11.5px] text-stone-500 font-medium mt-0.5">আজকের সেরা বিনিয়োগ — তোমার নিজের মনোযোগ।</p>
                 </div>
             </div>
         </div>
 
-        <!-- 3. FOCUS TIMER -->
-        <div id="focusScreen" class="app-screen bg-app-surface px-6 pt-12 relative">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-teal-500/5 blur-[100px] rounded-full pointer-events-none"></div>
-            
-            <div class="text-center mb-10 relative z-10">
-                <h3 class="text-xs text-slate-400 tracking-widest uppercase font-bold mb-2">Deep Work</h3>
-                <h2 class="text-3xl font-bold text-white">Focus Timer</h2>
+        <!-- ============ FOCUS TIMER ============ -->
+        <div id="focusScreen" class="app-screen px-6 pt-12 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-violet-300/15 blur-[90px] rounded-full pointer-events-none"></div>
+
+            <div class="text-center mb-8 relative z-10">
+                <p class="text-[11px] text-violet-600 tracking-[0.2em] uppercase font-bold mb-1.5 flex items-center justify-center gap-1.5">
+                    <i class="ph-fill ph-brain"></i> Deep Work
+                </p>
+                <h2 class="font-display text-3xl font-extrabold text-stone-800">ফোকাস টাইমার</h2>
+                <p class="text-[12.5px] text-stone-500 font-medium mt-1">এই সময়টুকু শুধু তোমার।</p>
             </div>
 
             <!-- Time Selectors -->
-            <div class="flex justify-center gap-3 mb-10 relative z-10">
-                <button onclick="window.setTimer(5)" class="timer-btn w-16 h-16 rounded-2xl bg-app-card border border-slate-700 text-white flex flex-col items-center justify-center transition-all">
-                    <span class="text-lg font-bold">5</span><span class="text-[9px] text-slate-400 uppercase font-bold">Min</span>
+            <div class="flex justify-center gap-3.5 mb-9 relative z-10">
+                <button onclick="window.setTimer(5)" class="timer-btn">
+                    <span class="font-display text-xl font-extrabold">5</span><span class="text-[9px] uppercase font-bold">Min</span>
                 </button>
-                <button onclick="window.setTimer(15)" class="timer-btn active w-16 h-16 rounded-2xl bg-app-card border border-teal-500/50 text-teal-400 flex flex-col items-center justify-center transition-all shadow-[0_0_15px_rgba(20,184,166,0.15)]">
-                    <span class="text-lg font-bold">15</span><span class="text-[9px] text-teal-500/70 uppercase font-bold">Min</span>
+                <button onclick="window.setTimer(15)" class="timer-btn active">
+                    <span class="font-display text-xl font-extrabold">15</span><span class="text-[9px] uppercase font-bold">Min</span>
                 </button>
-                <button onclick="window.setTimer(25)" class="timer-btn w-16 h-16 rounded-2xl bg-app-card border border-slate-700 text-white flex flex-col items-center justify-center transition-all">
-                    <span class="text-lg font-bold">25</span><span class="text-[9px] text-slate-400 uppercase font-bold">Min</span>
+                <button onclick="window.setTimer(25)" class="timer-btn">
+                    <span class="font-display text-xl font-extrabold">25</span><span class="text-[9px] uppercase font-bold">Min</span>
                 </button>
             </div>
 
             <!-- Circular Timer -->
-            <div class="relative w-64 h-64 mx-auto mb-10 flex items-center justify-center z-10">
-                <svg class="absolute inset-0 w-full h-full drop-shadow-[0_0_15px_rgba(20,184,166,0.1)]">
-                    <circle cx="128" cy="128" r="120" stroke="#1E293B" stroke-width="6" fill="transparent" />
-                    <circle id="timerProgress" class="progress-ring__circle" cx="128" cy="128" r="120" stroke="#14B8A6" stroke-width="6" fill="transparent" stroke-dasharray="754" stroke-dashoffset="0" stroke-linecap="round" />
+            <div class="relative w-64 h-64 mx-auto mb-9 flex items-center justify-center z-10">
+                <div class="absolute inset-3 bg-white rounded-full shadow-[0_20px_46px_-22px_rgba(109,40,217,.4)] border border-stone-100"></div>
+                <svg class="absolute inset-0 w-full h-full">
+                    <defs>
+                        <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0D9488"/>
+                            <stop offset="100%" stop-color="#8B5CF6"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="128" cy="128" r="120" stroke="#F1F0EE" stroke-width="10" fill="transparent" />
+                    <circle id="timerProgress" class="progress-ring__circle" cx="128" cy="128" r="120" stroke="url(#timerGrad)" stroke-width="10" fill="transparent" stroke-dasharray="754" stroke-dashoffset="0" stroke-linecap="round" />
                 </svg>
-                <div class="text-center">
-                    <span id="timerDisplay" class="text-6xl font-light text-white tracking-tight">15:00</span>
-                    <p id="timerStatus" class="text-xs text-teal-400 uppercase tracking-widest font-bold mt-2">Ready</p>
+                <div class="text-center relative z-10">
+                    <span id="timerDisplay" class="font-display text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-700 to-violet-700 tracking-tight">15:00</span>
+                    <p id="timerStatus" class="text-[11px] text-violet-600 uppercase tracking-widest font-bold mt-2">Ready</p>
                 </div>
             </div>
 
             <!-- Actions -->
-            <div class="flex gap-4 relative z-10 max-w-[280px] mx-auto">
-                <button onclick="window.toggleTimer()" id="timerActionBtn" class="flex-1 bg-teal-500 text-white font-bold rounded-2xl py-4 shadow-lg hover:bg-teal-400 transition-colors flex items-center justify-center gap-2">
+            <div class="flex gap-4 relative z-10 max-w-[300px] mx-auto">
+                <button onclick="window.toggleTimer()" id="timerActionBtn" class="btn btn-violet flex-1 py-4 text-[15px]">
                     <i class="ph-fill ph-play text-xl"></i> Start
                 </button>
-                <button onclick="window.resetTimer()" class="w-14 h-14 bg-app-card border border-slate-700 rounded-2xl flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                <button onclick="window.resetTimer()" class="btn btn-ghost w-14 rounded-2xl text-stone-500">
                     <i class="ph-bold ph-arrow-counter-clockwise text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- 4. IDEAS / JOURNAL -->
-        <div id="ideasScreen" class="app-screen bg-app-surface px-6 pt-10">
-            <h2 class="text-2xl font-bold mb-2 text-white">Brain Dump</h2>
-            <p class="text-slate-400 text-sm mb-6 font-medium">মাথায় যা ঘুরছে লিখে ফেলো।</p>
+        <!-- ============ IDEAS / JOURNAL ============ -->
+        <div id="ideasScreen" class="app-screen px-6 pt-10">
+            <div class="flex items-center gap-4 mb-1">
+                <div class="icon-chip bg-amber-50 text-gold"><i class="ph-fill ph-lightbulb text-xl"></i></div>
+                <div>
+                    <h2 class="font-display text-2xl font-extrabold text-stone-800">ব্রেন ডাম্প</h2>
+                    <p class="text-[12.5px] text-stone-500 font-medium">মাথায় যা ঘুরছে লিখে ফেলো।</p>
+                </div>
+            </div>
 
-            <div class="bg-app-card border border-slate-700/50 rounded-3xl p-5 mb-8 shadow-lg focus-within:border-teal-500/50 transition-colors">
-                <textarea id="ideaInput" class="w-full h-24 bg-transparent text-white placeholder-slate-500 focus:outline-none resize-none text-sm font-medium" placeholder="নতুন আইডিয়া বা নোট..."></textarea>
-                <div class="flex justify-between items-center mt-3 border-t border-slate-700 pt-4">
-                    <span class="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Securely Saved</span>
-                    <button onclick="window.saveIdea()" class="bg-teal-500/20 text-teal-400 px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-teal-500 hover:text-white transition-colors">Save Note</button>
+            <div class="card p-5 mb-6 transition-colors mt-4">
+                <textarea id="ideaInput" class="w-full h-24 bg-transparent text-stone-800 placeholder-stone-400 focus:outline-none resize-none text-sm font-medium" placeholder="নতুন আইডিয়া বা নোট... ✍️"></textarea>
+                <div class="flex justify-between items-center mt-3 border-t border-stone-100 pt-4">
+                    <span class="text-[10px] text-stone-400 uppercase tracking-wider font-bold flex items-center gap-1">
+                        <i class="ph-fill ph-lock-simple"></i> ডিভাইসে সেভ হয়
+                    </span>
+                    <button onclick="window.saveIdea()" class="btn btn-gold px-6 py-2.5 text-xs">
+                        <i class="ph-bold ph-paper-plane-tilt text-sm"></i> Save Note
+                    </button>
                 </div>
             </div>
 
             <div class="flex justify-between items-center mb-4 px-1">
-                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Saved Notes</h4>
-                <span id="ideaBadge" class="text-[10px] font-bold bg-slate-800 text-slate-300 px-2 py-1 rounded-full">0</span>
+                <h4 class="text-[12px] font-bold text-stone-500 uppercase tracking-wider">Saved Notes</h4>
+                <span id="ideaBadge" class="text-[10px] font-bold bg-stone-100 text-stone-600 px-2.5 py-1 rounded-full">0</span>
             </div>
-            
-            <div id="ideasList" class="space-y-3 pb-20">
+
+            <div id="ideasList" class="space-y-3 pb-16">
                 <!-- Ideas injected here -->
             </div>
         </div>
 
-        <!-- 5. RESCUE CENTER -->
-        <div id="rescueScreen" class="app-screen bg-app-surface px-6 pt-10">
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-rose-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-rose-500/20 shadow-lg">
-                    <i class="ph-fill ph-lifebuoy text-3xl text-rose-400"></i>
+        <!-- ============ RESCUE CENTER (Addiction Switch) ============ -->
+        <div id="rescueScreen" class="app-screen px-6 pt-10">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="icon-chip bg-rose-50 text-rose-500"><i class="ph-fill ph-lifebuoy text-xl"></i></div>
+                <div>
+                    <h2 class="font-display text-2xl font-extrabold text-stone-800 leading-tight">নেশা ভাঙার খেলা</h2>
+                    <p class="text-[12.5px] text-stone-500 font-medium">কিসে টানছে? সৎ হও — এক নেশা অন্য নেশায় বদল করো। 🤝</p>
                 </div>
-                <h2 class="text-3xl font-bold text-white mb-2">Rescue</h2>
-                <p class="text-slate-400 text-sm font-medium">কিসে টানছে? সৎ হও।</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <button onclick="window.triggerRescue('Scrolling', 'ফোন উল্টে রাখো। 10 সেকেন্ড চোখ বন্ধ।')" class="bg-app-card border border-slate-700/50 p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 transition-all text-center">
-                    <i class="ph-fill ph-device-mobile text-3xl text-blue-400"></i>
-                    <h3 class="font-bold text-white text-sm">Scrolling</h3>
+            <div class="grid grid-cols-2 gap-3.5 mb-5">
+                <button onclick="window.startRescueFlow('Scrolling')" class="rescue-card">
+                    <div class="icon-chip bg-blue-50 text-blue-600"><i class="ph-fill ph-device-mobile text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-display font-bold text-stone-800 text-[15px]">Scrolling</h3>
+                        <p class="text-[11px] text-stone-500 font-medium mt-0.5">হাত ব্যস্ত রাখো</p>
+                    </div>
+                    <span class="rescue-arrow"><i class="ph-bold ph-caret-right"></i></span>
                 </button>
-                <button onclick="window.triggerRescue('Gaming', 'Game close করো। 1 গ্লাস পানি খাও।')" class="bg-app-card border border-slate-700/50 p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 transition-all text-center">
-                    <i class="ph-fill ph-game-controller text-3xl text-purple-400"></i>
-                    <h3 class="font-bold text-white text-sm">Gaming</h3>
+                <button onclick="window.startRescueFlow('Gaming')" class="rescue-card">
+                    <div class="icon-chip bg-violet-50 text-violet-600"><i class="ph-fill ph-game-controller text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-display font-bold text-stone-800 text-[15px]">Gaming</h3>
+                        <p class="text-[11px] text-stone-500 font-medium mt-0.5">জিতের নেশা ছাড়ো</p>
+                    </div>
+                    <span class="rescue-arrow"><i class="ph-bold ph-caret-right"></i></span>
                 </button>
-                <button onclick="window.triggerRescue('Overthink', '2 লাইনে লেখো। Actionable না হলে ছাড়ো।')" class="bg-app-card border border-slate-700/50 p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 transition-all text-center">
-                    <i class="ph-fill ph-brain text-3xl text-amber-400"></i>
-                    <h3 class="font-bold text-white text-sm">Overthink</h3>
+                <button onclick="window.startRescueFlow('Overthink')" class="rescue-card">
+                    <div class="icon-chip bg-amber-50 text-gold"><i class="ph-fill ph-brain text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-display font-bold text-stone-800 text-[15px]">Overthink</h3>
+                        <p class="text-[11px] text-stone-500 font-medium mt-0.5">ভাবনা ঠান্ডা করো</p>
+                    </div>
+                    <span class="rescue-arrow"><i class="ph-bold ph-caret-right"></i></span>
                 </button>
-                <button onclick="window.triggerRescue('Urges', 'স্ক্রিন থেকে দূরে যাও। হাঁটাহাঁটি করো।')" class="bg-app-card border border-slate-700/50 p-5 rounded-3xl flex flex-col items-center gap-3 hover:border-teal-500/30 transition-all text-center">
-                    <i class="ph-fill ph-eye-slash text-3xl text-red-400"></i>
-                    <h3 class="font-bold text-white text-sm">Urges</h3>
+                <button onclick="window.startRescueFlow('Urges')" class="rescue-card">
+                    <div class="icon-chip bg-rose-50 text-rose-500"><i class="ph-fill ph-eye-slash text-2xl"></i></div>
+                    <div>
+                        <h3 class="font-display font-bold text-stone-800 text-[15px]">Urges</h3>
+                        <p class="text-[11px] text-stone-500 font-medium mt-0.5">শক্তি বদলাও</p>
+                    </div>
+                    <span class="rescue-arrow"><i class="ph-bold ph-caret-right"></i></span>
                 </button>
             </div>
 
-            <!-- Depression Mode Button -->
-            <button onclick="window.openDepressionMode()" class="w-full bg-gradient-to-r from-blue-900/40 to-slate-800 border border-blue-500/30 p-5 rounded-3xl flex items-center justify-between hover:border-blue-400/50 transition-all mt-4">
+            <!-- How it works -->
+            <div class="card p-5 mb-5">
+                <h4 class="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i class="ph-fill ph-question text-teal-700"></i> কীভাবে কাজ করে
+                </h4>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-teal-50 text-teal-700 text-[11px] font-bold flex items-center justify-center flex-shrink-0">১</span>
+                        <p class="text-[12.5px] text-stone-600 font-medium leading-relaxed">নেশার বদলে <b class="text-stone-800">২ মিনিটের একটা মজার খেলা</b> খেলো — মন অন্য জায়গায় চলে যাবে।</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-teal-50 text-teal-700 text-[11px] font-bold flex items-center justify-center flex-shrink-0">২</span>
+                        <p class="text-[12.5px] text-stone-600 font-medium leading-relaxed">খেলা শেষে সব <b class="text-stone-800">হুট করে বন্ধ</b> — তোমার আজকের মিশনের কথা মনে করিয়ে দেওয়া হবে।</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full bg-teal-50 text-teal-700 text-[11px] font-bold flex items-center justify-center flex-shrink-0">৩</span>
+                        <p class="text-[12.5px] text-stone-600 font-medium leading-relaxed">প্রতিটা সফল নেশা-ভাঙায় একটা করে <b class="text-stone-800">রেসকিউ পয়েন্ট</b>।</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depression Mode -->
+            <button onclick="window.openDepressionMode()" class="btn btn-primary w-full p-5 rounded-[22px] text-left items-center justify-between">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-300">
-                        <i class="ph-fill ph-cloud-rain text-2xl"></i>
-                    </div>
-                    <div class="text-left">
-                        <h3 class="font-bold text-white text-base">মন খারাপ / Depressed</h3>
-                        <p class="text-xs text-blue-200 mt-0.5 font-medium">আমি তোমার পাশে আছি</p>
+                    <div class="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center text-white text-2xl">🌧️</div>
+                    <div>
+                        <h3 class="font-display font-bold text-white text-[15px] leading-tight">মন খারাপ / Depressed</h3>
+                        <p class="text-xs text-teal-100 mt-0.5 font-medium">আমি তোমার পাশে আছি 💙</p>
                     </div>
                 </div>
-                <i class="ph-bold ph-caret-right text-slate-500"></i>
+                <i class="ph-bold ph-caret-right text-white/70 text-xl"></i>
             </button>
         </div>
 
-        <!-- OVERLAY: DEPRESSION MENU -->
-        <div id="depressionScreen" class="overlay bg-gradient-to-b from-slate-800 to-[#0F172A] px-6 pt-16 z-[60]">
-            <button onclick="window.closeOverlay('depressionScreen')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white backdrop-blur-md">
-                <i class="ph-bold ph-x"></i>
+        <!-- ============ OVERLAY: DEPRESSION MENU ============ -->
+        <div id="depressionScreen" class="overlay px-6 pt-16" style="background:linear-gradient(180deg,#EFF6FF,#FDF4FF 60%,#FAF8F5)">
+            <button onclick="window.closeOverlay('depressionScreen')" class="close-chip absolute top-6 left-6 z-20">
+                <i class="ph-bold ph-x text-lg"></i>
             </button>
-            
-            <div class="text-center mt-4 mb-10">
-                <i class="ph-fill ph-cloud-rain text-5xl text-blue-300 mb-4 animate-float block"></i>
-                <h2 class="text-2xl font-bold text-white mb-3">আমি জানি, এখন কঠিন।</h2>
-                <p class="text-blue-100 text-sm mb-1 font-medium">তুমি একা না। এই অনুভূতি valid.</p>
-                <p class="text-blue-100 text-sm font-medium">এখন কেমন লাগছে?</p>
+
+            <div class="text-center mt-6 mb-9">
+                <i class="ph-fill ph-cloud-rain text-5xl text-blue-400 mb-4 animate-float block"></i>
+                <h2 class="font-display text-2xl font-extrabold text-stone-800 mb-2.5">আমি জানি, এখন কঠিন।</h2>
+                <p class="text-blue-800/70 text-sm font-medium">তুমি একা না। এই অনুভূতি valid.</p>
+                <p class="text-blue-800/70 text-sm font-medium mt-0.5">এখন কেমন লাগছে?</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
-                <button onclick="window.openOverlay('raindropsScreen')" class="bg-white/5 border border-white/10 p-5 rounded-3xl flex flex-col items-center gap-3 hover:bg-white/10 transition-all text-center">
-                    <span class="text-4xl">😢</span>
+            <div class="grid grid-cols-2 gap-3.5">
+                <button onclick="window.openOverlay('raindropsScreen')" class="glass-card p-6 flex flex-col items-center gap-3 text-center hover:scale-[1.02] transition-transform">
+                    <span class="text-4xl animate-bounce-soft">😢</span>
                     <div>
-                        <h3 class="font-bold text-white text-sm">কান্না পাচ্ছে</h3>
-                        <p class="text-[10px] text-blue-200 mt-1 font-medium">কষ্ট ছাড়ো</p>
+                        <h3 class="font-display font-bold text-stone-800 text-[15px]">কান্না পাচ্ছে</h3>
+                        <p class="text-[11px] text-blue-700/60 mt-1 font-medium">কষ্ট ছাড়ো</p>
                     </div>
                 </button>
-                <button onclick="window.openOverlay('lightsScreen')" class="bg-white/5 border border-white/10 p-5 rounded-3xl flex flex-col items-center gap-3 hover:bg-white/10 transition-all text-center">
-                    <span class="text-4xl">😞</span>
+                <button onclick="window.openOverlay('lightsScreen')" class="glass-card p-6 flex flex-col items-center gap-3 text-center hover:scale-[1.02] transition-transform">
+                    <span class="text-4xl animate-bounce-soft" style="animation-delay:.2s">😞</span>
                     <div>
-                        <h3 class="font-bold text-white text-sm">হতাশ লাগছে</h3>
-                        <p class="text-[10px] text-blue-200 mt-1 font-medium">আলো খুঁজি</p>
+                        <h3 class="font-display font-bold text-stone-800 text-[15px]">হতাশ লাগছে</h3>
+                        <p class="text-[11px] text-blue-700/60 mt-1 font-medium">আলো খুঁজি</p>
                     </div>
                 </button>
             </div>
         </div>
 
-        <!-- OVERLAY: RAINDROPS -->
-        <div id="raindropsScreen" class="overlay bg-[#0F172A] px-6 pt-16 z-[70]">
-            <button onclick="window.closeOverlay('raindropsScreen')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-md">
-                <i class="ph-bold ph-arrow-left"></i>
+        <!-- ============ OVERLAY: RAINDROPS ============ -->
+        <div id="raindropsScreen" class="overlay px-6 pt-16" style="background:linear-gradient(180deg,#EFF6FF,#DBEAFE)">
+            <button onclick="window.closeOverlay('raindropsScreen')" class="close-chip absolute top-6 left-6 z-20">
+                <i class="ph-bold ph-arrow-left text-lg"></i>
             </button>
 
-            <div class="text-center mt-4 mb-6">
-                <h3 class="text-xl font-bold text-white">কষ্ট ছাড়ো</h3>
-                <p class="text-xs text-slate-400 mt-1 font-medium">প্রতিটা ফোঁটায় tap করে কষ্ট রিলিজ করো।</p>
-            </div>
-            
-            <div class="text-center mb-4">
-                <span id="dropsReleased" class="text-4xl font-bold text-blue-400">0</span>
-                <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Released</p>
+            <div class="text-center mt-6 mb-6">
+                <h3 class="font-display text-2xl font-extrabold text-stone-800">কষ্ট ছাড়ো</h3>
+                <p class="text-xs text-stone-500 mt-1 font-medium">প্রতিটা ফোঁটায় tap করে কষ্ট রিলিজ করো।</p>
             </div>
 
-            <div id="raindropsArea" class="raindrops-area mb-8 shadow-inner"></div>
+            <div class="text-center mb-5">
+                <span id="dropsReleased" class="font-display text-5xl font-extrabold text-blue-500">0</span>
+                <p class="text-[10px] text-stone-500 uppercase tracking-widest mt-1 font-bold">Released</p>
+            </div>
 
-            <button onclick="window.startRaindrops()" id="startRainBtn" class="w-full bg-blue-500/20 text-blue-400 font-bold rounded-2xl py-4 border border-blue-500/30 hover:bg-blue-500/30 transition-all">
-                শুরু করি
+            <div id="raindropsArea" class="raindrops-area mb-6"></div>
+
+            <button onclick="window.startRaindrops()" id="startRainBtn" class="btn btn-primary w-full py-4 text-[15px]">
+                <i class="ph-bold ph-cloud-rain text-xl"></i> শুরু করি
             </button>
         </div>
 
-        <!-- OVERLAY: THREE LIGHTS -->
-        <div id="lightsScreen" class="overlay bg-[#0F172A] px-6 pt-16 z-[70]">
-            <button onclick="window.closeOverlay('lightsScreen')" class="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-md">
-                <i class="ph-bold ph-arrow-left"></i>
+        <!-- ============ OVERLAY: THREE LIGHTS ============ -->
+        <div id="lightsScreen" class="overlay px-6 pt-16" style="background:linear-gradient(180deg,#FFFBEB,#FEF3C7)">
+            <button onclick="window.closeOverlay('lightsScreen')" class="close-chip absolute top-6 left-6 z-20">
+                <i class="ph-bold ph-arrow-left text-lg"></i>
             </button>
 
-            <div class="text-center mt-4 mb-8">
-                <div class="flex justify-center gap-3 mb-6">
-                    <div id="dot1" class="w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"></div>
-                    <div id="dot2" class="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                    <div id="dot3" class="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                </div>
+            <div class="flex justify-center gap-3 mt-6 mb-8">
+                <div id="dot1" class="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(250,204,21,0.7)]"></div>
+                <div id="dot2" class="w-3 h-3 rounded-full bg-stone-300"></div>
+                <div id="dot3" class="w-3 h-3 rounded-full bg-stone-300"></div>
             </div>
 
-            <div class="bg-white/5 border border-white/10 rounded-3xl p-6 text-center shadow-2xl backdrop-blur-md" id="lightCard">
-                <div class="text-5xl mb-4">🕯</div>
-                <div id="lightNum" class="text-[10px] text-yellow-400 uppercase tracking-widest font-bold mb-3">আলো ১ / ৩</div>
-                <h2 id="lightQ" class="text-xl font-bold text-white mb-2">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
-                <p id="lightHint" class="text-xs text-slate-400 mb-6 italic font-medium">যেকোনো কিছু — পানি খেয়েছি, breath নিচ্ছি...</p>
-                
-                <textarea id="lightInput" class="w-full bg-black/20 border border-white/10 rounded-2xl p-4 text-white text-sm focus:outline-none focus:border-yellow-400/50 transition-colors resize-none h-24 mb-4 font-medium" placeholder="যা মনে আসছে লেখো..."></textarea>
-                
-                <button onclick="window.nextLight()" id="lightBtn" class="w-full bg-yellow-400/90 text-yellow-900 font-bold rounded-xl py-3.5 hover:bg-yellow-400 transition-colors">
+            <div class="card p-6 text-center" id="lightCard">
+                <div class="text-5xl mb-3 animate-bounce-soft">🕯️</div>
+                <div id="lightNum" class="text-[10px] text-amber-600 uppercase tracking-widest font-bold mb-3">আলো ১ / ৩</div>
+                <h2 id="lightQ" class="font-display text-xl font-bold text-stone-800 mb-2">আজকে কী ছোট কিছু ঠিক হয়েছে?</h2>
+                <p id="lightHint" class="text-xs text-stone-500 mb-5 italic font-medium">যেকোনো কিছু — পানি খেয়েছি, শ্বাস নিচ্ছি...</p>
+
+                <textarea id="lightInput" class="input-pop resize-none h-24 mb-4" placeholder="যা মনে আসছে লেখো..."></textarea>
+
+                <button onclick="window.nextLight()" id="lightBtn" class="btn btn-gold w-full py-3.5 text-sm">
                     পরবর্তী আলো →
                 </button>
             </div>
-            
-            <div id="lightsSummary" class="hidden mt-4 pb-10">
-                <h3 class="text-xl font-bold text-white text-center mb-6">তোমার তিনটা আলো ✨</h3>
-                <div class="space-y-3 mb-8">
-                    <div class="bg-white/5 border border-yellow-400/20 p-4 rounded-2xl">
-                        <span class="text-[9px] text-yellow-400 uppercase tracking-widest block mb-1 font-bold">আজকের আলো</span>
-                        <p id="resLight1" class="text-white text-sm font-medium">...</p>
+
+            <div id="lightsSummary" class="hidden mt-5 pb-10">
+                <h3 class="font-display text-2xl font-extrabold text-stone-800 text-center mb-6">তোমার তিনটা আলো ✨</h3>
+                <div class="space-y-3.5 mb-6">
+                    <div class="card p-5">
+                        <span class="text-[9px] text-amber-600 uppercase tracking-widest block mb-1.5 font-bold">আজকের আলো</span>
+                        <p id="resLight1" class="text-stone-700 text-sm font-medium">...</p>
                     </div>
-                    <div class="bg-white/5 border border-yellow-400/20 p-4 rounded-2xl">
-                        <span class="text-[9px] text-yellow-400 uppercase tracking-widest block mb-1 font-bold">জীবনের আলো</span>
-                        <p id="resLight2" class="text-white text-sm font-medium">...</p>
+                    <div class="card p-5">
+                        <span class="text-[9px] text-amber-600 uppercase tracking-widest block mb-1.5 font-bold">জীবনের আলো</span>
+                        <p id="resLight2" class="text-stone-700 text-sm font-medium">...</p>
                     </div>
-                    <div class="bg-white/5 border border-yellow-400/20 p-4 rounded-2xl">
-                        <span class="text-[9px] text-yellow-400 uppercase tracking-widest block mb-1 font-bold">কালকের আলো</span>
-                        <p id="resLight3" class="text-white text-sm font-medium">...</p>
+                    <div class="card p-5">
+                        <span class="text-[9px] text-amber-600 uppercase tracking-widest block mb-1.5 font-bold">কালকের আলো</span>
+                        <p id="resLight3" class="text-stone-700 text-sm font-medium">...</p>
                     </div>
                 </div>
-                <button onclick="window.closeOverlay('lightsScreen'); window.closeOverlay('depressionScreen');" class="w-full bg-white/10 text-white font-bold rounded-xl py-4 hover:bg-white/20 transition-colors">
+                <button onclick="window.closeOverlay('lightsScreen'); window.closeOverlay('depressionScreen');" class="btn btn-ghost w-full py-4 text-sm text-stone-600">
                     ফিরে যাই
                 </button>
             </div>
         </div>
 
-        <!-- BOTTOM NAVIGATION -->
-        <nav id="bottomNav" class="absolute bottom-0 w-full h-20 bg-[#0B132B]/90 backdrop-blur-md border-t border-white/5 flex justify-around items-center px-4 pb-2 z-[40] hidden">
-            <button onclick="window.showScreen('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 p-2 text-teal-400 transition-colors">
-                <i class="ph-fill ph-house text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Home</span>
+        <!-- ============ OVERLAY: ADDICTION SWITCH GAME ============ -->
+        <div id="rescueGameScreen" class="overlay px-5 pt-14">
+            <button onclick="window.quitRescueGame()" class="close-chip absolute top-6 left-6 z-30">
+                <i class="ph-bold ph-x text-lg"></i>
             </button>
-            <button onclick="window.showScreen('focus')" id="nav-focus" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 transition-colors">
-                <i class="ph-fill ph-timer text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Focus</span>
+
+            <!-- 1. Intro -->
+            <div id="rescueGameIntro" class="flex flex-col items-center text-center pt-6">
+                <div class="w-20 h-20 rounded-[26px] bg-white shadow-[0_18px_40px_-16px_rgba(13,148,136,.4)] border border-teal-100 flex items-center justify-center text-4xl mb-5 animate-bounce-soft" id="rescueIntroIcon">🎮</div>
+                <p class="text-[11px] text-teal-700 uppercase tracking-[0.2em] font-bold mb-1.5">অ্যাডিকশন সুইচ</p>
+                <h2 class="font-display text-[26px] font-extrabold text-stone-800 leading-tight mb-2" id="rescueIntroTitle">স্ক্রলিং ভাঙি</h2>
+                <p class="text-[13px] text-stone-500 font-medium max-w-[260px] leading-relaxed mb-6" id="rescueIntroLine">২ মিনিটের মজার খেলা — মন ব্যস্ত থাকবে, নেশা ভাঙবে।</p>
+
+                <div class="card w-full p-5 mb-6 text-left">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="icon-chip bg-amber-50 text-gold"><i class="ph-fill ph-crown text-xl"></i></span>
+                        <div>
+                            <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">তোমার সেরা স্কোর</p>
+                            <p class="font-display text-xl font-extrabold text-stone-800 leading-none" id="gameBestIntro">0</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="icon-chip bg-teal-50 text-teal-700"><i class="ph-fill ph-timer text-xl"></i></span>
+                        <div>
+                            <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">সময়</p>
+                            <p class="font-display text-xl font-extrabold text-stone-800 leading-none">২ মিনিট</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="window.startRescueGame()" class="btn btn-primary w-full py-4 text-[15px]">
+                    <i class="ph-bold ph-play text-xl"></i> খেলা শুরু
+                </button>
+                <p class="text-[11px] text-stone-400 font-medium mt-3">সময় শেষে সব বন্ধ — মিশনের কথা মনে করিয়ে দেবো 😌</p>
+            </div>
+
+            <!-- 2. Game -->
+            <div id="rescueGamePlay" class="hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <div>
+                        <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">স্কোর</p>
+                        <p class="font-display text-3xl font-extrabold text-stone-800 leading-none" id="gameScore">0</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">কম্বো</p>
+                        <p class="font-display text-2xl font-extrabold text-teal-700 leading-none" id="gameCombo">×1</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] text-stone-400 uppercase tracking-wider font-bold">বাকি</p>
+                        <p class="font-display text-2xl font-extrabold text-rose-500 leading-none" id="gameTimeLeft">2:00</p>
+                    </div>
+                </div>
+
+                <div class="timer-bar mb-3"><div class="timer-bar-fill" id="gameTimerBar" style="width:100%"></div></div>
+
+                <div class="game-arena" id="gameArena"></div>
+                <span id="gameBest" class="hidden"></span>
+
+                <p class="text-center text-[11px] text-stone-400 font-medium mt-3">⭐ সোনালি বুদবুদ = ৫০ পয়েন্ট | দ্রুত ট্যাপ = বেশি কম্বো</p>
+            </div>
+
+            <!-- 3. Time's up -->
+            <div id="rescueGameOver" class="hidden flex flex-col items-center text-center pt-4">
+                <div class="w-20 h-20 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center text-4xl mb-5 animate-bounce-soft">⏰</div>
+                <p class="text-[11px] text-rose-500 uppercase tracking-[0.2em] font-bold mb-1.5">সময় শেষ</p>
+                <h2 class="font-display text-[26px] font-extrabold text-stone-800 leading-tight mb-2">নেশা ভাঙা হলো! 🎉</h2>
+                <p class="text-[13px] text-stone-500 font-medium max-w-[260px] leading-relaxed mb-6">খেলার আনন্দ শেষ — এখন ফোকাসের সময়। তোমার আসল কাজটা তোমার জন্য অপেক্ষা করছে।</p>
+
+                <div class="card w-full p-5 mb-4">
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                        <div class="bg-stone-50 rounded-2xl p-3">
+                            <p class="font-display text-2xl font-extrabold text-stone-800 leading-none" id="gameFinalScore">0</p>
+                            <p class="text-[9px] text-stone-400 uppercase tracking-wider font-bold mt-1">স্কোর</p>
+                        </div>
+                        <div class="bg-stone-50 rounded-2xl p-3">
+                            <p class="font-display text-2xl font-extrabold text-teal-700 leading-none" id="gameFinalCombo">×1</p>
+                            <p class="text-[9px] text-stone-400 uppercase tracking-wider font-bold mt-1">কম্বো</p>
+                        </div>
+                        <div class="bg-stone-50 rounded-2xl p-3">
+                            <p class="font-display text-2xl font-extrabold text-gold leading-none" id="gameFinalBest">0</p>
+                            <p class="text-[9px] text-stone-400 uppercase tracking-wider font-bold mt-1">সেরা</p>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl bg-teal-50/70 border border-teal-100 p-4 text-left">
+                        <p class="text-[10px] text-teal-700 uppercase tracking-wider font-bold flex items-center gap-1.5 mb-1"><i class="ph-fill ph-target"></i> আজকের মিশন</p>
+                        <p id="gameMissionReminder" class="font-display text-[15px] font-bold text-stone-800 leading-snug">—</p>
+                    </div>
+                </div>
+
+                <button onclick="window.closeRescueGame()" class="btn btn-primary w-full py-4 text-[15px]">
+                    <i class="ph-bold ph-rocket-launch text-xl"></i> কাজে ফিরে যাই
+                </button>
+            </div>
+        </div>
+
+        <!-- ============ BOTTOM NAV ============ -->
+        <nav id="bottomNav" class="hidden">
+            <button onclick="window.showScreen('home')" id="nav-home" class="nav-btn text-teal-400">
+                <span class="nav-ico"><i class="ph-fill ph-house text-xl"></i></span>
+                <span>Home</span>
             </button>
-            <button onclick="window.showScreen('ideas')" id="nav-ideas" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 transition-colors">
-                <i class="ph-fill ph-notebook text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Journal</span>
+            <button onclick="window.showScreen('focus')" id="nav-focus" class="nav-btn text-slate-500">
+                <span class="nav-ico"><i class="ph-fill ph-timer text-xl"></i></span>
+                <span>Focus</span>
             </button>
-            <button onclick="window.showScreen('rescue')" id="nav-rescue" class="nav-btn flex flex-col items-center gap-1 p-2 text-slate-500 transition-colors">
-                <i class="ph-fill ph-lifebuoy text-2xl mb-1"></i>
-                <span class="text-[10px] font-bold">Rescue</span>
+            <button onclick="window.showScreen('ideas')" id="nav-ideas" class="nav-btn text-slate-500">
+                <span class="nav-ico"><i class="ph-fill ph-notebook text-xl"></i></span>
+                <span>Journal</span>
+            </button>
+            <button onclick="window.showScreen('rescue')" id="nav-rescue" class="nav-btn text-slate-500">
+                <span class="nav-ico"><i class="ph-fill ph-lifebuoy text-xl"></i></span>
+                <span>Rescue</span>
             </button>
         </nav>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        // Fixed: Added GoogleAuthProvider and signInWithPopup safely
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        // FIREBASE CONFIGURATION
-        const firebaseConfig = {
-            apiKey: "AIzaSyDKI_wT_xzxu6W2lRo8OpfC4MzlYz6jJfc",
-            authDomain: "shuru-apk.firebaseapp.com",
-            projectId: "shuru-apk",
-            storageBucket: "shuru-apk.firebasestorage.app",
-            messagingSenderId: "317579699500",
-            appId: "1:317579699500:web:66683ee0955d63ff477889"
-        };
-
-        // Initialize Firebase safely
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const googleProvider = new GoogleAuthProvider();
-
-        // State Variables
-        window.currentAuthMode = 'login';
+    <script>
+        // ===== State (no login needed — data is saved locally on this device) =====
         window.currentUser = null;
-        let userData = { task: '', step: '', focusSessions: 0, totalMinutes: 0, rescueCount: 0, streak: 0, ideas: [] };
+        let userData = { name: 'ফোকাস ওয়ারিয়র', task: '', step: '', focusSessions: 0, totalMinutes: 0, rescueCount: 0, streak: 0, ideas: [] };
 
-        // Utility: Timeout Wrapper to prevent infinite hanging
-        const withTimeout = (promise, ms) => {
-            return new Promise((resolve, reject) => {
-                const timer = setTimeout(() => reject(new Error("Timeout")), ms);
-                promise.then(val => { clearTimeout(timer); resolve(val); })
-                       .catch(err => { clearTimeout(timer); reject(err); });
-            });
-        };
+        const STORAGE_KEY = 'shuru_user_data_v2';
+        const BEST_KEY = 'shuru_rescue_best';
 
-        // UI Toast Function (Safe)
+        function loadLocalProfile() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) userData = { ...userData, ...JSON.parse(raw) };
+            } catch (e) { console.error('Storage load error:', e); }
+        }
+
+        function saveProfile(updates) {
+            userData = { ...userData, ...updates };
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userData)); } catch (e) { console.error('Storage save error:', e); }
+            renderDashboard();
+        }
+
+        // ===== Toast =====
         window.showToast = (msg, type = 'success') => {
             const toast = document.getElementById('toast');
             if(!toast) return;
             document.getElementById('toast-msg').textContent = msg;
-            toast.className = `fixed top-10 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-[999] flex items-center gap-3 text-white transition-all duration-300 ${type === 'error' ? 'bg-rose-500' : 'bg-teal-500'}`;
-            document.getElementById('toast-icon').className = type === 'error' ? "ph-fill ph-warning-circle text-xl" : "ph-fill ph-check-circle text-xl";
+            toast.className = `fixed top-9 left-1/2 px-5 py-3 rounded-full z-[999] flex items-center gap-2.5 text-white shadow-xl transition-all duration-300 ${type === 'error'
+                ? 'bg-gradient-to-r from-rose-500 to-rose-600 shadow-rose-500/30'
+                : 'bg-gradient-to-r from-teal-600 to-emerald-600 shadow-teal-500/30'}`;
+            document.getElementById('toast-icon').className = type === 'error' ? "ph-fill ph-warning-circle text-lg" : "ph-fill ph-check-circle text-lg";
             toast.style.opacity = '1'; toast.style.transform = 'translate(-50%, 0)';
             setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translate(-50%, -20px)'; }, 3500);
         };
 
-        // Screen Navigation Function
+        // ===== Screen Navigation =====
         window.showScreen = (screenId) => {
             document.querySelectorAll('.app-screen').forEach(el => el.classList.remove('active-screen'));
             const target = document.getElementById(screenId + 'Screen');
             if(target) target.classList.add('active-screen');
 
             const nav = document.getElementById('bottomNav');
-            if (screenId === 'auth') {
-                nav.classList.add('hidden');
-            } else {
-                nav.classList.remove('hidden');
-                document.querySelectorAll('.nav-btn').forEach(btn => {
-                    btn.classList.remove('text-teal-400'); btn.classList.add('text-slate-500');
-                });
-                const activeBtn = document.getElementById('nav-' + screenId);
-                if(activeBtn) {
-                    activeBtn.classList.remove('text-slate-500'); activeBtn.classList.add('text-teal-400');
-                }
+            nav.classList.remove('hidden');
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-teal-400'); btn.classList.add('text-slate-500');
+            });
+            const activeBtn = document.getElementById('nav-' + screenId);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-slate-500'); activeBtn.classList.add('text-teal-400');
             }
         };
 
-        // Overlays
+        // ===== Overlays =====
         window.openOverlay = (id) => document.getElementById(id).classList.add('active-screen');
         window.closeOverlay = (id) => document.getElementById(id).classList.remove('active-screen');
 
-        window.setAuthMode = (mode) => {
-            window.currentAuthMode = mode;
-            const tabLogin = document.getElementById('tabLogin');
-            const tabSignup = document.getElementById('tabSignup');
-            
-            if(mode === 'login') {
-                tabLogin.className = "flex-1 py-2.5 rounded-lg bg-white/20 text-white text-sm font-bold shadow-sm transition-all";
-                tabSignup.className = "flex-1 py-2.5 rounded-lg text-teal-100/50 text-sm font-medium hover:text-white transition-all";
-                document.getElementById('authName').classList.add('hidden');
-                document.getElementById('authBtn').textContent = 'Login';
-            } else {
-                tabSignup.className = "flex-1 py-2.5 rounded-lg bg-white/20 text-white text-sm font-bold shadow-sm transition-all";
-                tabLogin.className = "flex-1 py-2.5 rounded-lg text-teal-100/50 text-sm font-medium hover:text-white transition-all";
-                document.getElementById('authName').classList.remove('hidden');
-                document.getElementById('authBtn').textContent = 'Sign Up';
-            }
-        };
-
-        // THE FIX: Foolproof Auth Function
-        window.handleAuth = async () => {
-            const email = document.getElementById('authEmail').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
-            const name = document.getElementById('authName').value.trim();
-            const btn = document.getElementById('authBtn');
-
-            if (!email || !password) return window.showToast('Email & Password required', 'error');
-            if (window.currentAuthMode === 'signup' && !name) return window.showToast('Name is required', 'error');
-
-            const origText = window.currentAuthMode === 'login' ? 'Login' : 'Sign Up';
-            
-            // Set Spinner
-            btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin text-xl"></i>';
-            btn.disabled = true;
-
-            try {
-                if (window.currentAuthMode === 'signup') {
-                    // Sign up with 15 sec timeout
-                    const cred = await withTimeout(createUserWithEmailAndPassword(auth, email, password), 15000);
-                    // Initialize DB Profile
-                    await withTimeout(setDoc(doc(db, 'users', cred.user.uid), {
-                        name: name, email: email, streak: 0, focusSessions: 0, totalMinutes: 0, ideas: []
-                    }), 10000);
-                    window.showToast('অ্যাকাউন্ট তৈরি হয়েছে!');
-                } else {
-                    // Login with 15 sec timeout
-                    await withTimeout(signInWithEmailAndPassword(auth, email, password), 15000);
-                    // Success handled by onAuthStateChanged
-                }
-
-                // FAILSAFE: If onAuthStateChanged hangs, reset button after 5 seconds
-                setTimeout(() => {
-                    if (document.getElementById('authScreen').classList.contains('active-screen')) {
-                        btn.innerHTML = origText;
-                        btn.disabled = false;
-                    }
-                }, 5000);
-
-            } catch (error) {
-                console.error("Auth Error:", error);
-                let msg = 'লগইন ফেইল হয়েছে।';
-                if (error.message === 'Timeout') msg = 'ইন্টারনেট সমস্যা। আবার চেষ্টা করো।';
-                else if (error.code === 'auth/invalid-credential') msg = 'ইমেইল বা পাসওয়ার্ড ভুল।';
-                else if (error.code === 'auth/user-not-found') msg = 'অ্যাকাউন্ট খুঁজে পাওয়া যায়নি।';
-                else if (error.code === 'auth/email-already-in-use') msg = 'এই ইমেইল দিয়ে অ্যাকাউন্ট খোলা আছে।';
-                else if (error.code === 'auth/weak-password') msg = 'পাসওয়ার্ড খুব সহজ (কমপক্ষে ৬ অক্ষর)।';
-                
-                window.showToast(msg, 'error');
-                
-                // IMPORTANT: ALWAYS RESET BUTTON ON ERROR
-                btn.innerHTML = origText;
-                btn.disabled = false;
-            }
-        };
-
-        window.handleGoogleAuth = async () => {
-            const btn = document.getElementById('googleBtn');
-            const origHtml = btn.innerHTML;
-            btn.innerHTML = '<i class="ph-bold ph-spinner-gap animate-spin text-teal-700 text-xl"></i>';
-            btn.disabled = true;
-            try {
-                await signInWithPopup(auth, googleProvider);
-                // Success triggers onAuthStateChanged
-            } catch (error) {
-                console.error(error);
-                if (error.code !== 'auth/popup-closed-by-user') {
-                    window.showToast("Google login failed.", "error");
-                }
-                btn.innerHTML = origHtml;
-                btn.disabled = false;
-            }
-        };
-
-        window.logoutUser = async () => {
-            if(confirm("Logout করতে চাও?")) {
-                await signOut(auth);
-            }
-        };
-
-        onAuthStateChanged(auth, async (user) => {
-            const masterLoader = document.getElementById('masterLoader');
-            try {
-                if (user) {
-                    window.currentUser = user;
-                    await loadDatabaseProfile();
-                    window.showScreen('home'); // Switches screen and hides auth
-                    renderDashboard();
-                    renderIdeas();
-                } else {
-                    window.currentUser = null;
-                    window.showScreen('auth');
-                    
-                    // Reset buttons just in case
-                    const btn = document.getElementById('authBtn');
-                    if(btn) {
-                        btn.innerHTML = window.currentAuthMode === 'login' ? 'Login' : 'Sign Up';
-                        btn.disabled = false;
-                    }
-                }
-            } catch (error) {
-                console.error("State Error:", error);
-                window.showToast("ডেটা লোড করতে সমস্যা হয়েছে।", "error");
-                window.showScreen('auth');
-            } finally {
-                // Ensure Master loader is removed
-                if(masterLoader) masterLoader.style.opacity = '0';
-                setTimeout(() => { if(masterLoader) masterLoader.style.display = 'none'; }, 300);
-            }
-        });
-
-        async function loadDatabaseProfile() {
-            try {
-                const docRef = doc(db, 'users', window.currentUser.uid);
-                // 10 second timeout for DB fetch
-                const docSnap = await withTimeout(getDoc(docRef), 10000); 
-                
-                if (docSnap.exists()) {
-                    userData = { ...userData, ...docSnap.data() };
-                } else {
-                    // Create default data if doesn't exist
-                    userData.name = window.currentUser.displayName || window.currentUser.email.split('@')[0];
-                    userData.email = window.currentUser.email;
-                    await withTimeout(setDoc(docRef, userData), 10000);
-                }
-            } catch (e) {
-                console.error("Firestore Error:", e);
-                // If it fails (e.g. adblocker blocks firestore), we still let them use the app locally
-                window.showToast("অফলাইন মোড। ক্লাউড সেভ হচ্ছে না।", "error");
-            }
-        }
-
-        async function saveDatabaseProfile(updates) {
-            userData = { ...userData, ...updates };
-            renderDashboard();
-            if(!window.currentUser) return;
-            try {
-                await updateDoc(doc(db, 'users', window.currentUser.uid), updates);
-            } catch (e) { console.error(e); }
-        }
-
+        // ===== Dashboard =====
         function renderDashboard() {
-            document.getElementById('userNameDisplay').textContent = userData.name || 'User';
+            const h = new Date().getHours();
+            let greeting = 'শুভ রাত্রি 🌙';
+            if (h >= 5 && h < 12) greeting = 'শুভ সকাল 🌅';
+            else if (h >= 12 && h < 17) greeting = 'শুভ দুপুর ☀️';
+            else if (h >= 17 && h < 20) greeting = 'শুভ সন্ধ্যা 🌆';
+            document.getElementById('greetingText').textContent = greeting;
+
+            document.getElementById('userNameDisplay').textContent = userData.name || 'ফোকাস ওয়ারিয়র';
             document.getElementById('streakCount').textContent = userData.streak || 0;
             document.getElementById('statSessions').textContent = userData.focusSessions || 0;
+            document.getElementById('statMinutes').textContent = userData.totalMinutes || 0;
             document.getElementById('statIdeas').textContent = (userData.ideas || []).length;
+            document.getElementById('statRescues').textContent = userData.rescueCount || 0;
 
             if (userData.task) {
                 document.getElementById('taskSetupView').classList.add('hidden');
@@ -655,21 +892,22 @@
             }
         }
 
+        // ===== Mission =====
         window.setMainTask = () => {
             const val = document.getElementById('taskInput').value.trim();
             if(!val) return window.showToast('Please enter a task', 'error');
-            saveDatabaseProfile({ task: val });
+            saveProfile({ task: val });
         };
 
         window.completeMainTask = () => {
             window.showToast('দারুণ! +1 Streak 🔥');
-            saveDatabaseProfile({ task: '', streak: (userData.streak || 0) + 1 });
+            saveProfile({ task: '', streak: (userData.streak || 0) + 1 });
             document.getElementById('taskInput').value = '';
         };
 
-        window.clearTask = () => saveDatabaseProfile({ task: '' });
+        window.clearTask = () => saveProfile({ task: '' });
 
-        // Timer Logic
+        // ===== Timer =====
         let timerInt;
         let tTotal = 900, tLeft = 900, tRunning = false;
 
@@ -677,13 +915,13 @@
             document.querySelectorAll('.timer-btn').forEach(b => {
                 b.classList.remove('active', 'border-teal-500/50', 'text-teal-400', 'shadow-[0_0_15px_rgba(20,184,166,0.15)]');
                 b.classList.add('border-slate-700', 'text-white');
-                b.querySelector('span:last-child').className = "text-[9px] text-slate-400 uppercase font-bold";
+                b.querySelector('span:last-child').className = "text-[9px] uppercase font-bold";
             });
             const activeBtn = event.currentTarget;
             activeBtn.classList.add('active', 'border-teal-500/50', 'text-teal-400', 'shadow-[0_0_15px_rgba(20,184,166,0.15)]');
             activeBtn.classList.remove('border-slate-700', 'text-white');
-            activeBtn.querySelector('span:last-child').className = "text-[9px] text-teal-500/70 uppercase font-bold";
-            
+            activeBtn.querySelector('span:last-child').className = "text-[9px] uppercase font-bold";
+
             clearInterval(timerInt); tRunning = false;
             tTotal = m * 60; tLeft = tTotal;
             document.getElementById('timerActionBtn').innerHTML = '<i class="ph-fill ph-play text-xl"></i> Start';
@@ -700,14 +938,14 @@
                 tRunning = true;
                 btn.innerHTML = '<i class="ph-bold ph-pause text-xl"></i> Pause';
                 document.getElementById('timerStatus').textContent = 'Focusing...';
-                
+
                 timerInt = setInterval(() => {
                     tLeft--; updateTimerVisual();
                     if (tLeft <= 0) {
                         clearInterval(timerInt); tRunning = false;
                         btn.innerHTML = '<i class="ph-fill ph-check text-xl"></i> Done';
                         document.getElementById('timerStatus').textContent = 'Completed!';
-                        saveDatabaseProfile({ 
+                        saveProfile({
                             focusSessions: (userData.focusSessions || 0) + 1,
                             totalMinutes: (userData.totalMinutes || 0) + Math.round(tTotal/60)
                         });
@@ -732,15 +970,15 @@
             circle.style.strokeDashoffset = offset;
         }
 
-        // Ideas Logic
+        // ===== Ideas =====
         window.saveIdea = () => {
             const val = document.getElementById('ideaInput').value.trim();
             if(!val) return;
             const updated = [{id: Date.now(), text: val}, ...(userData.ideas || [])];
-            saveDatabaseProfile({ ideas: updated });
+            saveProfile({ ideas: updated });
             document.getElementById('ideaInput').value = '';
             renderIdeas();
-            window.showToast('Idea Saved');
+            window.showToast('Idea Saved ✨');
         };
 
         function renderIdeas() {
@@ -748,28 +986,187 @@
             const ideas = userData.ideas || [];
             document.getElementById('ideaBadge').textContent = ideas.length;
             if(ideas.length === 0) {
-                list.innerHTML = `<div class="text-center text-slate-500 text-sm py-10"><i class="ph-fill ph-notebook text-3xl mb-2"></i><br>Empty.</div>`; return;
+                list.innerHTML = `<div class="text-center text-stone-400 text-sm py-10">
+                    <div class="text-4xl mb-3 animate-bounce-soft">💡</div>
+                    <span class="font-medium">এখনো কিছু লেখো নি — মাথার ভেতরের জিনিসগুলো এখানে নামাও।</span>
+                </div>`;
+                return;
             }
             let html = '';
             ideas.forEach(i => {
-                html += `<div class="bg-white/5 border border-white/5 rounded-2xl p-4 flex gap-3 shadow-sm">
-                    <div class="w-2 h-2 rounded-full bg-teal-500 mt-1.5 shadow-[0_0_8px_rgba(20,184,166,0.8)] flex-shrink-0"></div>
-                    <div><p class="text-sm text-slate-200 font-medium">${i.text}</p></div>
+                html += `<div class="bg-white border border-stone-100 rounded-3xl p-4 flex gap-3.5 shadow-[0_10px_24px_-16px_rgba(28,25,23,.18)]">
+                    <div class="w-2 h-2 rounded-full bg-teal-600 mt-1.5 flex-shrink-0"></div>
+                    <p class="text-sm text-stone-700 font-medium leading-relaxed">${i.text}</p>
                 </div>`;
             });
             list.innerHTML = html;
         }
 
-        // Rescue Logic
-        window.triggerRescue = (type, msg) => {
-            saveDatabaseProfile({ rescueCount: (userData.rescueCount || 0) + 1 });
-            window.showToast(msg);
-            setTimeout(() => window.showScreen('home'), 1500);
+        // ===== RESCUE — Addiction Switch =====
+        const rescueThemes = {
+            Scrolling:  { icon: '📱', title: 'স্ক্রলিং ভাঙি', line: 'ফোন ছাড়াই হাত ব্যস্ত রাখো — ২ মিনিটের মজা, তারপর কাজ।' },
+            Gaming:     { icon: '🎮', title: 'গেমিং ভাঙি', line: 'জেতার নেশার বদলে বুদবুদ ফাটাও — ২ মিনিট, তারপর কাজ।' },
+            Overthink:  { icon: '🌀', title: 'ওভারথিংক ভাঙি', line: 'মগজটাকে অন্য খেলায় ব্যস্ত রাখো — ২ মিনিটে ভাবনা ঠান্ডা।' },
+            Urges:      { icon: '🚫', title: 'আর্জ ভাঙি', line: 'শক্তিটা বুদবুদ ফাটাতে চালাও — ২ মিনিট, তারপর ফোকাস।' }
         };
 
+        let rescueGame = {
+            active: false, craving: '', score: 0, combo: 0, lastPop: 0,
+            best: 0, timeLeft: 120, spawnInt: null, tickInt: null
+        };
+        const GAME_SECONDS = 120;
+        const bubbleEmojis = ['🎈', '🍩', '⚽', '🧁', '🎯', '🍕', '🎲', '🌟', '🍭', '🫧'];
+
+        function bestScore() {
+            return Number(localStorage.getItem(BEST_KEY) || 0);
+        }
+
+        window.startRescueFlow = (craving) => {
+            const t = rescueThemes[craving] || rescueThemes.Scrolling;
+            document.getElementById('rescueIntroIcon').textContent = t.icon;
+            document.getElementById('rescueIntroTitle').textContent = t.title;
+            document.getElementById('rescueIntroLine').textContent = t.line;
+            document.getElementById('gameBestIntro').textContent = bestScore();
+            document.getElementById('rescueGameIntro').classList.remove('hidden');
+            document.getElementById('rescueGamePlay').classList.add('hidden');
+            document.getElementById('rescueGameOver').classList.add('hidden');
+            rescueGame.craving = craving;
+            window.openOverlay('rescueGameScreen');
+        };
+
+        window.startRescueGame = () => {
+            rescueGame = {
+                active: true, craving: rescueGame.craving, score: 0, combo: 0, lastPop: 0,
+                best: bestScore(), timeLeft: GAME_SECONDS, spawnInt: null, tickInt: null
+            };
+            document.getElementById('gameScore').textContent = '0';
+            document.getElementById('gameCombo').textContent = '×1';
+            document.getElementById('gameBest').textContent = rescueGame.best;
+            document.getElementById('gameTimeLeft').textContent = '2:00';
+            document.getElementById('gameTimerBar').style.width = '100%';
+            document.getElementById('gameArena').innerHTML = '';
+            document.getElementById('rescueGameIntro').classList.add('hidden');
+            document.getElementById('rescueGamePlay').classList.remove('hidden');
+            document.getElementById('rescueGameOver').classList.add('hidden');
+
+            rescueGame.spawnInt = setInterval(spawnBubble, 470);
+            rescueGame.tickInt = setInterval(tickRescueGame, 1000);
+        };
+
+        function tickRescueGame() {
+            rescueGame.timeLeft--;
+            const m = Math.floor(rescueGame.timeLeft / 60);
+            const s = rescueGame.timeLeft % 60;
+            document.getElementById('gameTimeLeft').textContent = m + ':' + String(s).padStart(2, '0');
+            document.getElementById('gameTimerBar').style.width = (rescueGame.timeLeft / GAME_SECONDS * 100) + '%';
+            if (rescueGame.timeLeft <= 0) endRescueGame();
+        }
+
+        function spawnBubble() {
+            if (!rescueGame.active) return;
+            const arena = document.getElementById('gameArena');
+            if (!arena || !arena.offsetWidth) return;
+            const w = arena.offsetWidth, h = arena.offsetHeight;
+            const golden = Math.random() < 0.14;
+            const b = document.createElement('button');
+            b.className = 'game-bubble' + (golden ? ' golden' : '');
+            b.textContent = golden ? '⭐' : bubbleEmojis[Math.floor(Math.random() * bubbleEmojis.length)];
+            const size = 48 + Math.random() * 20;
+            b.style.width = size + 'px';
+            b.style.height = size + 'px';
+            b.style.left = (Math.random() * (w - size)) + 'px';
+            b.style.bottom = '-80px';
+            b.style.fontSize = (size * 0.52) + 'px';
+            b.addEventListener('pointerdown', (e) => { e.preventDefault(); popBubble(b, golden); });
+            arena.appendChild(b);
+
+            const duration = 5 + Math.random() * 2.5;
+            requestAnimationFrame(() => { b.style.transition = `bottom ${duration}s linear, opacity ${duration}s linear`; b.style.bottom = h + 20 + 'px'; });
+
+            setTimeout(() => {
+                if (b.parentNode) {
+                    b.remove();
+                    if (rescueGame.active && !b.dataset.popped) {
+                        rescueGame.combo = 0;
+                        updateGameHUD();
+                    }
+                }
+            }, duration * 1000 + 200);
+        }
+
+        function popBubble(b, golden) {
+            if (b.dataset.popped || !rescueGame.active) return;
+            b.dataset.popped = '1';
+            b.classList.add('popped');
+            b.style.transition = 'transform .22s ease, opacity .22s ease';
+            b.style.bottom = b.style.bottom;
+
+            const now = Date.now();
+            rescueGame.combo = (now - rescueGame.lastPop < 2500) ? rescueGame.combo + 1 : 1;
+            rescueGame.lastPop = now;
+            const pts = (golden ? 50 : 10) * rescueGame.combo;
+            rescueGame.score += pts;
+            updateGameHUD();
+
+            const arena = document.getElementById('gameArena');
+            const f = document.createElement('span');
+            f.className = 'game-points';
+            f.textContent = '+' + pts;
+            f.style.left = b.style.left;
+            f.style.top = (parseFloat(b.style.bottom) > 0 ? '40%' : '30%');
+            arena.appendChild(f);
+            setTimeout(() => f.remove(), 750);
+
+            if (navigator.vibrate) navigator.vibrate(12);
+            setTimeout(() => b.remove(), 240);
+        }
+
+        function updateGameHUD() {
+            document.getElementById('gameScore').textContent = rescueGame.score;
+            document.getElementById('gameCombo').textContent = '×' + rescueGame.combo;
+            if (rescueGame.score > rescueGame.best) {
+                rescueGame.best = rescueGame.score;
+                document.getElementById('gameBest').textContent = rescueGame.best;
+            }
+        }
+
+        function endRescueGame() {
+            rescueGame.active = false;
+            clearInterval(rescueGame.spawnInt);
+            clearInterval(rescueGame.tickInt);
+            document.getElementById('gameArena').innerHTML = '';
+
+            if (rescueGame.score > bestScore()) {
+                localStorage.setItem(BEST_KEY, String(rescueGame.score));
+            }
+            document.getElementById('gameFinalScore').textContent = rescueGame.score;
+            document.getElementById('gameFinalCombo').textContent = '×' + rescueGame.combo;
+            document.getElementById('gameFinalBest').textContent = bestScore();
+            document.getElementById('gameMissionReminder').textContent = userData.task || 'আজকের মিশন সেট করো, তারপর শুরু করো!';
+            document.getElementById('rescueGamePlay').classList.add('hidden');
+            document.getElementById('rescueGameOver').classList.remove('hidden');
+
+            saveProfile({ rescueCount: (userData.rescueCount || 0) + 1 });
+        }
+
+        window.quitRescueGame = () => {
+            rescueGame.active = false;
+            clearInterval(rescueGame.spawnInt);
+            clearInterval(rescueGame.tickInt);
+            window.closeOverlay('rescueGameScreen');
+            window.showToast('কাজে ফিরে এসো! 💪');
+        };
+
+        window.closeRescueGame = () => {
+            window.closeOverlay('rescueGameScreen');
+            window.showScreen('home');
+            window.showToast('নেশা ভাঙা হলো — এখন ফোকাস! 🔥');
+        };
+
+        // ===== Depression =====
         window.openDepressionMode = () => window.openOverlay('depressionScreen');
 
-        // Raindrops
+        // ===== Raindrops =====
         let rainInt; let rainActive = false; let dropsCount = 0;
         window.startRaindrops = () => {
             if(rainActive) return;
@@ -787,7 +1184,7 @@
             drop.className = 'raindrop'; drop.textContent = '💧';
             drop.style.left = Math.random() * (area.offsetWidth - 40) + 'px';
             drop.style.animationDuration = (3 + Math.random() * 2) + 's';
-            
+
             const burst = (e) => {
                 e.preventDefault(); e.stopPropagation();
                 if(drop.classList.contains('bursting')) return;
@@ -801,10 +1198,10 @@
             setTimeout(() => { if(drop.parentNode) drop.remove(); }, 5000);
         }
 
-        // Three Lights
+        // ===== Three Lights =====
         let lightStep = 1; let lightsAns = [];
         const lQ = [
-            {n:'১ / ৩', q:'আজকে কী ছোট কিছু ঠিক হয়েছে?', h:'পানি খেয়েছি, breath নিচ্ছি...'},
+            {n:'১ / ৩', q:'আজকে কী ছোট কিছু ঠিক হয়েছে?', h:'পানি খেয়েছি, শ্বাস নিচ্ছি...'},
             {n:'২ / ৩', q:'জীবনে কী একটা ভালো জিনিস আছে?', h:'family, একটা hobby, একটা skill...'},
             {n:'৩ / ৩', q:'কাল ছোট কী ভালো হতে পারে?', h:'চা খাওয়া, একটা গান...'}
         ];
@@ -813,7 +1210,7 @@
             const val = document.getElementById('lightInput').value.trim();
             if(!val) return window.showToast('কিছু লেখো', 'error');
             lightsAns[lightStep-1] = val;
-            
+
             if(lightStep < 3) {
                 lightStep++;
                 document.getElementById('lightNum').textContent = `আলো ${lQ[lightStep-1].n}`;
@@ -821,11 +1218,11 @@
                 document.getElementById('lightHint').textContent = lQ[lightStep-1].h;
                 document.getElementById('lightInput').value = '';
                 document.getElementById('lightBtn').textContent = lightStep===3 ? 'সব আলো দেখি ✨' : 'পরবর্তী আলো →';
-                
+
                 [1,2,3].forEach(i => {
                     const d = document.getElementById('dot'+i);
-                    d.className = i===lightStep ? 'w-2.5 h-2.5 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]' : 
-                                 i<lightStep ? 'w-2.5 h-2.5 rounded-full bg-yellow-400' : 'w-2.5 h-2.5 rounded-full bg-white/20';
+                    d.className = i===lightStep ? 'w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(250,204,21,0.7)]' :
+                                 i<lightStep ? 'w-3 h-3 rounded-full bg-amber-400' : 'w-3 h-3 rounded-full bg-stone-300';
                 });
             } else {
                 document.getElementById('lightCard').classList.add('hidden');
@@ -836,6 +1233,17 @@
             }
         };
 
+        // ===== Init (no login needed — direct entry) =====
+        loadLocalProfile();
+        renderDashboard();
+        renderIdeas();
+        window.showScreen('home');
+
+        const masterLoader = document.getElementById('masterLoader');
+        if (masterLoader) {
+            masterLoader.style.opacity = '0';
+            setTimeout(() => { masterLoader.style.display = 'none'; }, 300);
+        }
     </script>
 </body>
 </html>
